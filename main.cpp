@@ -3,13 +3,13 @@
 #include "Header\user.h"
 using namespace std;
 
+
 struct user
 {
     string nama;
     string password;
-};
+}; // right now does not serve a purpose
 
-user us[10];
 
 void registerUser()
 {
@@ -62,6 +62,7 @@ int main()
         cout << "2. Register" << endl;
         cout << "0. Exit" << endl;
         cout << "Enter: ";
+
         cin >> pilihan;
         cin.clear();
         cin.ignore();

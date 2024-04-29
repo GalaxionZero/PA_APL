@@ -29,7 +29,6 @@ void listLaptop()
     // Beli laptop disini?
     // Atau di fungsi lain buat itu di panggil disini
 
-
     filein.close();
 }
 
@@ -41,17 +40,19 @@ int menuUser()
     {
         cout << "Menu" << endl;
         cout << "1. Lihat List Laptop" << endl;
-        cout << "0. Exit" << endl;
+        cout << "0. Logout" << endl;
         cout << "Enter: ";
 
         cin >> pilihan;
+        cin.clear();
+        cin.ignore();
 
         switch (pilihan)
         {
         case 1:
             listLaptop();
             break;
-        case 2:
+        case 0:
             return 0;
         }
     }
