@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include "Header\user.h"
 using namespace std;
 
 struct user
@@ -44,7 +45,7 @@ void loginUser()
 
         if (cekNama == namaLogin && cekPassword == passwordLogin)
         {
-            cout << "Bisa";
+            menuUser();
             break;
         }
     }
