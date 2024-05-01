@@ -1,14 +1,15 @@
 #include <iostream>
 #include <fstream>
 #include "Header\user.h"
+#include "Header\admin.h"
 using namespace std;
 
 
-struct user
+struct
 {
-    string nama;
-    string password;
-}; // right now does not serve a purpose
+    string nama = "admin";
+    string password = "admin";
+} tokenAdmin;
 
 
 void registerUser()
@@ -50,14 +51,19 @@ void loginUser()
         }
     }
     filein.close();
+
+    if (namaLogin == tokenAdmin.nama && passwordLogin == tokenAdmin.password)
+    {
+        menuAdmin();
+    }
 }
 
 
 int main()
 {
+    int pilihan;
     while (true)
     {
-        int pilihan;
         cout << "1. Login" << endl;
         cout << "2. Register" << endl;
         cout << "0. Exit" << endl;

@@ -6,6 +6,7 @@ using namespace std;
 void listLaptop()
 {
     string namaLaptop, hargaLaptop, stokLaptop, descLaptop;
+    int i = 1;
     ifstream filein;
 
     filein.open("Database\\DataLaptop.csv", ios::in);
@@ -19,11 +20,12 @@ void listLaptop()
 
         if (namaLaptop != "")
         {
-            cout << "|||" << endl << "Nama: " << namaLaptop << endl;
+            cout << "No. " << i << endl << "Nama: " << namaLaptop << endl;
             cout << "Harga: " << hargaLaptop << endl;
             cout << "Stok: " << stokLaptop << endl;
             cout << descLaptop << endl << "|||" << endl;
         }
+        i++;
     }
 
     // Beli laptop disini?
