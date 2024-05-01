@@ -2,7 +2,6 @@
 #include <fstream>
 using namespace std;
 
-
 struct deskripsiLaptop
 {
     string deskripsi;
@@ -15,7 +14,6 @@ struct dataLaptop
     int stok;
     struct deskripsiLaptop desc;
 };
-
 
 struct stringDataLaptop
 {
@@ -39,7 +37,6 @@ void tambahkanDataLaptop()
     cout << "Masukkan deskripsi spek laptop: ";
     getline(cin, deskripsi);
 
-
     ofstream fileout;
     fileout.open("Database\\DataLaptop.csv", ios::out | ios::app);
 
@@ -49,7 +46,6 @@ void tambahkanDataLaptop()
     fileout << deskripsi << "\n";
     fileout.close();
 }
-
 
 void bacaDataLaptop()
 {
@@ -68,10 +64,12 @@ void bacaDataLaptop()
 
         if (namaLaptop != "")
         {
-            cout << "No. " << i << endl << "Nama: " << namaLaptop << endl;
+            cout << "No. " << i << endl
+                 << "Nama: " << namaLaptop << endl;
             cout << "Harga: " << hargaLaptop << endl;
             cout << "Stok: " << stokLaptop << endl;
-            cout << descLaptop << endl << "|||" << endl;
+            cout << descLaptop << endl
+                 << "|||" << endl;
         }
         i++;
     }
@@ -81,7 +79,6 @@ void bacaDataLaptop()
 
     filein.close();
 }
-
 
 void ubahDataLaptop()
 {
@@ -119,10 +116,10 @@ void ubahDataLaptop()
     cin.clear();
     cin.ignore();
 
-    cout << "1. Nama: " << slap[pilihan-1].nama << endl;
-    cout << "2. Harga: " << slap[pilihan-1].harga << endl;
-    cout << "3. Stok: " << slap[pilihan-1].stok << endl;
-    cout << "4. Desc: " << slap[pilihan-1].deskripsi << endl;
+    cout << "1. Nama: " << slap[pilihan - 1].nama << endl;
+    cout << "2. Harga: " << slap[pilihan - 1].harga << endl;
+    cout << "3. Stok: " << slap[pilihan - 1].stok << endl;
+    cout << "4. Desc: " << slap[pilihan - 1].deskripsi << endl;
     cout << "0. Semua" << endl;
     cout << "Bagian mana yang ingin diubah: ";
 
@@ -134,37 +131,37 @@ void ubahDataLaptop()
     {
     case 1:
         cout << "Masukkan nama baru: ";
-        getline(cin, slap[pilihan-1].nama);
+        getline(cin, slap[pilihan - 1].nama);
         break;
     case 2:
         cout << "Masukkan harga baru: ";
-        cin >> slap[pilihan-1].harga;
+        cin >> slap[pilihan - 1].harga;
         cin.clear();
         cin.ignore();
         break;
     case 3:
         cout << "Masukkan stok baru: ";
-        cin >> slap[pilihan-1].stok;
+        cin >> slap[pilihan - 1].stok;
         cin.clear();
         cin.ignore();
         break;
     case 4:
         cout << "Masukkan deskripsi baru: ";
-        getline(cin, slap[pilihan-1].deskripsi);
+        getline(cin, slap[pilihan - 1].deskripsi);
         break;
     case 0:
         cout << "Masukkan nama baru: ";
-        getline(cin, slap[pilihan-1].nama);
+        getline(cin, slap[pilihan - 1].nama);
         cout << "Masukkan harga baru: ";
-        cin >> slap[pilihan-1].harga;
+        cin >> slap[pilihan - 1].harga;
         cin.clear();
         cin.ignore();
         cout << "Masukkan stok baru: ";
-        cin >> slap[pilihan-1].stok;
+        cin >> slap[pilihan - 1].stok;
         cin.clear();
         cin.ignore();
         cout << "Masukkan deskripsi baru: ";
-        getline(cin, slap[pilihan-1].deskripsi);
+        getline(cin, slap[pilihan - 1].deskripsi);
     }
 
     filein.open("Database\\DataLaptop.csv", ios::out | ios::trunc);
@@ -180,43 +177,55 @@ void ubahDataLaptop()
     filein.close();
 }
 
+void hapusDataLaptop()
+{
+    string placeholder;
+    int jumlahData = 0, pilihan, pilihanData;
+    fstream filein;
 
-//void hapusDataLaptop();
-//{
-//    string placeholder;
-//    int jumlahData = 0, pilihan, pilihanData;
-//    fstream filein;
-//    filein.open("Database\\DataLaptop.csv", ios::in);
-//
-//    while (!filein.eof())
-//    {
-//        getline(filein, placeholder, 'n');
-//        jumlahData++;
-//    }
-//
-//    filein.close();
-//
-//    stringDataLaptop slap[jumlahData];
-//
-//    filein.open("Database\\DataLaptop.csv", ios::in);
-//
-//    for (int i = 0; i < jumlahData; i++)
-//    {
-//        getline(filein, slap[i].nama, ',');
-//        getline(filein, slap[i].harga, ',');
-//        getline(filein, slap[i].stok, ',');
-//        getline(filein, slap[i].deskripsi, '\n');
-//    }
-//
-//    bacaDataLaptop();
-//
-//    cin >> pilihan;
-//    cin.clear();
-//    cin.ignore();
-//
-//    slap[pilihan-1].nama
-//}
+    filein.open("Database\\DataLaptop.csv", ios::in);
+    while (!filein.eof())
+    {
+        getline(filein, placeholder, '\n');
+        jumlahData++;
+    }
+    filein.close();
 
+    stringDataLaptop slap[jumlahData];
+
+    filein.open("Database\\DataLaptop.csv", ios::in);
+    for (int i = 0; i < jumlahData; i++)
+    {
+        getline(filein, slap[i].nama, ',');
+        getline(filein, slap[i].harga, ',');
+        getline(filein, slap[i].stok, ',');
+        getline(filein, slap[i].deskripsi, '\n');
+    }
+    filein.close();
+
+    bacaDataLaptop();
+
+    cout << "Masukkan nomor urut data yang ingin dihapus >> ";
+    cin >> pilihan;
+    cin.clear();
+    cin.ignore();
+
+    slap[pilihan - 1].nama = "";
+
+    filein.open("Database\\DataLaptop.csv", ios::out | ios::trunc);
+    for (int i = 0; i < jumlahData; i++)
+    {
+        if (slap[i].nama != "")
+        {
+            filein << slap[i].nama << ",";
+            filein << slap[i].harga << ",";
+            filein << slap[i].stok << ",";
+            filein << slap[i].deskripsi << "\n";
+        }
+    }
+
+    filein.close();
+}
 
 int menuAdmin()
 {
@@ -227,7 +236,7 @@ int menuAdmin()
         cout << "1. Create" << endl;
         cout << "2. Read" << endl;
         cout << "3. Update" << endl;
-        cout << "4. Delete"<< endl;
+        cout << "4. Delete" << endl;
         cout << "0. Logout" << endl;
         cout << "Enter: ";
 
@@ -246,9 +255,9 @@ int menuAdmin()
         case 3:
             ubahDataLaptop();
             break;
-//        case 4:
-//            hapusDataLaptop();
-//            break;
+        case 4:
+            hapusDataLaptop();
+            break;
         case 0:
             return 0;
         }
