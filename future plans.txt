@@ -1,0 +1,19 @@
+Sistem jual beli laptop
+
+Pelanggan:
+Bisa beli
+Bisa lihat daftar laptop
+// Ajukan permintaan top up
+Setiap pembelian membuat sejarah pembelian
+
+
+Admin Toko:
+Nambahkan data laptop
+Lihat data laptop -> sorting
+Mengubah data laptop
+Hapus data laptop -> searching
+// Menerima ajuan top up pelanggan
+Menerima orderan dan melihat  history pembelian
+
+
+Untuk sistem pembelian bisa menggunakan m-banking, qris, dll

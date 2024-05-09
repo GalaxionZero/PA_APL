@@ -46,7 +46,7 @@ void loginUser()
 
         if (cekNama == namaLogin && cekPassword == passwordLogin)
         {
-            menuUser();
+            menuUser(namaLogin);
             break;
         }
     }

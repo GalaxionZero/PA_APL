@@ -7,7 +7,7 @@ struct deskripsiLaptop
     string deskripsi;
 };
 
-struct dataLaptop
+struct intdataLaptop
 {
     string nama;
     double harga;
