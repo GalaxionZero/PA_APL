@@ -1,9 +1,8 @@
-#include <iostream>
+  #include <iostream>
 #include <fstream>
 #include "Header\user.h"
 #include "Header\admin.h"
 using namespace std;
-
 
 struct
 {
