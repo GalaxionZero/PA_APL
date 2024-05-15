@@ -1,31 +1,48 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 using namespace std;
 
-struct DataLaptop
+// Mengambil dan save data dari dan ke csv dataLaptop
+struct userDataLaptop
 {
     string nama;
-    string harga;
-    string stok;
+    int harga;
+    int stok;
     string deskripsi;
 };
 
+// Mengambil dan save data dari dan ke csv dataRiwayat
+struct userSejarahPembelian
+{
+    string namaUser;
+    string namaLaptop;
+    int nominal;
+    string namaBank;
+};
+
+//Metode pembayaran yang diterima
 string metodePembayaran[] = {"bri", "bni", "mandiri", "dana"};
 
-void listLaptop()
+
+//Prosedur read laptop
+void listLaptop(int& jumlahDataLaptop)
 {
-    string namaLaptop, hargaLaptop, stokLaptop, descLaptop;
-    int i = 1;
-    ifstream filein;
+    string namaLaptop, placeholder, descLaptop;
+    int i = 1, stokLaptop, hargaLaptop;
+    fstream file;
 
-    filein.open("Database\\laptop.csv", ios::in);
+    file.open("Database\\laptop.csv", ios::in);\
 
-    while (!filein.eof())
+    // ####Tambahkan pengkondisian kalo laptop habis, tidak di list lagi di listlaptop lain
+    while (!file.eof())
     {
-        getline(filein, namaLaptop, ',');
-        getline(filein, hargaLaptop, ',');
-        getline(filein, stokLaptop, ',');
-        getline(filein, descLaptop, '\n');
+        getline(file, namaLaptop, ',');
+        getline(file, placeholder, ',');
+        hargaLaptop = stoi(placeholder);
+        getline(file, placeholder, ',');
+        stokLaptop = stoi(placeholder);
+        getline(file, descLaptop, '\n');
 
         if (namaLaptop != "")
         {
@@ -38,39 +55,46 @@ void listLaptop()
         }
         i++;
     }
-
-    // Beli laptop disini?
-    // Atau di fungsi lain buat itu di panggil disini
-
-    filein.close();
+    file.close();
 }
 
-void beliLaptop(string namaUser)
+//Prosedur membeli laptop
+void beliLaptop(string namaUser, int& jumlahDataLaptop, int& jumlahDataRiwayat)
 {
-    int pilihan, metodePembayaran, jumlahData;
+    struct userDataLaptop ulap[jumlahDataLaptop];
+//
+//    file.open("Database\\DataLaptop.csv", ios::in);
+    int pilihan, metodePembayaran;
     string placeholder;
     fstream file;
 
+    // Mengambil data dari csv dan menampung ke struct lokal
     file.open("Database\\laptop.csv", ios::in);
-    while (!file.eof())
+//    while (!file.eof())
+    for (int i = 0; i < jumlahDataLaptop; i++)
     {
-        getline(file, placeholder, 'n');
-        jumlahData++;
+        getline(file, ulap[i].nama, ',');
+        getline(file, placeholder, ',');
+        ulap[i].harga = stoi(placeholder);
+        getline(file, placeholder, ',');
+        ulap[i].stok = stoi(placeholder);
+        getline(file, ulap[i].deskripsi, '\n');
     }
     file.close();
+    listLaptop(jumlahDataLaptop);
 
-    struct DataLaptop slap[jumlahData];
-
-    file.open("Database\\laptop.csv", ios::in);
-    for (int i = 0; i < jumlahData; i++)
-    {
-        getline(file, slap[i].nama, ',');
-        getline(file, slap[i].harga, ',');
-        getline(file, slap[i].stok, ',');
-        getline(file, slap[i].deskripsi, '\n');
-    }
-    file.close();
-    listLaptop();
+//    struct DataLaptop slap[jumlahData];
+//
+//    file.open("Database\\laptop.csv", ios::in);
+//    for (int i = 0; i < jumlahData; i++)
+//    {
+//        getline(file, slap[i].nama, ',');
+//        getline(file, slap[i].harga, ',');
+//        getline(file, slap[i].stok, ',');
+//        getline(file, slap[i].deskripsi, '\n');
+//    }
+//    file.close();
+// >>>>>>> main
 
     cout << "Pilih laptop yang ingin dibeli: ";
     cin >> pilihan;
@@ -86,13 +110,40 @@ void beliLaptop(string namaUser)
     cin.clear();
     cin.ignore();
 
+// <<<<<<< HEAD
+//    // Mengubah string stok mejadi int
+//
+//    // Mengurangi stok laptop yang dibeli
+//    ulap[pilihan-1].stok -= 1;
+//    file.open("Database/DataLaptop.csv", ios::out | ios::trunc);
+//
+//    for (int i = 0; i < jumlahDataLaptop; ++i)
+//    {
+//        file << ulap[i].nama << ",";
+//        file << ulap[i].harga << ",";
+//        file << ulap[i].stok << ",";
+//        file << ulap[i].deskripsi << "\n";
+//    }
+
+//    file.close();
+//
+//    // Menambahkan riwayat pembelian
+//    file.open("Database\\DataRiwayat.csv", ios::out | ios::app);
+//
+//    file << namaUser << ',';
+//    file << ulap[pilihan-1].nama << ',';
+//    file << modePembayaran << '\n';
+//
+//    file.close();
+//    jumlahDataRiwayat += 1;
+// =======
     switch (metodePembayaran)
     {
     case 1:
     {
         int statusPembayaran;
         cout << "Silakan transfer ke rekening: 000000116413" << endl;
-        cout << "Senilai: Rp" << slap[pilihan - 1].harga << endl;
+        cout << "Senilai: Rp" << ulap[pilihan - 1].harga << endl;
         cout << "[1] SUDAH TRANSFER" << endl;
         cout << "[2] BATALKAN TRANSAKSI" << endl;
         cout << "Pilih >> ";
@@ -103,7 +154,7 @@ void beliLaptop(string namaUser)
             file.open("Database\\transaction_history.csv", ios::out | ios::app);
 
             file << namaUser << ',';
-            file << slap[pilihan - 1].nama << ',';
+            file << ulap[pilihan - 1].nama << ',';
             file << "bank" << '\n';
             file.close();
 
@@ -121,7 +172,7 @@ void beliLaptop(string namaUser)
     {
         int statusPembayaran;
         cout << "Silakan transfer ke: DANA 08123123123" << endl;
-        cout << "Senilai: Rp" << slap[pilihan - 1].harga << endl;
+        cout << "Senilai: Rp" << ulap[pilihan - 1].harga << endl;
         cout << "[1] SUDAH TRANSFER" << endl;
         cout << "[2] BATALKAN TRANSAKSI" << endl;
         cout << "Pilih >> ";
@@ -132,7 +183,7 @@ void beliLaptop(string namaUser)
             file.open("Database\\transaction_history.csv", ios::out | ios::app);
 
             file << namaUser << ',';
-            file << slap[pilihan - 1].nama << ',';
+            file << ulap[pilihan - 1].nama << ',';
             file << "wallet" << '\n';
             file.close();
 
@@ -149,9 +200,43 @@ void beliLaptop(string namaUser)
     default:
         break;
     }
+// >>>>>>> main
 }
 
-int menuUser(string namaUser)
+// Prosedur data riwayat
+void listRiwayatUser(string namaUser, int& jumlahDataRiwayat)
+{
+    fstream file;
+    string placeholder;
+    userSejarahPembelian usp[jumlahDataRiwayat];
+
+    // Mengambil data riwayat dari csv
+    file.open("Database\\DataRiwayat.csv", ios::in);
+    for (int i = 0; i < jumlahDataRiwayat; ++i)
+    {
+        getline(file, usp[0].namaUser, ',');
+        getline(file, usp[0].namaLaptop, ',');
+        getline(file, placeholder, ',');
+        usp[0].nominal = stoi(placeholder);
+        getline(file, usp[0].namaBank, '\n');
+    }
+    file.close();
+
+    // Mencari nama didalam riwayat dan membandingkan dengan namaUser
+    for (int i = 0; i < jumlahDataRiwayat; ++i)
+    {
+        if (namaUser == usp[i].namaUser)
+        {
+            cout << usp[i].namaLaptop << endl;
+            cout << usp[i].nominal << endl;
+            cout << usp[i].namaBank << endl;
+        }
+    }
+
+}
+
+// Menu User
+int menuUser(string namaUser, int& jumlahDataLaptop, int&jumlahDataRiwayat)
 {
     int pilihan;
     while (true)
@@ -159,6 +244,7 @@ int menuUser(string namaUser)
         cout << "Menu" << endl;
         cout << "1. Lihat List Laptop" << endl;
         cout << "2. Beli" << endl;
+        cout << "3. Lihat Riwayat Pembelian" << endl;
         cout << "0. Logout" << endl;
         cout << "Enter: ";
 
@@ -169,10 +255,12 @@ int menuUser(string namaUser)
         switch (pilihan)
         {
         case 1:
-            listLaptop();
+            listLaptop(jumlahDataLaptop);
             break;
         case 2:
-            beliLaptop(namaUser);
+            beliLaptop(namaUser, jumlahDataLaptop, jumlahDataRiwayat);
+            break;
+        case 3:
             break;
         case 0:
             return 0;

@@ -7,10 +7,10 @@ struct deskripsiLaptop
     string deskripsi;
 };
 
-struct intdataLaptop
+struct adminDataLaptop
 {
     string nama;
-    double harga;
+    int harga;
     int stok;
     struct deskripsiLaptop desc;
 };
@@ -23,9 +23,10 @@ struct stringDataLaptop
     string deskripsi;
 };
 
-void tambahkanDataLaptop()
+void tambahkanDataLaptop(int& jumlahDataLaptop)
 {
-    string nama, harga, stok, deskripsi;
+    string nama, deskripsi;
+    int harga, stok;
     cout << "Masukkan nama laptop: ";
     getline(cin, nama);
     cout << "Masukkan harga laptop: ";
@@ -45,6 +46,9 @@ void tambahkanDataLaptop()
     fileout << stok << ",";
     fileout << deskripsi << "\n";
     fileout.close();
+
+    jumlahDataLaptop += 1;
+    cout << jumlahDataLaptop;
 }
 
 void bacaDataLaptop()
@@ -64,51 +68,42 @@ void bacaDataLaptop()
 
         if (namaLaptop != "")
         {
-            cout << "No. " << i << endl
-                 << "Nama: " << namaLaptop << endl;
+            cout << "No. " << i << endl;
+            cout << "Nama: " << namaLaptop << endl;
             cout << "Harga: " << hargaLaptop << endl;
             cout << "Stok: " << stokLaptop << endl;
-            cout << descLaptop << endl
-                 << "|||" << endl;
+            cout << descLaptop << endl;
+            cout << "|||" << endl;
         }
         i++;
     }
-
-    // Beli laptop disini?
-    // Atau di fungsi lain buat itu di panggil disini
-
     filein.close();
 }
 
-void ubahDataLaptop()
+void ubahDataLaptop(int& jumlahDataLaptop)
 {
     string placeholder;
-    int jumlahData = 0, pilihan, pilihanData;
-    fstream filein;
-    filein.open("Database\\laptop.csv", ios::in);
+// <<<<<<< HEAD
+//    int jumlahData = 0, pilihan, pilihanData;
+//    fstream file;
+//    file.open("Database\\DataLaptop.csv", ios::in);
+// =======
+    int pilihan, pilihanData;
+    fstream file;
+    stringDataLaptop slap[jumlahDataLaptop];
+// >>>>>>> main
 
-    while (!filein.eof())
+    file.open("Database\\laptop.csv", ios::in);
+
+    for (int i = 0; i < jumlahDataLaptop; i++)
     {
-        getline(filein, placeholder, 'n');
-        jumlahData++;
+        getline(file, slap[i].nama, ',');
+        getline(file, slap[i].harga, ',');
+        getline(file, slap[i].stok, ',');
+        getline(file, slap[i].deskripsi, '\n');
     }
 
-    filein.close();
-
-    stringDataLaptop slap[jumlahData];
-
-    filein.open("Database\\laptop.csv", ios::in);
-
-    for (int i = 0; i < jumlahData; i++)
-    {
-        getline(filein, slap[i].nama, ',');
-        getline(filein, slap[i].harga, ',');
-        getline(filein, slap[i].stok, ',');
-        getline(filein, slap[i].deskripsi, '\n');
-    }
-
-    filein.close();
-
+    file.close();
     bacaDataLaptop();
 
     cout << "Masukkan pilihan untuk data yang ingin di ubah: ";
@@ -164,44 +159,42 @@ void ubahDataLaptop()
         getline(cin, slap[pilihan - 1].deskripsi);
     }
 
-    filein.open("Database\\laptop.csv", ios::out | ios::trunc);
+    file.open("Database\\laptop.csv", ios::out | ios::trunc);
 
-    for (int i = 0; i < jumlahData; i++)
+    for (int i = 0; i < jumlahDataLaptop; i++)
     {
-        filein << slap[i].nama << ",";
-        filein << slap[i].harga << ",";
-        filein << slap[i].stok << ",";
-        filein << slap[i].deskripsi << "\n";
+        file << slap[i].nama << ",";
+        file << slap[i].harga << ",";
+        file << slap[i].stok << ",";
+        file << slap[i].deskripsi << "\n";
     }
-
-    filein.close();
+    file.close();
 }
 
-void hapusDataLaptop()
+void hapusDataLaptop(int& jumlahDataLaptop)
 {
     string placeholder;
-    int jumlahData = 0, pilihan, pilihanData;
-    fstream filein;
+    int pilihan, pilihanData;
+    fstream file;
 
-    filein.open("Database\\laptop.csv", ios::in);
-    while (!filein.eof())
+// <<<<<<< HEAD
+    stringDataLaptop slap[jumlahDataLaptop];
+
+    file.open("Database\\DataLaptop.csv", ios::in);
+    for (int i = 0; i < jumlahDataLaptop; i++)
+// =======
+//    filein.open("Database\\laptop.csv", ios::in);
+//    while (!filein.eof())
+// >>>>>>> main
     {
-        getline(filein, placeholder, '\n');
-        jumlahData++;
+        getline(file, slap[i].nama, ',');
+        getline(file, slap[i].harga, ',');
+        getline(file, slap[i].stok, ',');
+        getline(file, slap[i].deskripsi, '\n');
     }
-    filein.close();
-
-    stringDataLaptop slap[jumlahData];
-
-    filein.open("Database\\laptop.csv", ios::in);
-    for (int i = 0; i < jumlahData; i++)
-    {
-        getline(filein, slap[i].nama, ',');
-        getline(filein, slap[i].harga, ',');
-        getline(filein, slap[i].stok, ',');
-        getline(filein, slap[i].deskripsi, '\n');
-    }
-    filein.close();
+// <<<<<<< HEAD
+    file.close();
+// =======
 
     bacaDataLaptop();
 
@@ -212,22 +205,21 @@ void hapusDataLaptop()
 
     slap[pilihan - 1].nama = "";
 
-    filein.open("Database\\laptop.csv", ios::out | ios::trunc);
-    for (int i = 0; i < jumlahData; i++)
+    file.open("Database\\laptop.csv", ios::out | ios::trunc);
+    for (int i = 0; i < jumlahDataLaptop; i++)
     {
         if (slap[i].nama != "")
         {
-            filein << slap[i].nama << ",";
-            filein << slap[i].harga << ",";
-            filein << slap[i].stok << ",";
-            filein << slap[i].deskripsi << "\n";
+            file << slap[i].nama << ",";
+            file << slap[i].harga << ",";
+            file << slap[i].stok << ",";
+            file << slap[i].deskripsi << "\n";
         }
     }
-
-    filein.close();
+    file.close();
 }
 
-int menuAdmin()
+int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
 {
     int pilihan;
     while (true)
@@ -247,16 +239,16 @@ int menuAdmin()
         switch (pilihan)
         {
         case 1:
-            tambahkanDataLaptop();
+            tambahkanDataLaptop(jumlahDataLaptop);
             break;
         case 2:
             bacaDataLaptop();
             break;
         case 3:
-            ubahDataLaptop();
+            ubahDataLaptop(jumlahDataLaptop);
             break;
         case 4:
-            hapusDataLaptop();
+            hapusDataLaptop(jumlahDataLaptop);
             break;
         case 0:
             return 0;
