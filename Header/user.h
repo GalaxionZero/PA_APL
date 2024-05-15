@@ -2,7 +2,6 @@
 #include <fstream>
 using namespace std;
 
-
 struct DataLaptop
 {
     string nama;
@@ -11,9 +10,7 @@ struct DataLaptop
     string deskripsi;
 };
 
-
 string metodePembayaran[] = {"bri", "bni", "mandiri", "dana"};
-
 
 void listLaptop()
 {
@@ -32,10 +29,12 @@ void listLaptop()
 
         if (namaLaptop != "")
         {
-            cout << "No. " << i << endl << "Nama: " << namaLaptop << endl;
+            cout << "No. " << i << endl
+                 << "Nama: " << namaLaptop << endl;
             cout << "Harga: " << hargaLaptop << endl;
             cout << "Stok: " << stokLaptop << endl;
-            cout << descLaptop << endl << "|||" << endl;
+            cout << descLaptop << endl
+                 << "|||" << endl;
         }
         i++;
     }
@@ -46,11 +45,10 @@ void listLaptop()
     filein.close();
 }
 
-
 void beliLaptop(string namaUser)
 {
-    int pilihan, jumlahData;
-    string placeholder, modePembayaran;
+    int pilihan, metodePembayaran, jumlahData;
+    string placeholder;
     fstream file;
 
     file.open("Database\\DataLaptop.csv", ios::in);
@@ -79,17 +77,78 @@ void beliLaptop(string namaUser)
     cin.clear();
     cin.ignore();
 
-    cout << "Memakai apa anda ingin membayar? (bank dll)";
-    cin >> modePembayaran;
+    cout << "Memakai apa anda ingin membayar?" << endl;
+    cout << "[1] Bank Transfer" << endl;
+    cout << "[2] E-Wallet" << endl;
+    cout << "Pilih >> ";
+    cin >> metodePembayaran;
+
     cin.clear();
     cin.ignore();
 
-    file.open("Database\\DataRiwayat.csv", ios::out | ios::app);
+    switch (metodePembayaran)
+    {
+    case 1:
+    {
+        int statusPembayaran;
+        cout << "Silakan transfer ke rekening: 000000116413" << endl;
+        cout << "Senilai: Rp" << slap[pilihan - 1].harga << endl;
+        cout << "[1] SUDAH TRANSFER" << endl;
+        cout << "[2] BATALKAN TRANSAKSI" << endl;
+        cout << "Pilih >> ";
+        cin >> statusPembayaran;
+        switch (statusPembayaran)
+        {
+        case 1:
+            file.open("Database\\DataRiwayat.csv", ios::out | ios::app);
 
-    file << namaUser << ',';
-    file << slap[pilihan-1].nama << ',';
-    file << modePembayaran << '\n';
-    file.close();
+            file << namaUser << ',';
+            file << slap[pilihan - 1].nama << ',';
+            file << "bank" << '\n';
+            file.close();
+
+            cout << "Pembayaran berhasil" << endl;
+            break;
+        default:
+            cout << "Pembayaran dibatalkan" << endl;
+            break;
+        }
+        cin.clear();
+        cin.ignore();
+        break;
+    }
+    case 2:
+    {
+        int statusPembayaran;
+        cout << "Silakan transfer ke: DANA 08123123123" << endl;
+        cout << "Senilai: Rp" << slap[pilihan - 1].harga << endl;
+        cout << "[1] SUDAH TRANSFER" << endl;
+        cout << "[2] BATALKAN TRANSAKSI" << endl;
+        cout << "Pilih >> ";
+        cin >> statusPembayaran;
+        switch (statusPembayaran)
+        {
+        case 1:
+            file.open("Database\\DataRiwayat.csv", ios::out | ios::app);
+
+            file << namaUser << ',';
+            file << slap[pilihan - 1].nama << ',';
+            file << "wallet" << '\n';
+            file.close();
+
+            cout << "Pembayaran berhasil" << endl;
+            break;
+        default:
+            cout << "Pembayaran dibatalkan" << endl;
+            break;
+        }
+        cin.clear();
+        cin.ignore();
+        break;
+    }
+    default:
+        break;
+    }
 }
 
 int menuUser(string namaUser)
