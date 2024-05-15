@@ -18,7 +18,7 @@ void listLaptop()
     int i = 1;
     ifstream filein;
 
-    filein.open("Database\\DataLaptop.csv", ios::in);
+    filein.open("Database\\laptop.csv", ios::in);
 
     while (!filein.eof())
     {
@@ -51,7 +51,7 @@ void beliLaptop(string namaUser)
     string placeholder;
     fstream file;
 
-    file.open("Database\\DataLaptop.csv", ios::in);
+    file.open("Database\\laptop.csv", ios::in);
     while (!file.eof())
     {
         getline(file, placeholder, 'n');
@@ -61,7 +61,7 @@ void beliLaptop(string namaUser)
 
     struct DataLaptop slap[jumlahData];
 
-    file.open("Database\\DataLaptop.csv", ios::in);
+    file.open("Database\\laptop.csv", ios::in);
     for (int i = 0; i < jumlahData; i++)
     {
         getline(file, slap[i].nama, ',');
@@ -100,7 +100,7 @@ void beliLaptop(string namaUser)
         switch (statusPembayaran)
         {
         case 1:
-            file.open("Database\\DataRiwayat.csv", ios::out | ios::app);
+            file.open("Database\\transaction_history.csv", ios::out | ios::app);
 
             file << namaUser << ',';
             file << slap[pilihan - 1].nama << ',';
@@ -129,7 +129,7 @@ void beliLaptop(string namaUser)
         switch (statusPembayaran)
         {
         case 1:
-            file.open("Database\\DataRiwayat.csv", ios::out | ios::app);
+            file.open("Database\\transaction_history.csv", ios::out | ios::app);
 
             file << namaUser << ',';
             file << slap[pilihan - 1].nama << ',';

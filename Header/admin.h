@@ -38,7 +38,7 @@ void tambahkanDataLaptop()
     getline(cin, deskripsi);
 
     ofstream fileout;
-    fileout.open("Database\\DataLaptop.csv", ios::out | ios::app);
+    fileout.open("Database\\laptop.csv", ios::out | ios::app);
 
     fileout << nama << ",";
     fileout << harga << ",";
@@ -53,7 +53,7 @@ void bacaDataLaptop()
     int i = 1;
     ifstream filein;
 
-    filein.open("Database\\DataLaptop.csv", ios::in);
+    filein.open("Database\\laptop.csv", ios::in);
 
     while (!filein.eof())
     {
@@ -85,7 +85,7 @@ void ubahDataLaptop()
     string placeholder;
     int jumlahData = 0, pilihan, pilihanData;
     fstream filein;
-    filein.open("Database\\DataLaptop.csv", ios::in);
+    filein.open("Database\\laptop.csv", ios::in);
 
     while (!filein.eof())
     {
@@ -97,7 +97,7 @@ void ubahDataLaptop()
 
     stringDataLaptop slap[jumlahData];
 
-    filein.open("Database\\DataLaptop.csv", ios::in);
+    filein.open("Database\\laptop.csv", ios::in);
 
     for (int i = 0; i < jumlahData; i++)
     {
@@ -164,7 +164,7 @@ void ubahDataLaptop()
         getline(cin, slap[pilihan - 1].deskripsi);
     }
 
-    filein.open("Database\\DataLaptop.csv", ios::out | ios::trunc);
+    filein.open("Database\\laptop.csv", ios::out | ios::trunc);
 
     for (int i = 0; i < jumlahData; i++)
     {
@@ -183,7 +183,7 @@ void hapusDataLaptop()
     int jumlahData = 0, pilihan, pilihanData;
     fstream filein;
 
-    filein.open("Database\\DataLaptop.csv", ios::in);
+    filein.open("Database\\laptop.csv", ios::in);
     while (!filein.eof())
     {
         getline(filein, placeholder, '\n');
@@ -193,7 +193,7 @@ void hapusDataLaptop()
 
     stringDataLaptop slap[jumlahData];
 
-    filein.open("Database\\DataLaptop.csv", ios::in);
+    filein.open("Database\\laptop.csv", ios::in);
     for (int i = 0; i < jumlahData; i++)
     {
         getline(filein, slap[i].nama, ',');
@@ -212,7 +212,7 @@ void hapusDataLaptop()
 
     slap[pilihan - 1].nama = "";
 
-    filein.open("Database\\DataLaptop.csv", ios::out | ios::trunc);
+    filein.open("Database\\laptop.csv", ios::out | ios::trunc);
     for (int i = 0; i < jumlahData; i++)
     {
         if (slap[i].nama != "")
