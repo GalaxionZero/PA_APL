@@ -3,7 +3,7 @@
 using namespace std;
 
 
-struct DataLaptop
+struct userDataLaptop
 {
     string nama;
     string harga;
@@ -11,24 +11,23 @@ struct DataLaptop
     string deskripsi;
 };
 
-
 string metodePembayaran[] = {"bri", "bni", "mandiri", "dana"};
 
 
-void listLaptop()
+void listLaptop(int& jumlahData)
 {
     string namaLaptop, hargaLaptop, stokLaptop, descLaptop;
     int i = 1;
-    ifstream filein;
+    fstream file;
 
-    filein.open("Database\\DataLaptop.csv", ios::in);
+    file.open("Database\\DataLaptop.csv", ios::in);
 
-    while (!filein.eof())
+    while (!file.eof())
     {
-        getline(filein, namaLaptop, ',');
-        getline(filein, hargaLaptop, ',');
-        getline(filein, stokLaptop, ',');
-        getline(filein, descLaptop, '\n');
+        getline(file, namaLaptop, ',');
+        getline(file, hargaLaptop, ',');
+        getline(file, stokLaptop, ',');
+        getline(file, descLaptop, '\n');
 
         if (namaLaptop != "")
         {
@@ -43,36 +42,28 @@ void listLaptop()
     // Beli laptop disini?
     // Atau di fungsi lain buat itu di panggil disini
 
-    filein.close();
+    file.close();
 }
 
 
-void beliLaptop(string namaUser)
+void beliLaptop(string namaUser, int& jumlahData)
 {
-    int pilihan, jumlahData;
+    int pilihan;
     string placeholder, modePembayaran;
     fstream file;
 
-    file.open("Database\\DataLaptop.csv", ios::in);
-    while (!file.eof())
-    {
-        getline(file, placeholder, 'n');
-        jumlahData++;
-    }
-    file.close();
-
-    struct DataLaptop slap[jumlahData];
+    struct userDataLaptop ulap[jumlahData];
 
     file.open("Database\\DataLaptop.csv", ios::in);
     for (int i = 0; i < jumlahData; i++)
     {
-        getline(file, slap[i].nama, ',');
-        getline(file, slap[i].harga, ',');
-        getline(file, slap[i].stok, ',');
-        getline(file, slap[i].deskripsi, '\n');
+        getline(file, ulap[i].nama, ',');
+        getline(file, ulap[i].harga, ',');
+        getline(file, ulap[i].stok, ',');
+        getline(file, ulap[i].deskripsi, '\n');
     }
     file.close();
-    listLaptop();
+    listLaptop(jumlahData);
 
     cout << "Pilih laptop yang ingin dibeli: ";
     cin >> pilihan;
@@ -87,12 +78,12 @@ void beliLaptop(string namaUser)
     file.open("Database\\DataRiwayat.csv", ios::out | ios::app);
 
     file << namaUser << ',';
-    file << slap[pilihan-1].nama << ',';
+    file << ulap[pilihan-1].nama << ',';
     file << modePembayaran << '\n';
     file.close();
 }
 
-int menuUser(string namaUser)
+int menuUser(string namaUser, int& jumlahData)
 {
     int pilihan;
     while (true)
@@ -110,10 +101,10 @@ int menuUser(string namaUser)
         switch (pilihan)
         {
         case 1:
-            listLaptop();
+            listLaptop(jumlahData);
             break;
         case 2:
-            beliLaptop(namaUser);
+            beliLaptop(namaUser, jumlahData);
             break;
         case 0:
             return 0;

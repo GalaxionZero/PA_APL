@@ -1,4 +1,4 @@
-  #include <iostream>
+#include <iostream>
 #include <fstream>
 #include "Header\user.h"
 #include "Header\admin.h"
@@ -26,8 +26,7 @@ void registerUser()
     fileout.close();
 }
 
-
-void loginUser()
+void loginUser(int &jumlahData)
 {
     string namaLogin, passwordLogin, cekNama, cekPassword;
     cout << "Masukkan nama user: ";
@@ -45,7 +44,7 @@ void loginUser()
 
         if (cekNama == namaLogin && cekPassword == passwordLogin)
         {
-            menuUser(namaLogin);
+            menuUser(namaLogin, jumlahData);
             break;
         }
     }
@@ -53,16 +52,29 @@ void loginUser()
 
     if (namaLogin == tokenAdmin.nama && passwordLogin == tokenAdmin.password)
     {
-        menuAdmin();
+        menuAdmin(jumlahData);
     }
 }
 
 
 int main()
 {
-    int pilihan;
+    string placeholder;
+    int pilihan, jumlahData = 0;
+    fstream file;
+
+    file.open("Database\\DataLaptop.csv", ios::in);
+
+    while (!file.eof())
+    {
+        getline(file, placeholder, 'n');
+        jumlahData += 1;
+    }
+
+    file.close();
     while (true)
     {
+        cout << "Jumlah Data: " << jumlahData << endl;
         cout << "1. Login" << endl;
         cout << "2. Register" << endl;
         cout << "0. Exit" << endl;
@@ -75,7 +87,7 @@ int main()
         switch (pilihan)
         {
         case 1:
-            loginUser();
+            loginUser(jumlahData);
             break;
         case 2:
             registerUser();

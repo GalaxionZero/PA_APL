@@ -7,10 +7,10 @@ struct deskripsiLaptop
     string deskripsi;
 };
 
-struct intdataLaptop
+struct adminDataLaptop
 {
     string nama;
-    double harga;
+    int harga;
     int stok;
     struct deskripsiLaptop desc;
 };
@@ -23,7 +23,7 @@ struct stringDataLaptop
     string deskripsi;
 };
 
-void tambahkanDataLaptop()
+void tambahkanDataLaptop(int& jumlahData)
 {
     string nama, harga, stok, deskripsi;
     cout << "Masukkan nama laptop: ";
@@ -45,6 +45,9 @@ void tambahkanDataLaptop()
     fileout << stok << ",";
     fileout << deskripsi << "\n";
     fileout.close();
+
+    jumlahData += 1;
+    cout << jumlahData;
 }
 
 void bacaDataLaptop()
@@ -73,41 +76,27 @@ void bacaDataLaptop()
         }
         i++;
     }
-
-    // Beli laptop disini?
-    // Atau di fungsi lain buat itu di panggil disini
-
     filein.close();
 }
 
-void ubahDataLaptop()
+void ubahDataLaptop(int& jumlahData)
 {
     string placeholder;
-    int jumlahData = 0, pilihan, pilihanData;
-    fstream filein;
-    filein.open("Database\\DataLaptop.csv", ios::in);
-
-    while (!filein.eof())
-    {
-        getline(filein, placeholder, 'n');
-        jumlahData++;
-    }
-
-    filein.close();
-
+    int pilihan, pilihanData;
+    fstream file;
     stringDataLaptop slap[jumlahData];
 
-    filein.open("Database\\DataLaptop.csv", ios::in);
+    file.open("Database\\DataLaptop.csv", ios::in);
 
     for (int i = 0; i < jumlahData; i++)
     {
-        getline(filein, slap[i].nama, ',');
-        getline(filein, slap[i].harga, ',');
-        getline(filein, slap[i].stok, ',');
-        getline(filein, slap[i].deskripsi, '\n');
+        getline(file, slap[i].nama, ',');
+        getline(file, slap[i].harga, ',');
+        getline(file, slap[i].stok, ',');
+        getline(file, slap[i].deskripsi, '\n');
     }
 
-    filein.close();
+    file.close();
 
     bacaDataLaptop();
 
@@ -164,44 +153,35 @@ void ubahDataLaptop()
         getline(cin, slap[pilihan - 1].deskripsi);
     }
 
-    filein.open("Database\\DataLaptop.csv", ios::out | ios::trunc);
+    file.open("Database\\DataLaptop.csv", ios::out | ios::trunc);
 
     for (int i = 0; i < jumlahData; i++)
     {
-        filein << slap[i].nama << ",";
-        filein << slap[i].harga << ",";
-        filein << slap[i].stok << ",";
-        filein << slap[i].deskripsi << "\n";
+        file << slap[i].nama << ",";
+        file << slap[i].harga << ",";
+        file << slap[i].stok << ",";
+        file << slap[i].deskripsi << "\n";
     }
-
-    filein.close();
+    file.close();
 }
 
-void hapusDataLaptop()
+void hapusDataLaptop(int& jumlahData)
 {
     string placeholder;
-    int jumlahData = 0, pilihan, pilihanData;
-    fstream filein;
-
-    filein.open("Database\\DataLaptop.csv", ios::in);
-    while (!filein.eof())
-    {
-        getline(filein, placeholder, '\n');
-        jumlahData++;
-    }
-    filein.close();
+    int pilihan, pilihanData;
+    fstream file;
 
     stringDataLaptop slap[jumlahData];
 
-    filein.open("Database\\DataLaptop.csv", ios::in);
+    file.open("Database\\DataLaptop.csv", ios::in);
     for (int i = 0; i < jumlahData; i++)
     {
-        getline(filein, slap[i].nama, ',');
-        getline(filein, slap[i].harga, ',');
-        getline(filein, slap[i].stok, ',');
-        getline(filein, slap[i].deskripsi, '\n');
+        getline(file, slap[i].nama, ',');
+        getline(file, slap[i].harga, ',');
+        getline(file, slap[i].stok, ',');
+        getline(file, slap[i].deskripsi, '\n');
     }
-    filein.close();
+    file.close();
 
     bacaDataLaptop();
 
@@ -212,22 +192,21 @@ void hapusDataLaptop()
 
     slap[pilihan - 1].nama = "";
 
-    filein.open("Database\\DataLaptop.csv", ios::out | ios::trunc);
+    file.open("Database\\DataLaptop.csv", ios::out | ios::trunc);
     for (int i = 0; i < jumlahData; i++)
     {
         if (slap[i].nama != "")
         {
-            filein << slap[i].nama << ",";
-            filein << slap[i].harga << ",";
-            filein << slap[i].stok << ",";
-            filein << slap[i].deskripsi << "\n";
+            file << slap[i].nama << ",";
+            file << slap[i].harga << ",";
+            file << slap[i].stok << ",";
+            file << slap[i].deskripsi << "\n";
         }
     }
-
-    filein.close();
+    file.close();
 }
 
-int menuAdmin()
+int menuAdmin(int& jumlahData)
 {
     int pilihan;
     while (true)
@@ -247,16 +226,16 @@ int menuAdmin()
         switch (pilihan)
         {
         case 1:
-            tambahkanDataLaptop();
+            tambahkanDataLaptop(jumlahData);
             break;
         case 2:
             bacaDataLaptop();
             break;
         case 3:
-            ubahDataLaptop();
+            ubahDataLaptop(jumlahData);
             break;
         case 4:
-            hapusDataLaptop();
+            hapusDataLaptop(jumlahData);
             break;
         case 0:
             return 0;
