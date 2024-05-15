@@ -21,7 +21,7 @@ void registerUser()
     getline(cin, passwordUserBaru);
 
     ofstream fileout;
-    fileout.open("Database\\DataUser.csv", ios::out | ios::app);
+    fileout.open("Database\\user_auth.csv", ios::out | ios::app);
     fileout << namaUserBaru << ",";
     fileout << passwordUserBaru << "\n";
     fileout.close();
@@ -37,7 +37,7 @@ void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
     getline(cin, passwordLogin);
 
     ifstream filein;
-    filein.open("Database\\DataUser.csv", ios::in);
+    filein.open("Database\\user_auth.csv", ios::in);
 
     while (!filein.eof())
     {
@@ -69,7 +69,7 @@ int main()
     dirChecker();
 
     // Mengambil jumlah data yang ada didalam data laptop
-    file.open("Database\\DataLaptop.csv", ios::in);
+    file.open("Database\\laptop.csv", ios::in);
     while (!file.eof())
     {
         getline(file, placeholder, 'n');
@@ -78,7 +78,7 @@ int main()
     file.close();
 
     // Mengambil jumlah data yang ada didalam data riwayat
-    file.open("Database\\DataRiwayat.csv", ios::in);
+    file.open("Database\\transaction_history.csv", ios::in);
     while (!file.eof())
     {
         getline(file, placeholder, 'n');

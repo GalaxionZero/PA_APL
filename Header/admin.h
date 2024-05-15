@@ -39,7 +39,7 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
     getline(cin, deskripsi);
 
     ofstream fileout;
-    fileout.open("Database\\DataLaptop.csv", ios::out | ios::app);
+    fileout.open("Database\\laptop.csv", ios::out | ios::app);
 
     fileout << nama << ",";
     fileout << harga << ",";
@@ -57,7 +57,7 @@ void bacaDataLaptop()
     int i = 1;
     ifstream filein;
 
-    filein.open("Database\\DataLaptop.csv", ios::in);
+    filein.open("Database\\laptop.csv", ios::in);
 
     while (!filein.eof())
     {
@@ -83,11 +83,17 @@ void bacaDataLaptop()
 void ubahDataLaptop(int& jumlahDataLaptop)
 {
     string placeholder;
+// <<<<<<< HEAD
+//    int jumlahData = 0, pilihan, pilihanData;
+//    fstream file;
+//    file.open("Database\\DataLaptop.csv", ios::in);
+// =======
     int pilihan, pilihanData;
     fstream file;
     stringDataLaptop slap[jumlahDataLaptop];
+// >>>>>>> main
 
-    file.open("Database\\DataLaptop.csv", ios::in);
+    file.open("Database\\laptop.csv", ios::in);
 
     for (int i = 0; i < jumlahDataLaptop; i++)
     {
@@ -98,7 +104,6 @@ void ubahDataLaptop(int& jumlahDataLaptop)
     }
 
     file.close();
-
     bacaDataLaptop();
 
     cout << "Masukkan pilihan untuk data yang ingin di ubah: ";
@@ -154,7 +159,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         getline(cin, slap[pilihan - 1].deskripsi);
     }
 
-    file.open("Database\\DataLaptop.csv", ios::out | ios::trunc);
+    file.open("Database\\laptop.csv", ios::out | ios::trunc);
 
     for (int i = 0; i < jumlahDataLaptop; i++)
     {
@@ -172,17 +177,24 @@ void hapusDataLaptop(int& jumlahDataLaptop)
     int pilihan, pilihanData;
     fstream file;
 
+// <<<<<<< HEAD
     stringDataLaptop slap[jumlahDataLaptop];
 
     file.open("Database\\DataLaptop.csv", ios::in);
     for (int i = 0; i < jumlahDataLaptop; i++)
+// =======
+//    filein.open("Database\\laptop.csv", ios::in);
+//    while (!filein.eof())
+// >>>>>>> main
     {
         getline(file, slap[i].nama, ',');
         getline(file, slap[i].harga, ',');
         getline(file, slap[i].stok, ',');
         getline(file, slap[i].deskripsi, '\n');
     }
+// <<<<<<< HEAD
     file.close();
+// =======
 
     bacaDataLaptop();
 
@@ -193,7 +205,7 @@ void hapusDataLaptop(int& jumlahDataLaptop)
 
     slap[pilihan - 1].nama = "";
 
-    file.open("Database\\DataLaptop.csv", ios::out | ios::trunc);
+    file.open("Database\\laptop.csv", ios::out | ios::trunc);
     for (int i = 0; i < jumlahDataLaptop; i++)
     {
         if (slap[i].nama != "")
