@@ -23,7 +23,7 @@ struct stringDataLaptop
     string deskripsi;
 };
 
-void tambahkanDataLaptop(int& jumlahData)
+void tambahkanDataLaptop(int& jumlahDataLaptop)
 {
     string nama, harga, stok, deskripsi;
     cout << "Masukkan nama laptop: ";
@@ -46,8 +46,8 @@ void tambahkanDataLaptop(int& jumlahData)
     fileout << deskripsi << "\n";
     fileout.close();
 
-    jumlahData += 1;
-    cout << jumlahData;
+    jumlahDataLaptop += 1;
+    cout << jumlahDataLaptop;
 }
 
 void bacaDataLaptop()
@@ -79,16 +79,16 @@ void bacaDataLaptop()
     filein.close();
 }
 
-void ubahDataLaptop(int& jumlahData)
+void ubahDataLaptop(int& jumlahDataLaptop)
 {
     string placeholder;
     int pilihan, pilihanData;
     fstream file;
-    stringDataLaptop slap[jumlahData];
+    stringDataLaptop slap[jumlahDataLaptop];
 
     file.open("Database\\DataLaptop.csv", ios::in);
 
-    for (int i = 0; i < jumlahData; i++)
+    for (int i = 0; i < jumlahDataLaptop; i++)
     {
         getline(file, slap[i].nama, ',');
         getline(file, slap[i].harga, ',');
@@ -155,7 +155,7 @@ void ubahDataLaptop(int& jumlahData)
 
     file.open("Database\\DataLaptop.csv", ios::out | ios::trunc);
 
-    for (int i = 0; i < jumlahData; i++)
+    for (int i = 0; i < jumlahDataLaptop; i++)
     {
         file << slap[i].nama << ",";
         file << slap[i].harga << ",";
@@ -165,16 +165,16 @@ void ubahDataLaptop(int& jumlahData)
     file.close();
 }
 
-void hapusDataLaptop(int& jumlahData)
+void hapusDataLaptop(int& jumlahDataLaptop)
 {
     string placeholder;
     int pilihan, pilihanData;
     fstream file;
 
-    stringDataLaptop slap[jumlahData];
+    stringDataLaptop slap[jumlahDataLaptop];
 
     file.open("Database\\DataLaptop.csv", ios::in);
-    for (int i = 0; i < jumlahData; i++)
+    for (int i = 0; i < jumlahDataLaptop; i++)
     {
         getline(file, slap[i].nama, ',');
         getline(file, slap[i].harga, ',');
@@ -193,7 +193,7 @@ void hapusDataLaptop(int& jumlahData)
     slap[pilihan - 1].nama = "";
 
     file.open("Database\\DataLaptop.csv", ios::out | ios::trunc);
-    for (int i = 0; i < jumlahData; i++)
+    for (int i = 0; i < jumlahDataLaptop; i++)
     {
         if (slap[i].nama != "")
         {
@@ -206,7 +206,7 @@ void hapusDataLaptop(int& jumlahData)
     file.close();
 }
 
-int menuAdmin(int& jumlahData)
+int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
 {
     int pilihan;
     while (true)
@@ -226,16 +226,16 @@ int menuAdmin(int& jumlahData)
         switch (pilihan)
         {
         case 1:
-            tambahkanDataLaptop(jumlahData);
+            tambahkanDataLaptop(jumlahDataLaptop);
             break;
         case 2:
             bacaDataLaptop();
             break;
         case 3:
-            ubahDataLaptop(jumlahData);
+            ubahDataLaptop(jumlahDataLaptop);
             break;
         case 4:
-            hapusDataLaptop(jumlahData);
+            hapusDataLaptop(jumlahDataLaptop);
             break;
         case 0:
             return 0;

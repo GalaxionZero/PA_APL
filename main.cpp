@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include "Header\user.h"
-#include "Header\admin.h"
+#include "Header/user.h"
+#include "Header/admin.h"
+#include "Header/dircheck.h"
 using namespace std;
 
 struct
@@ -10,7 +11,7 @@ struct
     string password = "admin";
 } tokenAdmin;
 
-
+//Prosedur register
 void registerUser()
 {
     string namaUserBaru, passwordUserBaru;
@@ -26,7 +27,8 @@ void registerUser()
     fileout.close();
 }
 
-void loginUser(int &jumlahData)
+// Prosedur login
+void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
 {
     string namaLogin, passwordLogin, cekNama, cekPassword;
     cout << "Masukkan nama user: ";
@@ -44,7 +46,7 @@ void loginUser(int &jumlahData)
 
         if (cekNama == namaLogin && cekPassword == passwordLogin)
         {
-            menuUser(namaLogin, jumlahData);
+            menuUser(namaLogin, jumlahDataLaptop, jumlahDataRiwayat);
             break;
         }
     }
@@ -52,7 +54,7 @@ void loginUser(int &jumlahData)
 
     if (namaLogin == tokenAdmin.nama && passwordLogin == tokenAdmin.password)
     {
-        menuAdmin(jumlahData);
+        menuAdmin(jumlahDataLaptop, jumlahDataRiwayat);
     }
 }
 
@@ -60,21 +62,32 @@ void loginUser(int &jumlahData)
 int main()
 {
     string placeholder;
-    int pilihan, jumlahData = 0;
+    int pilihan, jumlahDataLaptop = 0, jumlahDataRiwayat = 0;
     fstream file;
 
-    file.open("Database\\DataLaptop.csv", ios::in);
+    // Melakukan pengecekan direktori dan file database
+    dirChecker();
 
+    // Mengambil jumlah data yang ada didalam data laptop
+    file.open("Database\\DataLaptop.csv", ios::in);
     while (!file.eof())
     {
         getline(file, placeholder, 'n');
-        jumlahData += 1;
+        jumlahDataLaptop += 1;
     }
-
     file.close();
+
+    // Mengambil jumlah data yang ada didalam data riwayat
+    file.open("Database\\DataRiwayat.csv", ios::in);
+    while (!file.eof())
+    {
+        getline(file, placeholder, 'n');
+        jumlahDataRiwayat += 1;
+    }
+    file.close();
+
     while (true)
     {
-        cout << "Jumlah Data: " << jumlahData << endl;
         cout << "1. Login" << endl;
         cout << "2. Register" << endl;
         cout << "0. Exit" << endl;
@@ -87,7 +100,7 @@ int main()
         switch (pilihan)
         {
         case 1:
-            loginUser(jumlahData);
+            loginUser(jumlahDataLaptop, jumlahDataRiwayat);
             break;
         case 2:
             registerUser();
