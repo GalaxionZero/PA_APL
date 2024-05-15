@@ -83,15 +83,9 @@ void bacaDataLaptop()
 void ubahDataLaptop(int& jumlahDataLaptop)
 {
     string placeholder;
-// <<<<<<< HEAD
-//    int jumlahData = 0, pilihan, pilihanData;
-//    fstream file;
-//    file.open("Database\\DataLaptop.csv", ios::in);
-// =======
     int pilihan, pilihanData;
     fstream file;
     stringDataLaptop slap[jumlahDataLaptop];
-// >>>>>>> main
 
     file.open("Database\\laptop.csv", ios::in);
 
@@ -177,24 +171,17 @@ void hapusDataLaptop(int& jumlahDataLaptop)
     int pilihan, pilihanData;
     fstream file;
 
-// <<<<<<< HEAD
     stringDataLaptop slap[jumlahDataLaptop];
 
-    file.open("Database\\DataLaptop.csv", ios::in);
+    file.open("Database\\laptop.csv", ios::in);
     for (int i = 0; i < jumlahDataLaptop; i++)
-// =======
-//    filein.open("Database\\laptop.csv", ios::in);
-//    while (!filein.eof())
-// >>>>>>> main
     {
         getline(file, slap[i].nama, ',');
         getline(file, slap[i].harga, ',');
         getline(file, slap[i].stok, ',');
         getline(file, slap[i].deskripsi, '\n');
     }
-// <<<<<<< HEAD
     file.close();
-// =======
 
     bacaDataLaptop();
 
