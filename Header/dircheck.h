@@ -1,18 +1,19 @@
 #include <filesystem>
+#include <fstream>
 using namespace filesystem;
 
 // Melakukan mengecekan
 int dirChecker()
 {
+    fstream file;
     path p = current_path();
     if (!exists(p/"Database"));
         create_directory(p/"Database");
-    if (!exists(p/"Database/DataLaptop.csv"))
-        create_directory(p/"Database/DataLaptop.csv");
-    if (!exists(p/"Database/DataRiwayat.csv"))
-        create_directory(p/"Database/DataUser.csv");
-    if (!exists(p/"Database/DataUser.csv"))
-        create_directory(p/"Database/DataRiwayat.csv");
-
+    if (!exists("Database\\laptop.csv"))
+        file.open("Database\\laptop.csv", ios::out); file.close();
+    if (!exists("Database\\transaction_history.csv"))
+        file.open("Database\\transaction_history.csv", ios::out); file.close();
+    if (!exists("Database\\user_auth.csv"))
+        file.open("Database\\user_auth.csv", ios::out); file.close();
     return 0;
 }
