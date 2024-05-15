@@ -3,13 +3,22 @@
 #include <string>
 using namespace std;
 
-// Mempermudah mengambil dan save data dari dan ke csv
+// Mengambil dan save data dari dan ke csv dataLaptop
 struct userDataLaptop
 {
     string nama;
     int harga;
     int stok;
     string deskripsi;
+};
+
+// Mengambil dan save data dari dan ke csv dataRiwayat
+struct userSejarahPembelian
+{
+    string namaUser;
+    string namaLaptop;
+    int nominal;
+    string namaBank;
 };
 
 //Metode pembayaran yang diterima
@@ -111,6 +120,32 @@ void beliLaptop(string namaUser, int& jumlahDataLaptop, int& jumlahDataRiwayat)
 // Prosedur data riwayat
 void listRiwayatUser(string namaUser, int& jumlahDataRiwayat)
 {
+    fstream file;
+    string placeholder;
+    userSejarahPembelian usp[jumlahDataRiwayat];
+
+    // Mengambil data riwayat dari csv
+    file.open("Database\\DataRiwayat.csv", ios::in);
+    for (int i = 0; i < jumlahDataRiwayat; ++i)
+    {
+        getline(file, usp[0].namaUser, ',');
+        getline(file, usp[0].namaLaptop, ',');
+        getline(file, placeholder, ',');
+        usp[0].nominal = stoi(placeholder);
+        getline(file, usp[0].namaBank, '\n');
+    }
+    file.close();
+
+    // Mencari nama didalam riwayat dan membandingkan dengan namaUser
+    for (int i = 0; i < jumlahDataRiwayat; ++i)
+    {
+        if (namaUser == usp[i].namaUser)
+        {
+            cout << usp[i].namaLaptop << endl;
+            cout << usp[i].nominal << endl;
+            cout << usp[i].namaBank << endl;
+        }
+    }
 
 }
 

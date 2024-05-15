@@ -25,7 +25,8 @@ struct stringDataLaptop
 
 void tambahkanDataLaptop(int& jumlahDataLaptop)
 {
-    string nama, harga, stok, deskripsi;
+    string nama, deskripsi;
+    int harga, stok;
     cout << "Masukkan nama laptop: ";
     getline(cin, nama);
     cout << "Masukkan harga laptop: ";
@@ -67,12 +68,12 @@ void bacaDataLaptop()
 
         if (namaLaptop != "")
         {
-            cout << "No. " << i << endl
-                 << "Nama: " << namaLaptop << endl;
+            cout << "No. " << i << endl;
+            cout << "Nama: " << namaLaptop << endl;
             cout << "Harga: " << hargaLaptop << endl;
             cout << "Stok: " << stokLaptop << endl;
-            cout << descLaptop << endl
-                 << "|||" << endl;
+            cout << descLaptop << endl;
+            cout << "|||" << endl;
         }
         i++;
     }
