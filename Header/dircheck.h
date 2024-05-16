@@ -1,8 +1,10 @@
-#include <filesystem>
 #include <fstream>
+#include <filesystem>
+#include <string>
 using namespace filesystem;
+using namespace std;
 
-// Melakukan mengecekan
+// Melakukan pengecekan direktori dan file database
 int dirChecker()
 {
     fstream file;
@@ -17,3 +19,14 @@ int dirChecker()
         file.open("Database\\user_auth.csv", ios::out); file.close();
     return 0;
 }
+
+//
+//bool csvChecker(fstream& file)
+//{
+//    string placeholder;
+//    while (!file.eof)
+//    {
+//        file.open();
+//
+//    }
+//}

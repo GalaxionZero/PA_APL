@@ -15,16 +15,17 @@ struct
 void registerUser()
 {
     string namaUserBaru, passwordUserBaru;
+    fstream file;
+
     cout << "Masukkan nama user: ";
     getline(cin, namaUserBaru);
     cout << "Masukkan password: ";
     getline(cin, passwordUserBaru);
 
-    ofstream fileout;
-    fileout.open("Database\\user_auth.csv", ios::out | ios::app);
-    fileout << namaUserBaru << ",";
-    fileout << passwordUserBaru << "\n";
-    fileout.close();
+    file.open("Database\\user_auth.csv", ios::out | ios::ate);
+    file << namaUserBaru << ",";
+    file << passwordUserBaru << "\n";
+    file.close();
 }
 
 // Prosedur login
@@ -36,13 +37,13 @@ void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
     cout << "Masukkan password: ";
     getline(cin, passwordLogin);
 
-    ifstream filein;
-    filein.open("Database\\user_auth.csv", ios::in);
+    fstream file;
+    file.open("Database\\user_auth.csv", ios::in);
 
-    while (!filein.eof())
+    while (!file.eof())
     {
-        getline(filein, cekNama, ',');
-        getline(filein, cekPassword, '\n');
+        getline(file, cekNama, ',');
+        getline(file, cekPassword, '\n');
 
         if (cekNama == namaLogin && cekPassword == passwordLogin)
         {
@@ -50,7 +51,7 @@ void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
             break;
         }
     }
-    filein.close();
+    file.close();
 
     if (namaLogin == tokenAdmin.nama && passwordLogin == tokenAdmin.password)
     {
@@ -74,6 +75,7 @@ int main()
     {
         getline(file, placeholder, 'n');
         jumlahDataLaptop += 1;
+//        cout << jumlahDataLaptop;
     }
     file.close();
 
@@ -81,8 +83,9 @@ int main()
     file.open("Database\\transaction_history.csv", ios::in);
     while (!file.eof())
     {
-        getline(file, placeholder, 'n');
+        getline(file, placeholder, '\n');
         jumlahDataRiwayat += 1;
+//        cout << jumlahDataRiwayat;
     }
     file.close();
 

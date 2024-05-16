@@ -189,15 +189,30 @@ void listRiwayatUser(string namaUser, int& jumlahDataRiwayat)
     string placeholder;
     userSejarahPembelian usp[jumlahDataRiwayat];
 
+    cout << jumlahDataRiwayat << endl;
+
     // Mengambil data riwayat dari csv
     file.open("Database\\transaction_history.csv", ios::in);
     for (int i = 0; i < jumlahDataRiwayat; ++i)
     {
-        getline(file, usp[0].namaUser, ',');
-        getline(file, usp[0].namaLaptop, ',');
+//        cout << "Test " << i << endl;
         getline(file, placeholder, ',');
-        usp[0].nominal = stoi(placeholder);
-        getline(file, usp[0].pembayaran, '\n');
+
+//        cout << "Test2" << endl;
+        if (placeholder != "")
+            usp[i].waktuPembelian = stol(placeholder);
+        else
+            break;
+//        cout << "Test3" << endl;
+        getline(file, usp[i].namaUser, ',');
+        getline(file, usp[i].namaLaptop, ',');
+        getline(file, placeholder, ',');
+//        cout << "Test4" << endl;
+        usp[i].nominal = stoi(placeholder);
+//        cout << "Test5" << endl;
+        getline(file, usp[i].pembayaran, '\n');
+
+
     }
     file.close();
 
