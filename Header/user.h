@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <ctime>
 using namespace std;
 
 // Mengambil dan save data dari dan ke csv dataLaptop
@@ -15,21 +16,21 @@ struct userDataLaptop
 // Mengambil dan save data dari dan ke csv dataRiwayat
 struct userSejarahPembelian
 {
+    time_t waktuPembelian;
     string namaUser;
     string namaLaptop;
     int nominal;
     string pembayaran;
 };
 
-
-//Prosedur read laptop
-void listLaptop(int& jumlahDataLaptop)
+// Prosedur read laptop
+void listLaptop(int &jumlahDataLaptop)
 {
     string namaLaptop, placeholder, descLaptop;
     int i = 1, stokLaptop, hargaLaptop;
     fstream file;
 
-    file.open("Database\\laptop.csv", ios::in);\
+    file.open("Database\\laptop.csv", ios::in);
 
     // ####Tambahkan pengkondisian kalo laptop habis, tidak di list lagi di listlaptop lain
     while (!file.eof())
@@ -55,8 +56,8 @@ void listLaptop(int& jumlahDataLaptop)
     file.close();
 }
 
-//Prosedur membeli laptop
-void beliLaptop(string namaUser, int& jumlahDataLaptop, int& jumlahDataRiwayat)
+// Prosedur membeli laptop
+void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
 {
     struct userDataLaptop ulap[jumlahDataLaptop];
     int pilihan, metodePembayaran;
@@ -105,8 +106,11 @@ void beliLaptop(string namaUser, int& jumlahDataLaptop, int& jumlahDataRiwayat)
         switch (statusPembayaran)
         {
         case 1:
+        {
             file.open("Database\\transaction_history.csv", ios::out | ios::app);
 
+            time_t now = time(0);
+            file << now << ',';
             file << namaUser << ',';
             file << ulap[pilihan - 1].nama << ',';
             file << ulap[pilihan - 1].harga << ',';
@@ -127,6 +131,7 @@ void beliLaptop(string namaUser, int& jumlahDataLaptop, int& jumlahDataRiwayat)
 
             cout << "Pembayaran berhasil" << endl;
             break;
+        }
         default:
             cout << "Pembayaran dibatalkan" << endl;
             break;
@@ -147,8 +152,11 @@ void beliLaptop(string namaUser, int& jumlahDataLaptop, int& jumlahDataRiwayat)
         switch (statusPembayaran)
         {
         case 1:
+        {
             file.open("Database\\transaction_history.csv", ios::out | ios::app);
 
+            time_t now = time(0);
+            file << now << ',';
             file << namaUser << ',';
             file << ulap[pilihan - 1].nama << ',';
             file << ulap[pilihan - 1].harga << ',';
@@ -169,6 +177,7 @@ void beliLaptop(string namaUser, int& jumlahDataLaptop, int& jumlahDataRiwayat)
 
             cout << "Pembayaran berhasil" << endl;
             break;
+        }
         default:
             cout << "Pembayaran dibatalkan" << endl;
             break;
@@ -183,7 +192,7 @@ void beliLaptop(string namaUser, int& jumlahDataLaptop, int& jumlahDataRiwayat)
 }
 
 // Prosedur data riwayat
-void listRiwayatUser(string namaUser, int& jumlahDataRiwayat)
+void listRiwayatUser(string namaUser, int &jumlahDataRiwayat)
 {
     fstream file;
     string placeholder;
@@ -193,6 +202,8 @@ void listRiwayatUser(string namaUser, int& jumlahDataRiwayat)
     file.open("Database\\transaction_history.csv", ios::in);
     for (int i = 0; i < jumlahDataRiwayat; ++i)
     {
+        getline(file, placeholder, ',');
+        usp->waktuPembelian = stoi(placeholder);
         getline(file, usp[0].namaUser, ',');
         getline(file, usp[0].namaLaptop, ',');
         getline(file, placeholder, ',');
@@ -206,16 +217,17 @@ void listRiwayatUser(string namaUser, int& jumlahDataRiwayat)
     {
         if (namaUser == usp[i].namaUser)
         {
+            tm *ltm = localtime(&usp[i].waktuPembelian);
+            cout << "Waktu Pembelian: " << ltm->tm_mday << "-" << 1 + ltm->tm_mon << "-" << 1900 + ltm->tm_year << " pukul " << ltm->tm_hour << "." << ltm->tm_min << "." << ltm->tm_sec << endl;
             cout << usp[i].namaLaptop << endl;
             cout << usp[i].nominal << endl;
             cout << usp[i].pembayaran << endl;
         }
     }
-
 }
 
 // Menu User
-int menuUser(string namaUser, int& jumlahDataLaptop, int&jumlahDataRiwayat)
+int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
 {
     int pilihan;
     while (true)
