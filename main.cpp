@@ -72,7 +72,7 @@ int main()
     file.open("Database\\laptop.csv", ios::in);
     while (!file.eof())
     {
-        getline(file, placeholder, 'n');
+        getline(file, placeholder, '\n');
         jumlahDataLaptop += 1;
     }
     file.close();
@@ -81,7 +81,7 @@ int main()
     file.open("Database\\transaction_history.csv", ios::in);
     while (!file.eof())
     {
-        getline(file, placeholder, 'n');
+        getline(file, placeholder, '\n');
         jumlahDataRiwayat += 1;
     }
     file.close();

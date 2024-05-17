@@ -203,18 +203,24 @@ void listRiwayatUser(string namaUser, int &jumlahDataRiwayat)
     for (int i = 0; i < jumlahDataRiwayat; ++i)
     {
         getline(file, placeholder, ',');
-        usp->waktuPembelian = stoi(placeholder);
-        getline(file, usp[0].namaUser, ',');
-        getline(file, usp[0].namaLaptop, ',');
+        cout << i << endl;
+        if (placeholder != "")
+            usp[i].waktuPembelian = stoi(placeholder);
+        else
+            break;
+        getline(file, usp[i].namaUser, ',');
+        getline(file, usp[i].namaLaptop, ',');
         getline(file, placeholder, ',');
-        usp[0].nominal = stoi(placeholder);
-        getline(file, usp[0].pembayaran, '\n');
+        usp[i].nominal = stoi(placeholder);
+        getline(file, usp[i].pembayaran, '\n');
     }
     file.close();
 
     // Mencari nama didalam riwayat dan membandingkan dengan namaUser
     for (int i = 0; i < jumlahDataRiwayat; ++i)
     {
+        cout << i << endl;
+        cout << namaUser << usp[i].namaUser;
         if (namaUser == usp[i].namaUser)
         {
             tm *ltm = localtime(&usp[i].waktuPembelian);
