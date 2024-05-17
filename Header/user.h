@@ -15,6 +15,7 @@ struct userDataLaptop
 // Mengambil dan save data dari dan ke csv dataRiwayat
 struct userSejarahPembelian
 {
+    time_t waktuPembelian;
     string namaUser;
     string namaLaptop;
     int nominal;
@@ -189,27 +190,19 @@ void listRiwayatUser(string namaUser, int& jumlahDataRiwayat)
     string placeholder;
     userSejarahPembelian usp[jumlahDataRiwayat];
 
-    cout << jumlahDataRiwayat << endl;
-
     // Mengambil data riwayat dari csv
     file.open("Database\\transaction_history.csv", ios::in);
     for (int i = 0; i < jumlahDataRiwayat; ++i)
     {
-//        cout << "Test " << i << endl;
-        getline(file, placeholder, ',');
-
-//        cout << "Test2" << endl;
-        if (placeholder != "")
-            usp[i].waktuPembelian = stol(placeholder);
-        else
-            break;
-//        cout << "Test3" << endl;
         getline(file, usp[i].namaUser, ',');
+        getline(file, placeholder, ',');
+        usp[i].waktuPembelian = stol(placeholder);
+//        if (pl  aceholder != "")
+//        else
+//            break;
         getline(file, usp[i].namaLaptop, ',');
         getline(file, placeholder, ',');
-//        cout << "Test4" << endl;
         usp[i].nominal = stoi(placeholder);
-//        cout << "Test5" << endl;
         getline(file, usp[i].pembayaran, '\n');
 
 

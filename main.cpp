@@ -73,9 +73,9 @@ int main()
     file.open("Database\\laptop.csv", ios::in);
     while (!file.eof())
     {
-        getline(file, placeholder, 'n');
+        getline(file, placeholder, '\n');
         jumlahDataLaptop += 1;
-//        cout << jumlahDataLaptop;
+        cout << jumlahDataLaptop << endl;
     }
     file.close();
 
@@ -85,7 +85,7 @@ int main()
     {
         getline(file, placeholder, '\n');
         jumlahDataRiwayat += 1;
-//        cout << jumlahDataRiwayat;
+        cout << jumlahDataRiwayat << endl;
     }
     file.close();
 
