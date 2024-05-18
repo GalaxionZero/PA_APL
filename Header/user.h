@@ -117,6 +117,8 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             file << "bank" << '\n';
             file.close();
 
+            jumlahDataRiwayat += 1;
+
             ulap[pilihan - 1].stok -= 1;
 
             file.open("Database\\laptop.csv", ios::out | ios::trunc);
@@ -162,6 +164,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             file << ulap[pilihan - 1].harga << ',';
             file << "wallet" << '\n';
             file.close();
+            jumlahDataRiwayat += 1;
 
             ulap[pilihan - 1].stok -= 1;
 
@@ -203,11 +206,7 @@ void listRiwayatUser(string namaUser, int &jumlahDataRiwayat)
     for (int i = 0; i < jumlahDataRiwayat; ++i)
     {
         getline(file, placeholder, ',');
-        cout << i << endl;
-        if (placeholder != "")
-            usp[i].waktuPembelian = stoi(placeholder);
-        else
-            break;
+        usp[i].waktuPembelian = stoi(placeholder);
         getline(file, usp[i].namaUser, ',');
         getline(file, usp[i].namaLaptop, ',');
         getline(file, placeholder, ',');
@@ -217,10 +216,9 @@ void listRiwayatUser(string namaUser, int &jumlahDataRiwayat)
     file.close();
 
     // Mencari nama didalam riwayat dan membandingkan dengan namaUser
+    // untuk menunjukkan hanya yang di beli oleh user
     for (int i = 0; i < jumlahDataRiwayat; ++i)
     {
-        cout << i << endl;
-        cout << namaUser << usp[i].namaUser;
         if (namaUser == usp[i].namaUser)
         {
             tm *ltm = localtime(&usp[i].waktuPembelian);

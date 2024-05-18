@@ -12,19 +12,33 @@ struct
 } tokenAdmin;
 
 //Prosedur register
-void registerUser()
+int registerUser()
 {
-    string namaUserBaru, passwordUserBaru;
+    string namaUserBaru, passwordUserBaru, cekNamaIsTaken;
     cout << "Masukkan nama user: ";
     getline(cin, namaUserBaru);
     cout << "Masukkan password: ";
     getline(cin, passwordUserBaru);
 
-    ofstream fileout;
-    fileout.open("Database\\user_auth.csv", ios::out | ios::app);
-    fileout << namaUserBaru << ",";
-    fileout << passwordUserBaru << "\n";
-    fileout.close();
+    fstream file;
+
+    file.open("Databasse\\user_auth.csv", ios::in)
+    while (true)
+    {
+        if (namaUserBaru == cekNamaIsTaken)
+        {
+            cout << "Nama user sudah dipakai!";
+            registerUser();
+        }
+    }
+    file.close();
+
+    file.open("Database\\user_auth.csv", ios::out | ios::app);
+    file << namaUserBaru << ",";
+    file << passwordUserBaru << "\n";
+    file.close();
+    return 0
+
 }
 
 // Prosedur login
@@ -36,13 +50,13 @@ void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
     cout << "Masukkan password: ";
     getline(cin, passwordLogin);
 
-    ifstream filein;
-    filein.open("Database\\user_auth.csv", ios::in);
+    fstream file;
+    file.open("Database\\user_auth.csv", ios::in);
 
-    while (!filein.eof())
+    while (!file.eof())
     {
-        getline(filein, cekNama, ',');
-        getline(filein, cekPassword, '\n');
+        getline(file, cekNama, ',');
+        getline(file, cekPassword, '\n');
 
         if (cekNama == namaLogin && cekPassword == passwordLogin)
         {
@@ -50,7 +64,7 @@ void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
             break;
         }
     }
-    filein.close();
+    file.close();
 
     if (namaLogin == tokenAdmin.nama && passwordLogin == tokenAdmin.password)
     {
@@ -73,7 +87,8 @@ int main()
     while (!file.eof())
     {
         getline(file, placeholder, '\n');
-        jumlahDataLaptop += 1;
+        if (placeholder != "")
+            jumlahDataLaptop += 1;
     }
     file.close();
 
@@ -82,7 +97,8 @@ int main()
     while (!file.eof())
     {
         getline(file, placeholder, '\n');
-        jumlahDataRiwayat += 1;
+        if (placeholder != "")
+            jumlahDataRiwayat += 1;
     }
     file.close();
 
