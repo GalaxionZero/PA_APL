@@ -14,7 +14,7 @@ struct
 //Prosedur register
 int registerUser()
 {
-    string namaUserBaru, passwordUserBaru, cekNamaIsTaken;
+    string namaUserBaru, passwordUserBaru, cekNamaIsTaken, placeholder;
     cout << "Masukkan nama user: ";
     getline(cin, namaUserBaru);
     cout << "Masukkan password: ";
@@ -22,12 +22,15 @@ int registerUser()
 
     fstream file;
 
-    file.open("Databasse\\user_auth.csv", ios::in)
-    while (true)
+    file.open("Database\\user_auth.csv", ios::in);
+    while (!file.eof())
     {
+        getline(file, cekNamaIsTaken, ',');
+        getline(file, placeholder, '\n');
+
         if (namaUserBaru == cekNamaIsTaken)
         {
-            cout << "Nama user sudah dipakai!";
+            cout << "Nama user sudah dipakai!" << endl;
             registerUser();
         }
     }
@@ -37,7 +40,7 @@ int registerUser()
     file << namaUserBaru << ",";
     file << passwordUserBaru << "\n";
     file.close();
-    return 0
+    return 0;
 
 }
 
