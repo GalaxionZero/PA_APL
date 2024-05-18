@@ -79,7 +79,7 @@ void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
 
     setColor(3);
     cout << "========================================" << endl;
-    cout << "|               REGISTER               |" << endl;
+    cout << "|                LOGIN                 |" << endl;
     cout << "========================================" << endl;
     cout << "  Masukkan nama user: ";
     setColor(6);

@@ -24,36 +24,79 @@ struct userSejarahPembelian
 };
 
 // Prosedur read laptop
-void listLaptop(int &jumlahDataLaptop)
+void listLaptop(int &jumlahDataLaptop, bool sortByName)
 {
-    string namaLaptop, placeholder, descLaptop;
-    int i = 1, stokLaptop, hargaLaptop;
+    string placeholder;
     fstream file;
+    userDataLaptop ulap[jumlahDataLaptop];
 
     file.open("Database\\laptop.csv", ios::in);
 
-    // ####Tambahkan pengkondisian kalo laptop habis, tidak di list lagi di listlaptop lain
-    while (!file.eof())
+    for (int i = 0; i < jumlahDataLaptop; i++)
     {
-        getline(file, namaLaptop, ',');
+        getline(file, ulap[i].nama, ',');
         getline(file, placeholder, ',');
-        hargaLaptop = stoi(placeholder);
+        ulap[i].harga = stoi(placeholder);
         getline(file, placeholder, ',');
-        stokLaptop = stoi(placeholder);
-        getline(file, descLaptop, '\n');
-
-        if (namaLaptop != "")
-        {
-            cout << "No. " << i << endl
-                 << "Nama: " << namaLaptop << endl;
-            cout << "Harga: " << hargaLaptop << endl;
-            cout << "Stok: " << stokLaptop << endl;
-            cout << descLaptop << endl
-                 << "|||" << endl;
-        }
-        i++;
+        ulap[i].stok = stoi(placeholder);
+        getline(file, ulap[i].deskripsi, '\n');
     }
+
     file.close();
+
+    if (sortByName)
+    {
+        int i, j, minimum;
+        for (i = 0; i < jumlahDataLaptop - 1; i++)
+        {
+            minimum = i;
+            for (j = i+1; j < jumlahDataLaptop; j++)
+            {
+                if (ulap[j].nama < ulap[minimum].nama)
+                {
+                    minimum = j;
+                }
+            }
+
+            if (minimum != i)
+            {
+            userDataLaptop temp = ulap[minimum];
+            ulap[minimum] = ulap[i];
+            ulap[i] = temp;
+            }
+        }
+    }
+        else
+        {
+            for (int gap = jumlahDataLaptop / 2; gap > 0; gap /= 2)
+            {
+                for (int i = gap; i < jumlahDataLaptop; i++)
+                {
+                    userDataLaptop temp = ulap[i];
+                    int j;
+                    for (j = i; j >= gap && ulap[j-gap].harga > temp.harga; j -= gap)
+                    {
+                        ulap[j] = ulap[j - gap];
+                    }
+                    ulap[j] = temp;
+                }
+            }
+
+        }
+
+
+    for (int i = 0; i < jumlahDataLaptop; ++i)
+    {
+        if (ulap[i].nama != "")
+        {
+            cout << "No. " << i+1 << endl;
+            cout << "Nama: " << ulap[i].nama << endl;
+            cout << "Harga: " << ulap[i].harga << endl;
+            cout << "Stok: " << ulap[i].stok << endl;
+            cout << ulap[i].deskripsi << endl;
+            cout << "|||" << endl;
+        }
+    }
 }
 
 // Prosedur membeli laptop
@@ -76,7 +119,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
         getline(file, ulap[i].deskripsi, '\n');
     }
     file.close();
-    listLaptop(jumlahDataLaptop);
+    listLaptop(jumlahDataLaptop, true);
 
     cout << "Pilih laptop yang ingin dibeli: ";
     cin >> pilihan;
@@ -233,7 +276,7 @@ void listRiwayatUser(string namaUser, int &jumlahDataRiwayat)
 // Menu User
 int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
 {
-    int pilihan;
+    int pilihan, pilihanSorting;
     while (true)
     {
         cout << "Menu" << endl;
@@ -250,7 +293,23 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
         switch (pilihan)
         {
         case 1:
-            listLaptop(jumlahDataLaptop);
+            cout << "1. Urutkan secara nama" << endl;
+            cout << "2. Urutkan secara harga" << endl;
+            cout << "Enter: ";
+            cin >> pilihanSorting;
+            cin.clear();
+            cin.ignore();
+
+            switch (pilihanSorting)
+            {
+            case 1:
+                listLaptop(jumlahDataLaptop, true);
+                break;
+            case 2:
+                listLaptop(jumlahDataLaptop, false);
+                break;
+            }
+            break;
             break;
         case 2:
             beliLaptop(namaUser, jumlahDataLaptop, jumlahDataRiwayat);

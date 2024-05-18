@@ -25,6 +25,49 @@ struct adminSejarahPembelian
 };
 
 
+// Selection sort nama laptop
+void selectionSort(adminDataLaptop alap[], int& jumlahDataLaptop)
+{
+    for (int gap = jumlahDataLaptop / 2; gap > 0; gap /= 2)
+            {
+                for (int i = gap; i < jumlahDataLaptop; i++)
+                {
+                    adminDataLaptop temp = alap[i];
+                    int j;
+                    for (j = i; j >= gap && alap[j-gap].harga > temp.harga; j -= gap)
+                    {
+                        alap[j] = alap[j - gap];
+                    }
+                    alap[j] = temp;
+                }
+            }
+}
+
+// Shell sort harga laptop
+void shellSort(adminDataLaptop alap[], int& jumlahDataLaptop)
+{
+    int i, j, minimum;
+        for (i = 0; i < jumlahDataLaptop - 1; i++)
+        {
+            minimum = i;
+            for (j = i+1; j < jumlahDataLaptop; j++)
+            {
+                if (alap[j].nama < alap[minimum].nama)
+                {
+                    minimum = j;
+                }
+            }
+
+            if (minimum != i)
+            {
+            adminDataLaptop temp = alap[minimum];
+            alap[minimum] = alap[i];
+            alap[i] = temp;
+            }
+        }
+}
+
+
 void tambahkanDataLaptop(int& jumlahDataLaptop)
 {
     string nama, deskripsi;
@@ -53,39 +96,10 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
     cout << jumlahDataLaptop;
 }
 
-void bacaDataLaptop()
-{
-    string namaLaptop, hargaLaptop, stokLaptop, descLaptop;
-    int i = 1;
-    ifstream filein;
-
-    filein.open("Database\\laptop.csv", ios::in);
-
-    while (!filein.eof())
-    {
-        getline(filein, namaLaptop, ',');
-        getline(filein, hargaLaptop, ',');
-        getline(filein, stokLaptop, ',');
-        getline(filein, descLaptop, '\n');
-
-        if (namaLaptop != "")
-        {
-            cout << "No. " << i << endl;
-            cout << "Nama: " << namaLaptop << endl;
-            cout << "Harga: " << hargaLaptop << endl;
-            cout << "Stok: " << stokLaptop << endl;
-            cout << descLaptop << endl;
-            cout << "|||" << endl;
-        }
-        i++;
-    }
-    filein.close();
-}
-
-void ubahDataLaptop(int& jumlahDataLaptop)
+void bacaDataLaptop(int& jumlahDataLaptop, bool sortByName)
 {
     string placeholder;
-    int pilihan, pilihanData;
+    int i = 1;
     fstream file;
     adminDataLaptop alap[jumlahDataLaptop];
 
@@ -102,7 +116,47 @@ void ubahDataLaptop(int& jumlahDataLaptop)
     }
 
     file.close();
-    bacaDataLaptop();
+
+    if (sortByName)
+        selectionSort(alap, jumlahDataLaptop);
+    else
+        shellSort(alap, jumlahDataLaptop);
+
+
+    for (int i = 0; i < jumlahDataLaptop; ++i)
+    {
+        if (alap[i].nama != "")
+        {
+            cout << "No. " << i+1 << endl;
+            cout << "Nama: " << alap[i].nama << endl;
+            cout << "Harga: " << alap[i].harga << endl;
+            cout << "Stok: " << alap[i].stok << endl;
+            cout << alap[i].desc.deskripsi << endl;
+            cout << "|||" << endl;
+        }
+    }
+}
+
+void ubahDataLaptop(int& jumlahDataLaptop)
+{
+    string placeholder;
+    int pilihan, pilihanData;
+    fstream file;
+    adminDataLaptop alap[jumlahDataLaptop];
+
+    file.open("Database\\laptop.csv", ios::in);
+    for (int i = 0; i < jumlahDataLaptop; i++)
+    {
+        getline(file, alap[i].nama, ',');
+        getline(file, placeholder, ',');
+        alap[i].harga = stoi(placeholder);
+        getline(file, placeholder, ',');
+        alap[i].stok = stoi(placeholder);
+        getline(file, alap[i].desc.deskripsi, '\n');
+    }
+    file.close();
+
+    bacaDataLaptop(jumlahDataLaptop, false);
 
     cout << "Masukkan pilihan untuk data yang ingin di ubah: ";
     cin >> pilihan;
@@ -170,8 +224,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
 
 void hapusDataLaptop(int& jumlahDataLaptop)
 {
-    string placeholder;
-    int pilihan, pilihanData;
+    string placeholder, key;
     fstream file;
 
     adminDataLaptop alap[jumlahDataLaptop];
@@ -188,29 +241,48 @@ void hapusDataLaptop(int& jumlahDataLaptop)
     }
     file.close();
 
-    bacaDataLaptop();
+    selectionSort(alap, jumlahDataLaptop);
+    bacaDataLaptop(jumlahDataLaptop, false);
 
-    cout << "Masukkan nomor urut data yang ingin dihapus >> ";
-    cin >> pilihan;
-    cin.clear();
-    cin.ignore();
+    cout << "Masukkan nama laptop yang ingin dihapus: ";
+    getline(cin, key);
 
-    alap[pilihan - 1].nama = "";
+    // Binary Search
+    int low = 0;
+    int high = jumlahDataLaptop - 1;
 
-    file.open("Database\\laptop.csv", ios::out | ios::trunc);
-    for (int i = 0; i < jumlahDataLaptop; i++)
+    while (low <= high)
     {
-        if (alap[i].nama != "")
+        int mid = (low + high)/2;
+        if (key == alap[mid].nama)
         {
-            file << alap[i].nama << ",";
-            file << alap[i].harga << ",";
-            file << alap[i].stok << ",";
-            file << alap[i].desc.deskripsi << "\n";
-        }
-    }
-    file.close();
+            alap[mid].nama = "";
 
-    jumlahDataLaptop -= 1;
+            file.open("Database\\laptop.csv", ios::out | ios::trunc);
+            for (int i = 0; i < jumlahDataLaptop; i++)
+            {
+                if (alap[i].nama != "")
+                {
+                    file << alap[i].nama << ",";
+                    file << alap[i].harga << ",";
+                    file << alap[i].stok << ",";
+                    file << alap[i].desc.deskripsi << "\n";
+                }
+            }
+            file.close();
+
+            jumlahDataLaptop -= 1;
+        }
+            else if (key < alap[mid].nama)
+            {
+                high = mid - 1;
+            }
+            else
+            {
+                low = mid + 1;
+            }
+    }
+    cout << "Nama laptop tidak ditemukan";
 }
 
 // Prosedur data riwayat
@@ -249,7 +321,7 @@ void listRiwayatAdmin(int &jumlahDataRiwayat)
 
 int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
 {
-    int pilihan;
+    int pilihan, pilihanSorting;
     while (true)
     {
         cout << "Menu Admin" << endl;
@@ -271,7 +343,22 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
             tambahkanDataLaptop(jumlahDataLaptop);
             break;
         case 2:
-            bacaDataLaptop();
+            cout << "1. Urutkan secara nama" << endl;
+            cout << "2. Urutkan secara harga" << endl;
+            cout << "Enter: ";
+            cin >> pilihanSorting;
+            cin.clear();
+            cin.ignore();
+
+            switch (pilihanSorting)
+            {
+            case 1:
+                bacaDataLaptop(jumlahDataLaptop, true);
+                break;
+            case 2:
+                bacaDataLaptop(jumlahDataLaptop, false);
+                break;
+            }
             break;
         case 3:
             listRiwayatAdmin(jumlahDataRiwayat);
