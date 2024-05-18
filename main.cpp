@@ -1,9 +1,18 @@
 #include <iostream>
 #include <fstream>
+#include <thread>
+#include <chrono>
+#include <windows.h>
+#include <cstddef>
+
 #include "Header/user.h"
 #include "Header/admin.h"
 #include "Header/dircheck.h"
+
 using namespace std;
+using namespace chrono;
+using namespace this_thread;
+
 
 struct
 {
@@ -11,13 +20,26 @@ struct
     string password = "admin";
 } tokenAdmin;
 
+//Prosedur untuk memberikan warna pad aoutput
+void setColor(int color) {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
 //Prosedur register
 int registerUser()
 {
     string namaUserBaru, passwordUserBaru, cekNamaIsTaken, placeholder;
-    cout << "Masukkan nama user: ";
+
+    setColor(3);
+    cout << "========================================" << endl;
+    cout << "|               REGISTER               |" << endl;
+    cout << "========================================" << endl;
+    cout << "  Masukkan nama user: ";
+    setColor(6);
     getline(cin, namaUserBaru);
-    cout << "Masukkan password: ";
+
+    setColor(3);
+    cout << "  Masukkan password: ";
+    setColor(6);
     getline(cin, passwordUserBaru);
 
     fstream file;
@@ -30,7 +52,13 @@ int registerUser()
 
         if (namaUserBaru == cekNamaIsTaken)
         {
-            cout << "Nama user sudah dipakai!" << endl;
+            system("cls");
+            setColor(4);
+            cout << "========================================" << endl;
+            cout << "|       NAMA USER SUDAH DIGUNAKAN      |" << endl;
+            cout << "========================================" << endl;
+            sleep_for(seconds(2));
+            system("cls");
             registerUser();
         }
     }
@@ -48,10 +76,20 @@ int registerUser()
 void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
 {
     string namaLogin, passwordLogin, cekNama, cekPassword;
-    cout << "Masukkan nama user: ";
+
+    setColor(3);
+    cout << "========================================" << endl;
+    cout << "|               REGISTER               |" << endl;
+    cout << "========================================" << endl;
+    cout << "  Masukkan nama user: ";
+    setColor(6);
     getline(cin, namaLogin);
-    cout << "Masukkan password: ";
+
+    setColor(3);
+    cout << "  Masukkan password: ";
+    setColor(6);
     getline(cin, passwordLogin);
+
 
     fstream file;
     file.open("Database\\user_auth.csv", ios::in);
@@ -78,6 +116,29 @@ void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
 // Driver code
 int main()
 {
+//    std::byte myByte{0};
+
+//    cout << "Loading[--------------------]0%" << endl;
+//    sleep_for(seconds(1));
+//    system("cls");
+//    cout << "Loading[#####---------------]25%" << endl;
+//    sleep_for(seconds(1));
+//    system("cls");
+//    cout << "Loading[##########----------]50%" << endl;
+//    sleep_for(seconds(1));
+//    system("cls");
+//    cout << "Loading[###############-----]75%" << endl;
+//    sleep_for(seconds(1));
+//    system("cls");
+//    cout << "Loading[####################]100%" << endl;
+//    sleep_for(seconds(1));
+//    system("cls");
+
+    setColor(2);
+    cout << "Berhasil memasuki aplikasi..." << endl;
+    sleep_for(seconds(2));
+    system("cls");
+
     string placeholder;
     int pilihan, jumlahDataLaptop = 0, jumlahDataRiwayat = 0;
     fstream file;
@@ -107,10 +168,17 @@ int main()
 
     while (true)
     {
-        cout << "1. Login" << endl;
-        cout << "2. Register" << endl;
-        cout << "0. Exit" << endl;
-        cout << "Enter: ";
+        setColor(3);
+        system("cls");
+        cout << "========================================" << endl;
+        cout << "|              MENU LOGIN              |" << endl;
+        cout << "========================================" << endl;
+        cout << "|   1. Login                           |" << endl;
+        cout << "|   2. Register                        |" << endl;
+        cout << "|   0. Exit                            |" << endl;
+        cout << "========================================" << endl;
+        cout << "    Enter: ";
+        setColor(6);
 
         cin >> pilihan;
         cin.clear();
@@ -119,12 +187,19 @@ int main()
         switch (pilihan)
         {
         case 1:
+            system("cls");
             loginUser(jumlahDataLaptop, jumlahDataRiwayat);
             break;
         case 2:
+            system("cls");
             registerUser();
             break;
         case 0:
+            system("cls");
+            setColor(3);
+            cout << "========================================" << endl;
+            cout << "|             TERIMA KASIH             |" << endl;
+            cout << "========================================" << endl;
             return 0;
         }
 
