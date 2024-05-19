@@ -23,6 +23,48 @@ struct userSejarahPembelian
     string pembayaran;
 };
 
+
+void selectionSort(userDataLaptop ulap[], int& jumlahDataLaptop)
+{
+    int i, j, minimum;
+    for (i = 0; i < jumlahDataLaptop - 1; i++)
+    {
+        minimum = i;
+        for (j = i+1; j < jumlahDataLaptop; j++)
+        {
+            if (ulap[j].nama < ulap[minimum].nama)
+            {
+                minimum = j;
+            }
+        }
+
+        if (minimum != i)
+        {
+        userDataLaptop temp = ulap[minimum];
+        ulap[minimum] = ulap[i];
+        ulap[i] = temp;
+        }
+    }
+}
+
+
+void shellSort(userDataLaptop ulap[], int& jumlahDataLaptop)
+{
+    for (int gap = jumlahDataLaptop / 2; gap > 0; gap /= 2)
+    {
+        for (int i = gap; i < jumlahDataLaptop; i++)
+        {
+            userDataLaptop temp = ulap[i];
+            int j;
+            for (j = i; j >= gap && ulap[j-gap].harga > temp.harga; j -= gap)
+            {
+                ulap[j] = ulap[j - gap];
+            }
+            ulap[j] = temp;
+        }
+    }
+}
+
 // Prosedur read laptop
 void listLaptop(int &jumlahDataLaptop, bool sortByName)
 {
@@ -30,8 +72,8 @@ void listLaptop(int &jumlahDataLaptop, bool sortByName)
     fstream file;
     userDataLaptop ulap[jumlahDataLaptop];
 
+    // Mengambil data
     file.open("Database\\laptop.csv", ios::in);
-
     for (int i = 0; i < jumlahDataLaptop; i++)
     {
         getline(file, ulap[i].nama, ',');
@@ -41,48 +83,14 @@ void listLaptop(int &jumlahDataLaptop, bool sortByName)
         ulap[i].stok = stoi(placeholder);
         getline(file, ulap[i].deskripsi, '\n');
     }
-
     file.close();
 
+    // Sorting secara nama menggunakan selection
     if (sortByName)
-    {
-        int i, j, minimum;
-        for (i = 0; i < jumlahDataLaptop - 1; i++)
-        {
-            minimum = i;
-            for (j = i+1; j < jumlahDataLaptop; j++)
-            {
-                if (ulap[j].nama < ulap[minimum].nama)
-                {
-                    minimum = j;
-                }
-            }
-
-            if (minimum != i)
-            {
-            userDataLaptop temp = ulap[minimum];
-            ulap[minimum] = ulap[i];
-            ulap[i] = temp;
-            }
-        }
-    }
-        else
-        {
-            for (int gap = jumlahDataLaptop / 2; gap > 0; gap /= 2)
-            {
-                for (int i = gap; i < jumlahDataLaptop; i++)
-                {
-                    userDataLaptop temp = ulap[i];
-                    int j;
-                    for (j = i; j >= gap && ulap[j-gap].harga > temp.harga; j -= gap)
-                    {
-                        ulap[j] = ulap[j - gap];
-                    }
-                    ulap[j] = temp;
-                }
-            }
-
-        }
+        selectionSort(ulap, jumlahDataLaptop);
+    // Sorting secara harga menggunakan shell sort
+    else
+        shellSort(ulap, jumlahDataLaptop);
 
 
     for (int i = 0; i < jumlahDataLaptop; ++i)
@@ -105,136 +113,169 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
     struct userDataLaptop ulap[jumlahDataLaptop];
     int pilihan, metodePembayaran;
     string placeholder;
+    char ulang = 'y';
     fstream file;
 
-    // Mengambil data dari csv dan menampung ke struct lokal
-    file.open("Database\\laptop.csv", ios::in);
-    for (int i = 0; i < jumlahDataLaptop; i++)
+    do
     {
-        getline(file, ulap[i].nama, ',');
-        getline(file, placeholder, ',');
-        ulap[i].harga = stoi(placeholder);
-        getline(file, placeholder, ',');
-        ulap[i].stok = stoi(placeholder);
-        getline(file, ulap[i].deskripsi, '\n');
-    }
-    file.close();
-    listLaptop(jumlahDataLaptop, true);
+        // Mengambil data dari csv dan menampung ke struct lokal
+        file.open("Database\\laptop.csv", ios::in);
+        for (int i = 0; i < jumlahDataLaptop; i++)
+        {
+            getline(file, ulap[i].nama, ',');
+            getline(file, placeholder, ',');
+            ulap[i].harga = stoi(placeholder);
+            getline(file, placeholder, ',');
+            ulap[i].stok = stoi(placeholder);
+            getline(file, ulap[i].deskripsi, '\n');
+        }
+        file.close();
 
-    cout << "Pilih laptop yang ingin dibeli: ";
-    cin >> pilihan;
-    cin.clear();
-    cin.ignore();
+        shellSort(ulap, jumlahDataLaptop);
+        listLaptop(jumlahDataLaptop, false);
 
-    cout << "Memakai apa anda ingin membayar?" << endl;
-    cout << "[1] Bank Transfer" << endl;
-    cout << "[2] E-Wallet" << endl;
-    cout << "Pilih >> ";
-    cin >> metodePembayaran;
+        cout << "Pilih laptop yang ingin dibeli: ";
+//
+//        cin >> pilihan;
+        if (cin >> noskipws >> pilihan && pilihan > 0 && pilihan <= jumlahDataLaptop && ulap[pilihan-1].stok > 0)
+        {
+            cin.clear();
+            cin.ignore();
+        }
+        else
+        {
+            cout << "Pilihan tidak valid!" << endl;
+            cin.clear();
+            cin.ignore();
+            beliLaptop(namaUser, jumlahDataLaptop, jumlahDataRiwayat);
+        }
 
-    cin.clear();
-    cin.ignore();
 
-    switch (metodePembayaran)
-    {
-    case 1:
-    {
-        int statusPembayaran;
-        cout << "Silakan transfer ke rekening: 000000116413" << endl;
-        cout << "Senilai: Rp" << ulap[pilihan - 1].harga << endl;
-        cout << "[1] SUDAH TRANSFER" << endl;
-        cout << "[2] BATALKAN TRANSAKSI" << endl;
+        do
+        {
+
+        cout << "Memakai apa anda ingin membayar?" << endl;
+        cout << "[1] Bank Transfer" << endl;
+        cout << "[2] E-Wallet" << endl;
         cout << "Pilih >> ";
-        cin >> statusPembayaran;
-        switch (statusPembayaran)
+        cin >> metodePembayaran;
+
+        cin.clear();
+        cin.ignore();
+
+        switch (metodePembayaran)
         {
         case 1:
         {
-            file.open("Database\\transaction_history.csv", ios::out | ios::app);
-
-            time_t now = time(0);
-            file << now << ',';
-            file << namaUser << ',';
-            file << ulap[pilihan - 1].nama << ',';
-            file << ulap[pilihan - 1].harga << ',';
-            file << "bank" << '\n';
-            file.close();
-
-            jumlahDataRiwayat += 1;
-
-            ulap[pilihan - 1].stok -= 1;
-
-            file.open("Database\\laptop.csv", ios::out | ios::trunc);
-            for (int i = 0; i < jumlahDataLaptop; ++i)
+            int statusPembayaran;
+            cout << "Silakan transfer ke rekening: 000000116413" << endl;
+            cout << "Senilai: Rp" << ulap[pilihan - 1].harga << endl;
+            cout << "[1] SUDAH TRANSFER" << endl;
+            cout << "[2] BATALKAN TRANSAKSI" << endl;
+            cout << "Pilih >> ";
+            cin >> statusPembayaran;
+            switch (statusPembayaran)
             {
-                file << ulap[i].nama << ',';
-                file << ulap[i].harga << ',';
-                file << ulap[i].stok << ',';
-                file << ulap[i].deskripsi << '\n';
-            }
-            file.close();
+            case 1:
+            {
+                file.open("Database\\transaction_history.csv", ios::out | ios::app);
 
-            cout << "Pembayaran berhasil" << endl;
+                time_t now = time(0);
+                file << now << ',';
+                file << namaUser << ',';
+                file << ulap[pilihan - 1].nama << ',';
+                file << ulap[pilihan - 1].harga << ',';
+                file << "bank" << '\n';
+                file.close();
+
+                jumlahDataRiwayat += 1;
+
+                ulap[pilihan - 1].stok -= 1;
+
+                file.open("Database\\laptop.csv", ios::out | ios::trunc);
+                for (int i = 0; i < jumlahDataLaptop; ++i)
+                {
+                    file << ulap[i].nama << ',';
+                    file << ulap[i].harga << ',';
+                    file << ulap[i].stok << ',';
+                    file << ulap[i].deskripsi << '\n';
+                }
+                file.close();
+
+                cout << "Pembayaran berhasil" << endl;
+                break;
+            }
+            default:
+                cout << "Pembayaran dibatalkan" << endl;
+                break;
+            }
+            cin.clear();
+            cin.ignore();
+            break;
+        }
+        case 2:
+        {
+            int statusPembayaran;
+            cout << "Silakan transfer ke: DANA 08123123123" << endl;
+            cout << "Senilai: Rp" << ulap[pilihan - 1].harga << endl;
+            cout << "[1] SUDAH TRANSFER" << endl;
+            cout << "[2] BATALKAN TRANSAKSI" << endl;
+            cout << "Pilih >> ";
+            cin >> statusPembayaran;
+            switch (statusPembayaran)
+            {
+            case 1:
+            {
+                file.open("Database\\transaction_history.csv", ios::out | ios::app);
+
+                time_t now = time(0);
+                file << now << ',';
+                file << namaUser << ',';
+                file << ulap[pilihan - 1].nama << ',';
+                file << ulap[pilihan - 1].harga << ',';
+                file << "wallet" << '\n';
+                file.close();
+                jumlahDataRiwayat += 1;
+
+                ulap[pilihan - 1].stok -= 1;
+
+                file.open("Database\\laptop.csv", ios::out | ios::trunc);
+                for (int i = 0; i < jumlahDataLaptop; ++i)
+                {
+                    file << ulap[i].nama << ',';
+                    file << ulap[i].harga << ',';
+                    file << ulap[i].stok << ',';
+                    file << ulap[i].deskripsi << '\n';
+                }
+                file.close();
+
+                cout << "Pembayaran berhasil" << endl;
+                break;
+            }
+            default:
+                cout << "Pembayaran dibatalkan" << endl;
+                break;
+            }
+            cin.clear();
+            cin.ignore();
             break;
         }
         default:
-            cout << "Pembayaran dibatalkan" << endl;
             break;
         }
+        }while(true)
+
+        cout << "Apakah anda ingin membeli lagi? (y/n)";
+        cin >> ulang;
         cin.clear();
         cin.ignore();
-        break;
-    }
-    case 2:
-    {
-        int statusPembayaran;
-        cout << "Silakan transfer ke: DANA 08123123123" << endl;
-        cout << "Senilai: Rp" << ulap[pilihan - 1].harga << endl;
-        cout << "[1] SUDAH TRANSFER" << endl;
-        cout << "[2] BATALKAN TRANSAKSI" << endl;
-        cout << "Pilih >> ";
-        cin >> statusPembayaran;
-        switch (statusPembayaran)
-        {
-        case 1:
-        {
-            file.open("Database\\transaction_history.csv", ios::out | ios::app);
 
-            time_t now = time(0);
-            file << now << ',';
-            file << namaUser << ',';
-            file << ulap[pilihan - 1].nama << ',';
-            file << ulap[pilihan - 1].harga << ',';
-            file << "wallet" << '\n';
-            file.close();
-            jumlahDataRiwayat += 1;
-
-            ulap[pilihan - 1].stok -= 1;
-
-            file.open("Database\\laptop.csv", ios::out | ios::trunc);
-            for (int i = 0; i < jumlahDataLaptop; ++i)
-            {
-                file << ulap[i].nama << ',';
-                file << ulap[i].harga << ',';
-                file << ulap[i].stok << ',';
-                file << ulap[i].deskripsi << '\n';
-            }
-            file.close();
-
-            cout << "Pembayaran berhasil" << endl;
+        if (ulang == 'y')
+            continue;
+        else
             break;
-        }
-        default:
-            cout << "Pembayaran dibatalkan" << endl;
-            break;
-        }
-        cin.clear();
-        cin.ignore();
-        break;
-    }
-    default:
-        break;
-    }
+
+    }while (ulang == 'y');
 }
 
 // Prosedur data riwayat

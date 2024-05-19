@@ -156,7 +156,8 @@ void ubahDataLaptop(int& jumlahDataLaptop)
     }
     file.close();
 
-    bacaDataLaptop(jumlahDataLaptop, false);
+    selectionSort(alap, jumlahDataLaptop);
+    bacaDataLaptop(jumlahDataLaptop, true);
 
     cout << "Masukkan pilihan untuk data yang ingin di ubah: ";
     cin >> pilihan;
@@ -242,7 +243,7 @@ void hapusDataLaptop(int& jumlahDataLaptop)
     file.close();
 
     selectionSort(alap, jumlahDataLaptop);
-    bacaDataLaptop(jumlahDataLaptop, false);
+    bacaDataLaptop(jumlahDataLaptop, true);
 
     cout << "Masukkan nama laptop yang ingin dihapus: ";
     getline(cin, key);
