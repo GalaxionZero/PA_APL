@@ -13,6 +13,11 @@ using namespace std;
 using namespace chrono;
 using namespace this_thread;
 
+//kode warna :
+//    3 = tabel
+//    10 = tulisan (kecuali eror)
+//    6 = inputan
+//    4 = eror
 
 struct
 {
@@ -31,13 +36,16 @@ int registerUser()
 
     setColor(3);
     cout << "========================================" << endl;
-    cout << "|               REGISTER               |" << endl;
+    setColor(10);
+    cout << "                REGISTER                " << endl;
+    setColor(3);
     cout << "========================================" << endl;
+    setColor(10);
     cout << "  Masukkan nama user: ";
     setColor(6);
     getline(cin, namaUserBaru);
 
-    setColor(3);
+    setColor(10);
     cout << "  Masukkan password: ";
     setColor(6);
     getline(cin, passwordUserBaru);
@@ -55,7 +63,7 @@ int registerUser()
             system("cls");
             setColor(4);
             cout << "========================================" << endl;
-            cout << "|       NAMA USER SUDAH DIGUNAKAN      |" << endl;
+            cout << "        NAMA USER SUDAH DIGUNAKAN       " << endl;
             cout << "========================================" << endl;
             sleep_for(seconds(2));
             system("cls");
@@ -79,13 +87,16 @@ void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
 
     setColor(3);
     cout << "========================================" << endl;
-    cout << "|                LOGIN                 |" << endl;
+    setColor(10);
+    cout << "                 LOGIN                  " << endl;
+    setColor(3);
     cout << "========================================" << endl;
+    setColor(10);
     cout << "  Masukkan nama user: ";
     setColor(6);
     getline(cin, namaLogin);
 
-    setColor(3);
+    setColor(10);
     cout << "  Masukkan password: ";
     setColor(6);
     getline(cin, passwordLogin);
@@ -168,15 +179,20 @@ int main()
 
     while (true)
     {
-        setColor(3);
         system("cls");
+        setColor(3);
         cout << "========================================" << endl;
-        cout << "|              MENU LOGIN              |" << endl;
+        setColor(10);
+        cout << "               MENU LOGIN               " << endl;
+        setColor(3);
         cout << "========================================" << endl;
-        cout << "|   1. Login                           |" << endl;
-        cout << "|   2. Register                        |" << endl;
-        cout << "|   0. Exit                            |" << endl;
+        setColor(10);
+        cout << "    1. Login                            " << endl;
+        cout << "    2. Register                         " << endl;
+        cout << "    0. Exit                             " << endl;
+        setColor(3);
         cout << "========================================" << endl;
+        setColor(10);
         cout << "    Enter: ";
         setColor(6);
 
@@ -198,7 +214,9 @@ int main()
             system("cls");
             setColor(3);
             cout << "========================================" << endl;
-            cout << "|             TERIMA KASIH             |" << endl;
+            setColor(10);
+            cout << "              TERIMA KASIH              " << endl;
+            setColor(3);
             cout << "========================================" << endl;
             return 0;
         }
