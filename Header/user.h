@@ -2,7 +2,14 @@
 #include <fstream>
 #include <string>
 #include <ctime>
+
 using namespace std;
+using namespace chrono;
+using namespace this_thread;
+
+//Prosedur untuk memberikan warna pada output
+void setColorUser(int color) {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);}
 
 // Mengambil dan save data dari dan ke csv dataLaptop
 struct userDataLaptop
@@ -92,19 +99,29 @@ void listLaptop(int &jumlahDataLaptop, bool sortByName)
     else
         shellSort(ulap, jumlahDataLaptop);
 
+    // Header tabel
+    setColorUser(3);
+    cout << string(139, '=') << endl;
+    cout << left << setw(5); setColorUser(10); cout << "No."; setColorUser(3); cout << " | ";
+    cout << left << setw(20); setColorUser(10); cout << "Nama"; setColorUser(3); cout << " | ";
+    cout << left << setw(40); setColorUser(10); cout << "Harga"; setColorUser(3); cout << " | ";
+    cout << left << setw(10); setColorUser(10); cout << "Stok"; setColorUser(3); cout << " | ";
+    cout << left << setw(50); setColorUser(10); cout << "Deskripsi"; setColorUser(3); cout << " | " << endl;
+    cout << string(139, '=') << endl;
 
     for (int i = 0; i < jumlahDataLaptop; ++i)
     {
         if (ulap[i].nama != "")
         {
-            cout << "No. " << i+1 << endl;
-            cout << "Nama: " << ulap[i].nama << endl;
-            cout << "Harga: " << ulap[i].harga << endl;
-            cout << "Stok: " << ulap[i].stok << endl;
-            cout << ulap[i].deskripsi << endl;
-            cout << "|||" << endl;
+            cout << left << setw(5); setColorUser(10); cout << i + 1; setColorUser(3); cout << " | ";
+            cout << left << setw(20); setColorUser(10); cout << ulap[i].nama; setColorUser(3); cout << " | ";
+            cout << left << setw(40); setColorUser(10); cout << ulap[i].harga; setColorUser(3); cout << " | ";
+            cout << left << setw(10); setColorUser(10); cout << ulap[i].stok; setColorUser(3); cout << " | ";
+            cout << left << setw(50); setColorUser(10); cout << ulap[i].deskripsi; setColorUser(3); cout << " | " << endl;
         }
     }
+    setColorUser(3);
+    cout << string(139, '=') << endl;
 }
 
 // Prosedur membeli laptop
@@ -134,28 +151,48 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
         shellSort(ulap, jumlahDataLaptop);
         listLaptop(jumlahDataLaptop, false);
 
-        cout << "Pilih laptop yang ingin dibeli: ";
+        setColorUser(10);
+        cout << "\nPilih laptop yang ingin dibeli: ";
 //
 //        cin >> pilihan;
-        if (cin >> noskipws >> pilihan && pilihan > 0 && pilihan <= jumlahDataLaptop && ulap[pilihan-1].stok > 0)
+        setColorUser(6);
+        while (!(cin >> noskipws >> pilihan && pilihan > 0 && pilihan <= jumlahDataLaptop && ulap[pilihan-1].stok > 0))
         {
             cin.clear();
-            cin.ignore();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+            system("cls");
+            setColorUser(4);
+            cout << "========================================" << endl;
+            cout << "            PILIHAN INVALID             " << endl;
+            cout << "            ATAU STOK HABIS             " << endl;
+            cout << "========================================" << endl;
+            sleep_for(seconds(2));
+            system("cls");
+            cin.clear();
+            beliLaptop(namaUser, jumlahDataLaptop, jumlahDataRiwayat);
         }
-            else
-            {
-                cout << "Pilihan tidak valid!" << endl;
-                cin.clear();
-                cin.ignore();
-                beliLaptop(namaUser, jumlahDataLaptop, jumlahDataRiwayat);
-            }
+
+        cin.clear();
+        cin.ignore();
 
         while (true)
         {
-            cout << "Memakai apa anda ingin membayar?" << endl;
-            cout << "[1] Bank Transfer" << endl;
-            cout << "[2] E-Wallet" << endl;
+            system("cls");
+            setColorUser(3);
+            cout << "========================================" << endl;
+            setColorUser(10);
+            cout << "           METODE PEMBAYARAN            " << endl;
+            setColorUser(3);
+            cout << "========================================" << endl;
+            setColorUser(10);
+            cout << "    Memakai apa anda ingin membayar?" << endl;
+            cout << "    [1] Bank Transfer" << endl;
+            cout << "    [2] E-Wallet" << endl;
+            setColorUser(3);
+            cout << "========================================" << endl;
+            setColorUser(10);
             cout << "Pilih >> ";
+            setColorUser(6);
             if (cin >> noskipws >> metodePembayaran && metodePembayaran > 0 && metodePembayaran <= 2)
             {
                 cin.clear();
@@ -164,9 +201,16 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             }
                 else
                 {
-                    cout << "Pilihan tidak valid!" << endl;
                     cin.clear();
-                    cin.ignore();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+                    system("cls");
+                    setColorUser(4);
+                    cout << "========================================" << endl;
+                    cout << "            PILIHAN INVALID!            " << endl;
+                    cout << "========================================" << endl;
+                    sleep_for(seconds(2));
+                    system("cls");
+                    cin.clear();
                 }
         }
         switch (metodePembayaran)
@@ -176,11 +220,32 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             int statusPembayaran;
             while (true)
             {
-                cout << "Silakan transfer ke rekening: 000000116413" << endl;
-                cout << "Senilai: Rp" << ulap[pilihan - 1].harga << endl;
-                cout << "[1] SUDAH TRANSFER" << endl;
-                cout << "[2] BATALKAN TRANSAKSI" << endl;
-                cout << "Pilih >> ";
+                system("cls");
+                setColorUser(3);
+                cout << "================================================" << endl;
+                setColorUser(10);
+                cout << "                   PEMBAYARAN                   " << endl;
+                setColorUser(3);
+                cout << "================================================" << endl;
+                setColorUser(10);
+                cout << "Silakan transfer ke rekening : ";
+                setColorUser(6);
+                cout << "000000116413" << endl;
+                setColorUser(10);
+                cout << "Senilai:";
+                setColorUser(6);
+                cout << "Rp" << ulap[pilihan - 1].harga << endl;
+                setColorUser(3);
+                cout << "================================================" << endl;
+                setColorUser(10);
+                cout << "    [1] SUDAH TRANSFER" << endl;
+                cout << "    [2] BATALKAN TRANSAKSI" << endl;
+                setColorUser(3);
+                cout << "================================================" << endl;
+                setColorUser(10);
+                cout << "    Pilih >> ";
+
+                setColorUser(6);
                 if (cin >> noskipws >> statusPembayaran && statusPembayaran > 0 && statusPembayaran <= 2)
                 {
                     cin.clear();
@@ -189,9 +254,16 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 }
                     else
                     {
-                        cout << "Pilihan tidak valid!" << endl;
                         cin.clear();
-                        cin.ignore();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+                        system("cls");
+                        setColorUser(4);
+                        cout << "========================================" << endl;
+                        cout << "            PILIHAN INVALID!            " << endl;
+                        cout << "========================================" << endl;
+                        sleep_for(seconds(2));
+                        system("cls");
+                        cin.clear();
                     }
             }
 
@@ -223,11 +295,26 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 }
                 file.close();
 
-                cout << "Pembayaran berhasil" << endl;
+                system("cls");
+                setColorUser(3);
+                cout << "========================================" << endl;
+                setColorUser(10);
+                cout << "          PEMBAYARAN BERHASIL!          " << endl;
+                setColorUser(3);
+                cout << "========================================" << endl;
                 break;
             }
             default:
-                cout << "Pembayaran dibatalkan" << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+                system("cls");
+                setColorUser(4);
+                cout << "========================================" << endl;
+                cout << "         PEMBAYARAN DIBATALKAN!         " << endl;
+                cout << "========================================" << endl;
+                sleep_for(seconds(2));
+                system("cls");
+                cin.clear();
                 break;
             }
 
@@ -238,11 +325,33 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             int statusPembayaran;
             while (true)
             {
-                cout << "Silakan transfer ke: DANA 08123123123" << endl;
-                cout << "Senilai: Rp" << ulap[pilihan - 1].harga << endl;
-                cout << "[1] SUDAH TRANSFER" << endl;
-                cout << "[2] BATALKAN TRANSAKSI" << endl;
-                cout << "Pilih >> ";
+                system("cls");
+                setColorUser(3);
+                cout << "================================================" << endl;
+                setColorUser(10);
+                cout << "                   PEMBAYARAN                   " << endl;
+                setColorUser(3);
+                cout << "================================================" << endl;
+                setColorUser(10);
+                cout << "Silakan transfer ke : ";
+                setColorUser(6);
+                cout << "DANA 08123123123" << endl;
+                setColorUser(10);
+                cout << "Senilai:";
+                setColorUser(6);
+                cout << "Rp" << ulap[pilihan - 1].harga << endl;
+                setColorUser(3);
+                cout << "================================================" << endl;
+                setColorUser(10);
+                cout << "    [1] SUDAH TRANSFER" << endl;
+                cout << "    [2] BATALKAN TRANSAKSI" << endl;
+                setColorUser(3);
+                cout << "================================================" << endl;
+                setColorUser(10);
+                cout << "    Pilih >> ";
+
+                setColorUser(6);
+
                 if (cin >> noskipws >> statusPembayaran && statusPembayaran > 0 && statusPembayaran <= 2)
                 {
                     cin.clear();
@@ -251,9 +360,16 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 }
                     else
                     {
-                        cout << "Pilihan tidak valid!" << endl;
                         cin.clear();
-                        cin.ignore();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+                        system("cls");
+                        setColorUser(4);
+                        cout << "========================================" << endl;
+                        cout << "            PILIHAN INVALID!            " << endl;
+                        cout << "========================================" << endl;
+                        sleep_for(seconds(2));
+                        system("cls");
+                        cin.clear();
                     }
             }
 
@@ -284,12 +400,28 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 }
                 file.close();
 
-                cout << "Pembayaran berhasil" << endl;
+                system("cls");
+                setColorUser(3);
+                cout << "========================================" << endl;
+                setColorUser(10);
+                cout << "          PEMBAYARAN BERHASIL!          " << endl;
+                setColorUser(3);
+                cout << "========================================" << endl;
+
                 break;
             }
 
             default:
-                cout << "Pembayaran dibatalkan" << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+                system("cls");
+                setColorUser(4);
+                cout << "========================================" << endl;
+                cout << "         PEMBAYARAN DIBATALKAN!         " << endl;
+                cout << "========================================" << endl;
+                sleep_for(seconds(2));
+                system("cls");
+                cin.clear();
                 break;
             }
 
@@ -302,16 +434,35 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
 
         while (true)
         {
-            cout << "Apakah anda ingin membeli lagi? (y/n)";
-            if (cin >> noskipws >> ulang)
+            system("cls");
+            setColorUser(3);
+            cout << "========================================" << endl;
+            setColorUser(10);
+            cout << "               KONFIRMASI               " << endl;
+            setColorUser(3);
+            cout << "========================================" << endl;
+            setColorUser(10);
+            cout << "\nApakah anda ingin membeli lagi? (y/n)";
+            setColorUser(6);
+            if (cin >> noskipws >> ulang && ulang == 'y')
             {
                 cin.clear();
-                cin.ignore();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+                break;
+            }
+            else if (ulang == 'n')
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
                 break;
             }
             else
-                break;
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+            }
         }
+        system("cls");
     }while (ulang == 'y');
 }
 
@@ -336,19 +487,41 @@ void listRiwayatUser(string namaUser, int &jumlahDataRiwayat)
     }
     file.close();
 
+    setColorUser(3);
+    cout << string(139, '=') << endl;
+    setColorUser(10); cout << left << setw(25) << "Tanggal Pembelian"; setColorUser(3); cout << " | ";
+    setColorUser(10); cout << left << setw(25) << "Waktu Pembelian"; setColorUser(3); cout << " | ";
+    setColorUser(10); cout << left << setw(20) << "Nama"; setColorUser(3); cout << " | ";
+    setColorUser(10); cout << left << setw(40) << "Nominal"; setColorUser(3); cout << " | ";
+    setColorUser(10); cout << left << setw(15) << "Pembayaran"; setColorUser(3); cout << " | " << endl;
+    cout << string(139, '=') << endl;
+
     // Mencari nama didalam riwayat dan membandingkan dengan namaUser
     // untuk menunjukkan hanya yang di beli oleh user
     for (int i = 0; i < jumlahDataRiwayat; ++i)
     {
         if (namaUser == usp[i].namaUser)
         {
+            //to_string digunakan untuk menggabungkan hari, bulan, dan tahun, serta jam, menit, dan detik menjadi satu string yang panjangnya konsisten.
             tm *ltm = localtime(&usp[i].waktuPembelian);
-            cout << "Waktu Pembelian: " << ltm->tm_mday << "-" << 1 + ltm->tm_mon << "-" << 1900 + ltm->tm_year << " pukul " << ltm->tm_hour << "." << ltm->tm_min << "." << ltm->tm_sec << endl;
-            cout << usp[i].namaLaptop << endl;
-            cout << usp[i].nominal << endl;
-            cout << usp[i].pembayaran << endl;
+            setColorUser(10);
+            cout << left << setw(25) << (to_string(ltm->tm_mday) + "-" + to_string(1 + ltm->tm_mon) + "-" + to_string(1900 + ltm->tm_year));
+            setColorUser(3); cout << " | ";
+            setColorUser(10);
+            cout << left << setw(25) << (to_string(ltm->tm_hour) + "." + to_string(ltm->tm_min) + "." + to_string(ltm->tm_sec));
+            setColorUser(3); cout << " | ";
+            setColorUser(10);
+            cout << left << setw(20) << usp[i].namaLaptop;
+            setColorUser(3); cout << " | ";
+            setColorUser(10);
+            cout << left << setw(40) << fixed << setprecision(0) << usp[i].nominal;
+            setColorUser(3); cout << " | ";
+            setColorUser(10);
+            cout << left << setw(15) << usp[i].pembayaran;
+            setColorUser(3); cout << " | " << endl;
         }
     }
+    cout << string(139, '=') << endl;
 }
 
 // Menu User
@@ -357,12 +530,23 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
     int pilihan, pilihanSorting;
     while (true)
     {
-        cout << "Menu" << endl;
-        cout << "1. Lihat List Laptop" << endl;
-        cout << "2. Beli" << endl;
-        cout << "3. Lihat Riwayat Pembelian" << endl;
-        cout << "0. Logout" << endl;
-        cout << "Enter: ";
+        system("cls");
+        setColorUser(3);
+        cout << "========================================" << endl;
+        setColorUser(10);
+        cout << "               MENU LOGIN               " << endl;
+        setColorUser(3);
+        cout << "========================================" << endl;
+        setColorUser(10);
+        cout << "    1. Lihat List Laptop                " << endl;
+        cout << "    2. Beli                             " << endl;
+        cout << "    3. Lihat Riwayat Pembelian          " << endl;
+        cout << "    0. Logout                           " << endl;
+        setColorUser(3);
+        cout << "========================================" << endl;
+        setColorUser(10);
+        cout << "    Enter: ";
+        setColorUser(6);
 
         if (cin >> noskipws >> pilihan && pilihan >= 0 && pilihan <= 3)
         {
@@ -371,18 +555,37 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
         }
             else
             {
-                cout << "Pilihan tidak valid!";
                 cin.clear();
-                cin.ignore();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+                system("cls");
+                setColorUser(4);
+                cout << "========================================" << endl;
+                cout << "            PILIHAN INVALID!            " << endl;
+                cout << "========================================" << endl;
+                sleep_for(seconds(2));
+                system("cls");
+                cin.clear();
                 menuUser(namaUser, jumlahDataLaptop, jumlahDataRiwayat);
             }
 
         switch (pilihan)
         {
         case 1:
-            cout << "1. Urutkan secara nama" << endl;
-            cout << "2. Urutkan secara harga" << endl;
-            cout << "Enter: ";
+            system("cls");
+            setColorUser(3);
+            cout << "========================================" << endl;
+            setColorUser(10);
+            cout << "           LIHAT LIST LAPTOP            " << endl;
+            setColorUser(3);
+            cout << "========================================" << endl;
+            setColorUser(10);
+            cout << "    1. Urutkan secara nama" << endl;
+            cout << "    2. Urutkan secara harga" << endl;
+            setColorUser(3);
+            cout << "========================================" << endl;
+            setColorUser(10);
+            cout << "    Enter: ";
+            setColorUser(6);
             if (cin >> noskipws >> pilihanSorting && pilihanSorting > 0 && pilihanSorting <= 2)
             {
                 cin.clear();
@@ -390,27 +593,50 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             }
                 else
                 {
-                    cout << "Pilihan tidak valid!" << endl;
                     cin.clear();
-                    cin.ignore();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+                    system("cls");
+                    setColorUser(4);
+                    cout << "========================================" << endl;
+                    cout << "            PILIHAN INVALID!            " << endl;
+                    cout << "========================================" << endl;
+                    sleep_for(seconds(2));
+                    system("cls");
+                    cin.clear();
                     menuUser(namaUser, jumlahDataLaptop, jumlahDataRiwayat);
                 }
 
             switch (pilihanSorting)
             {
             case 1:
+                system("cls");
                 listLaptop(jumlahDataLaptop, true);
+                setColorUser(10);
+                cout << "\nTekan Enter untuk melanjutkan...";
+                cin.get();
+                cin.clear();
                 break;
             case 2:
+                system("cls");
                 listLaptop(jumlahDataLaptop, false);
+                setColorUser(10);
+                cout << "\nTekan Enter untuk melanjutkan...";
+                cin.get();
+                cin.clear();
                 break;
             }
             break;
         case 2:
+            system("cls");
             beliLaptop(namaUser, jumlahDataLaptop, jumlahDataRiwayat);
             break;
         case 3:
+            system("cls");
             listRiwayatUser(namaUser, jumlahDataRiwayat);
+            setColorUser(10);
+            cout << "\nTekan Enter untuk melanjutkan...";
+            cin.get();
+            cin.clear();
             break;
         case 0:
             return 0;
