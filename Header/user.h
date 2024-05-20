@@ -142,38 +142,59 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             cin.clear();
             cin.ignore();
         }
-        else
+            else
+            {
+                cout << "Pilihan tidak valid!" << endl;
+                cin.clear();
+                cin.ignore();
+                beliLaptop(namaUser, jumlahDataLaptop, jumlahDataRiwayat);
+            }
+
+        while (true)
         {
-            cout << "Pilihan tidak valid!" << endl;
-            cin.clear();
-            cin.ignore();
-            beliLaptop(namaUser, jumlahDataLaptop, jumlahDataRiwayat);
+            cout << "Memakai apa anda ingin membayar?" << endl;
+            cout << "[1] Bank Transfer" << endl;
+            cout << "[2] E-Wallet" << endl;
+            cout << "Pilih >> ";
+            if (cin >> noskipws >> metodePembayaran && metodePembayaran > 0 && metodePembayaran <= 2)
+            {
+                cin.clear();
+                cin.ignore();
+                break;
+            }
+                else
+                {
+                    cout << "Pilihan tidak valid!" << endl;
+                    cin.clear();
+                    cin.ignore();
+                }
         }
-
-
-        do
-        {
-
-        cout << "Memakai apa anda ingin membayar?" << endl;
-        cout << "[1] Bank Transfer" << endl;
-        cout << "[2] E-Wallet" << endl;
-        cout << "Pilih >> ";
-        cin >> metodePembayaran;
-
-        cin.clear();
-        cin.ignore();
-
         switch (metodePembayaran)
         {
         case 1:
         {
             int statusPembayaran;
-            cout << "Silakan transfer ke rekening: 000000116413" << endl;
-            cout << "Senilai: Rp" << ulap[pilihan - 1].harga << endl;
-            cout << "[1] SUDAH TRANSFER" << endl;
-            cout << "[2] BATALKAN TRANSAKSI" << endl;
-            cout << "Pilih >> ";
-            cin >> statusPembayaran;
+            while (true)
+            {
+                cout << "Silakan transfer ke rekening: 000000116413" << endl;
+                cout << "Senilai: Rp" << ulap[pilihan - 1].harga << endl;
+                cout << "[1] SUDAH TRANSFER" << endl;
+                cout << "[2] BATALKAN TRANSAKSI" << endl;
+                cout << "Pilih >> ";
+                if (cin >> noskipws >> statusPembayaran && statusPembayaran > 0 && statusPembayaran <= 2)
+                {
+                    cin.clear();
+                    cin.ignore();
+                    break;
+                }
+                    else
+                    {
+                        cout << "Pilihan tidak valid!" << endl;
+                        cin.clear();
+                        cin.ignore();
+                    }
+            }
+
             switch (statusPembayaran)
             {
             case 1:
@@ -209,19 +230,33 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 cout << "Pembayaran dibatalkan" << endl;
                 break;
             }
-            cin.clear();
-            cin.ignore();
+
             break;
         }
         case 2:
         {
             int statusPembayaran;
-            cout << "Silakan transfer ke: DANA 08123123123" << endl;
-            cout << "Senilai: Rp" << ulap[pilihan - 1].harga << endl;
-            cout << "[1] SUDAH TRANSFER" << endl;
-            cout << "[2] BATALKAN TRANSAKSI" << endl;
-            cout << "Pilih >> ";
-            cin >> statusPembayaran;
+            while (true)
+            {
+                cout << "Silakan transfer ke: DANA 08123123123" << endl;
+                cout << "Senilai: Rp" << ulap[pilihan - 1].harga << endl;
+                cout << "[1] SUDAH TRANSFER" << endl;
+                cout << "[2] BATALKAN TRANSAKSI" << endl;
+                cout << "Pilih >> ";
+                if (cin >> noskipws >> statusPembayaran && statusPembayaran > 0 && statusPembayaran <= 2)
+                {
+                    cin.clear();
+                    cin.ignore();
+                    break;
+                }
+                    else
+                    {
+                        cout << "Pilihan tidak valid!" << endl;
+                        cin.clear();
+                        cin.ignore();
+                    }
+            }
+
             switch (statusPembayaran)
             {
             case 1:
@@ -252,29 +287,31 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 cout << "Pembayaran berhasil" << endl;
                 break;
             }
+
             default:
                 cout << "Pembayaran dibatalkan" << endl;
                 break;
             }
-            cin.clear();
-            cin.ignore();
+
             break;
         }
+
         default:
             break;
         }
-        }while(true)
 
-        cout << "Apakah anda ingin membeli lagi? (y/n)";
-        cin >> ulang;
-        cin.clear();
-        cin.ignore();
-
-        if (ulang == 'y')
-            continue;
-        else
-            break;
-
+        while (true)
+        {
+            cout << "Apakah anda ingin membeli lagi? (y/n)";
+            if (cin >> noskipws >> ulang)
+            {
+                cin.clear();
+                cin.ignore();
+                break;
+            }
+            else
+                break;
+        }
     }while (ulang == 'y');
 }
 
@@ -327,9 +364,18 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
         cout << "0. Logout" << endl;
         cout << "Enter: ";
 
-        cin >> pilihan;
-        cin.clear();
-        cin.ignore();
+        if (cin >> noskipws >> pilihan && pilihan >= 0 && pilihan <= 3)
+        {
+            cin.clear();
+            cin.ignore();
+        }
+            else
+            {
+                cout << "Pilihan tidak valid!";
+                cin.clear();
+                cin.ignore();
+                menuUser(namaUser, jumlahDataLaptop, jumlahDataRiwayat);
+            }
 
         switch (pilihan)
         {
@@ -337,9 +383,18 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             cout << "1. Urutkan secara nama" << endl;
             cout << "2. Urutkan secara harga" << endl;
             cout << "Enter: ";
-            cin >> pilihanSorting;
-            cin.clear();
-            cin.ignore();
+            if (cin >> noskipws >> pilihanSorting && pilihanSorting > 0 && pilihanSorting <= 2)
+            {
+                cin.clear();
+                cin.ignore();
+            }
+                else
+                {
+                    cout << "Pilihan tidak valid!" << endl;
+                    cin.clear();
+                    cin.ignore();
+                    menuUser(namaUser, jumlahDataLaptop, jumlahDataRiwayat);
+                }
 
             switch (pilihanSorting)
             {
@@ -350,7 +405,6 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 listLaptop(jumlahDataLaptop, false);
                 break;
             }
-            break;
             break;
         case 2:
             beliLaptop(namaUser, jumlahDataLaptop, jumlahDataRiwayat);
