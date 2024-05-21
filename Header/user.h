@@ -491,7 +491,7 @@ void listRiwayatUser(string namaUser, int &jumlahDataRiwayat)
     cout << string(139, '=') << endl;
     setColorUser(10); cout << left << setw(25) << "Tanggal Pembelian"; setColorUser(3); cout << " | ";
     setColorUser(10); cout << left << setw(25) << "Waktu Pembelian"; setColorUser(3); cout << " | ";
-    setColorUser(10); cout << left << setw(20) << "Nama"; setColorUser(3); cout << " | ";
+    setColorUser(10); cout << left << setw(20) << "Laptop"; setColorUser(3); cout << " | ";
     setColorUser(10); cout << left << setw(40) << "Nominal"; setColorUser(3); cout << " | ";
     setColorUser(10); cout << left << setw(15) << "Pembayaran"; setColorUser(3); cout << " | " << endl;
     cout << string(139, '=') << endl;
@@ -534,7 +534,7 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
         setColorUser(3);
         cout << "========================================" << endl;
         setColorUser(10);
-        cout << "               MENU LOGIN               " << endl;
+        cout << "               MENU USER                " << endl;
         setColorUser(3);
         cout << "========================================" << endl;
         setColorUser(10);
