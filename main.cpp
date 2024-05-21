@@ -4,6 +4,7 @@
 #include <chrono>
 #include <windows.h>
 #include <cstddef>
+#include <iomanip>
 
 #include "Header/user.h"
 #include "Header/admin.h"
@@ -25,7 +26,7 @@ struct
     string password = "admin";
 } tokenAdmin;
 
-//Prosedur untuk memberikan warna pad aoutput
+//Prosedur untuk memberikan warna pada output
 void setColor(int color) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
@@ -69,6 +70,18 @@ int registerUser()
             system("cls");
             registerUser();
         }
+
+            else if (namaUserBaru == tokenAdmin.nama)
+            {
+                system("cls");
+                setColor(4);
+                cout << "========================================" << endl;
+                cout << "    NAMA USER TIDAK DAPAT DIGUNAKAN!    " << endl;
+                cout << "========================================" << endl;
+                sleep_for(seconds(2));
+                system("cls");
+                registerUser();
+            }
     }
     file.close();
 
