@@ -502,13 +502,13 @@ void listRiwayatUser(string namaUser, int &jumlahDataRiwayat)
     {
         if (namaUser == usp[i].namaUser)
         {
-            //to_string digunakan untuk menggabungkan hari, bulan, dan tahun, serta jam, menit, dan detik menjadi satu string yang panjangnya konsisten.
+            // to_string digunakan untuk menggabungkan hari, bulan, dan tahun, serta jam, menit, dan detik menjadi satu string yang panjangnya konsisten.
             tm *ltm = localtime(&usp[i].waktuPembelian);
             setColorUser(10);
             cout << left << setw(25) << (to_string(ltm->tm_mday) + "-" + to_string(1 + ltm->tm_mon) + "-" + to_string(1900 + ltm->tm_year));
             setColorUser(3); cout << " | ";
             setColorUser(10);
-            cout << left << setw(25) << (to_string(ltm->tm_hour) + "." + to_string(ltm->tm_min) + "." + to_string(ltm->tm_sec));
+            cout << left << setw(25) << (to_string(ltm->tm_hour) + "." + to_string(ltm->tm_min) + "." + to_string(ltm->tm_sec) + " WITA");
             setColorUser(3); cout << " | ";
             setColorUser(10);
             cout << left << setw(20) << usp[i].namaLaptop;
