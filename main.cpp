@@ -8,7 +8,6 @@
 
 #include "Header/user.h"
 #include "Header/admin.h"
-#include "Header/dircheck.h"
 #include "Header/util.h"
 
 using namespace std;
