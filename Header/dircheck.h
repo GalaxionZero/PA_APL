@@ -2,7 +2,7 @@
 #include <fstream>
 using namespace filesystem;
 
-// Melakukan mengecekan
+// Melakukan pengecekan direktori dan file yang diperlukan
 int dirChecker()
 {
     fstream file;

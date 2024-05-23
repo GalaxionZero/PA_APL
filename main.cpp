@@ -76,7 +76,7 @@ int registerUser()
                 system("cls");
                 setColor(4);
                 cout << "========================================" << endl;
-                cout << "    NAMA USER TIDAK DAPAT DIGUNAKAN!    " << endl;
+                cout << "     NAMA USER TIDAK DAPAT DIGUNAKAN    " << endl;
                 cout << "========================================" << endl;
                 sleep_for(seconds(2));
                 system("cls");
@@ -200,9 +200,9 @@ int main()
         setColor(3);
         cout << "========================================" << endl;
         setColor(10);
-        cout << "    1. Login                            " << endl;
-        cout << "    2. Register                         " << endl;
-        cout << "    0. Exit                             " << endl;
+        cout << "    1. Masuk                            " << endl;
+        cout << "    2. Daftar sebagai pengguna       " << endl;
+        cout << "    0. Keluar dari program              " << endl;
         setColor(3);
         cout << "========================================" << endl;
         setColor(10);

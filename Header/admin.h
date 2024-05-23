@@ -84,21 +84,21 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
     setColorAdmin(3);
     cout << "========================================" << endl;
     setColorAdmin(10);
-    cout << "Masukkan nama laptop: ";
+    cout << "Masukkan nama laptop >> ";
     setColorAdmin(6);
     getline(cin, nama);
     setColorAdmin(10);
-    cout << "Masukkan harga laptop: ";
+    cout << "Masukkan harga laptop (dalam rupiah) >> ";
     setColorAdmin(6);
     cin >> harga;
     setColorAdmin(10);
-    cout << "Masukkan stok laptop yang dimiliki: ";
+    cout << "Masukkan stok laptop >> ";
     setColorAdmin(6);
     cin >> stok;
     cin.clear();
     cin.ignore();
     setColorAdmin(10);
-    cout << "Masukkan deskripsi spek laptop: ";
+    cout << "Masukkan deskripsi tentang spesifikasi laptop >> ";
     setColorAdmin(6);
     getline(cin, deskripsi);
 
@@ -189,7 +189,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
     selectionSort(alap, jumlahDataLaptop);
     bacaDataLaptop(jumlahDataLaptop, true);
 
-    cout << "\nMasukkan pilihan untuk data yang ingin di ubah: ";
+    cout << "\nMasukkan nomor urut data yang ingin di ubah >> ";
     cin >> pilihan;
     cin.clear();
     cin.ignore();
@@ -204,11 +204,11 @@ void ubahDataLaptop(int& jumlahDataLaptop)
     setColorAdmin(10); cout << "  1. Nama: "; setColorAdmin(6); cout << alap[pilihan - 1].nama << endl;
     setColorAdmin(10); cout << "  2. Harga: "; setColorAdmin(6); cout << alap[pilihan - 1].harga << endl;
     setColorAdmin(10); cout << "  3. Stok: "; setColorAdmin(6); cout << alap[pilihan - 1].stok << endl;
-    setColorAdmin(10); cout << "  4. Desc: "; setColorAdmin(6); cout << alap[pilihan - 1].desc.deskripsi << endl;
-    setColorAdmin(10); cout << "  0. Semua" << endl;
+    setColorAdmin(10); cout << "  4. Deskripsi: "; setColorAdmin(6); cout << alap[pilihan - 1].desc.deskripsi << endl;
+    setColorAdmin(10); cout << "  0. Ubah keseluruhan" << endl;
     setColorAdmin(3);
     cout << "================================================" << endl;
-    cout << "\n    Bagian mana yang ingin diubah: ";
+    cout << "\n    Bagian mana yang ingin diubah >> ";
 
     cin >> pilihanData;
     cin.clear();
@@ -224,7 +224,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         setColorAdmin(3);
         cout << "================================================" << endl;
         setColorUser(10);
-        cout << "    Masukkan nama baru: ";
+        cout << "    Masukkan nama baru >> ";
         setColorUser(6);
         getline(cin, alap[pilihan - 1].nama);
         break;
@@ -237,7 +237,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         setColorAdmin(3);
         cout << "================================================" << endl;
         setColorUser(10);
-        cout << "    Masukkan harga baru: ";
+        cout << "    Masukkan harga baru >> ";
         setColorUser(6);
         cin >> alap[pilihan - 1].harga;
         cin.clear();
@@ -252,7 +252,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         setColorAdmin(3);
         cout << "================================================" << endl;
         setColorUser(10);
-        cout << "    Masukkan stok baru: ";
+        cout << "    Masukkan stok baru >> ";
         setColorUser(6);
         cin >> alap[pilihan - 1].stok;
         cin.clear();
@@ -267,7 +267,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         setColorAdmin(3);
         cout << "================================================" << endl;
         setColorUser(10);
-        cout << "Masukkan deskripsi baru: ";
+        cout << "Masukkan deskripsi baru >> ";
         setColorUser(6);
         getline(cin, alap[pilihan - 1].desc.deskripsi);
         break;
@@ -281,26 +281,26 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         cout << "================================================" << endl;
 
         setColorUser(10);
-        cout << "  Masukkan nama baru: ";
+        cout << "  Masukkan nama baru >> ";
         setColorAdmin(6);
         getline(cin, alap[pilihan - 1].nama);
 
         setColorUser(10);
-        cout << "  Masukkan harga baru: ";
+        cout << "  Masukkan harga baru >> ";
         setColorAdmin(6);
         cin >> alap[pilihan - 1].harga;
         cin.clear();
         cin.ignore();
 
         setColorUser(10);
-        cout << "  Masukkan stok baru: ";
+        cout << "  Masukkan stok baru >> ";
         setColorAdmin(6);
         cin >> alap[pilihan - 1].stok;
         cin.clear();
         cin.ignore();
 
         setColorUser(10);
-        cout << "  Masukkan deskripsi baru: ";
+        cout << "  Masukkan deskripsi baru >> ";
         setColorAdmin(6);
         getline(cin, alap[pilihan - 1].desc.deskripsi);
     }
@@ -339,7 +339,7 @@ int hapusDataLaptop(int& jumlahDataLaptop)
     bacaDataLaptop(jumlahDataLaptop, true);
 
     setColorAdmin(10);
-    cout << "\nMasukkan nama laptop yang ingin dihapus: ";
+    cout << "\nMasukkan nama laptop yang ingin dihapus >> ";
     setColorAdmin(6);
     getline(cin, key);
 
@@ -384,7 +384,7 @@ int hapusDataLaptop(int& jumlahDataLaptop)
     system("cls");
     setColorUser(4);
     cout << "========================================" << endl;
-    cout << "      NAMA LAPTOP TIDAK DITEMUKAN!      " << endl;
+    cout << "      NAMA LAPTOP TIDAK DITEMUKAN       " << endl;
     cout << "========================================" << endl;
     sleep_for(seconds(2));
     system("cls");
@@ -412,7 +412,7 @@ void listRiwayatAdmin(int &jumlahDataRiwayat)
     }
     file.close();
 
-    // Mencari nama didalam riwayat dan membandingkan dengan namaUser
+    // Mencari nama di dalam riwayat dan membandingkan dengan namaUser
     // untuk menunjukkan hanya yang di beli oleh user
     // Header
     setColorUser(3);
@@ -460,20 +460,20 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
         setColorAdmin(3);
         cout << "========================================" << endl;
         setColorAdmin(10);
-        cout << "               MENU USER                " << endl;
+        cout << "               MENU ADMIN                " << endl;
         setColorAdmin(3);
         cout << "========================================" << endl;
         setColorAdmin(10);
-        cout << "    1. Tambahkan Data Laptop" << endl;
-        cout << "    2. Lihat Data Laptop" << endl;
-        cout << "    3. Lihat Riwayat Pembelian" << endl;
-        cout << "    4. Ubah Data Laptop" << endl;
-        cout << "    5. Hapus Data Laptop" << endl;
-        cout << "    0. Logout" << endl;
+        cout << "    1. Tambahkan data laptop" << endl;
+        cout << "    2. Lihat data laptop" << endl;
+        cout << "    3. Lihat riwayat pembelian" << endl;
+        cout << "    4. Ubah data laptop" << endl;
+        cout << "    5. Hapus data laptop" << endl;
+        cout << "    0. Keluar dari akun" << endl;
         setColorAdmin(3);
         cout << "========================================" << endl;
         setColorAdmin(10);
-        cout << "    Enter: ";
+        cout << "    Masukkan pilihan >> ";
         setColorAdmin(6);
 
         cin >> pilihan;
@@ -495,16 +495,16 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
             setColorAdmin(3);
             cout << "========================================" << endl;
             setColorAdmin(10);
-            cout << "           LIHAT LIST LAPTOP            " << endl;
+            cout << "           LIHAT DAFTAR LAPTOP            " << endl;
             setColorAdmin(3);
             cout << "========================================" << endl;
             setColorAdmin(10);
-            cout << "    1. Urutkan secara nama" << endl;
-            cout << "    2. Urutkan secara harga" << endl;
+            cout << "    1. Urutkan berdasarkan nama" << endl;
+            cout << "    2. Urutkan berdasarkan harga" << endl;
             setColorAdmin(3);
             cout << "========================================" << endl;
             setColorAdmin(10);
-            cout << "    Enter: ";
+            cout << "    Masukkan pilihan >> ";
             setColorAdmin(6);
 
             cin >> pilihanSorting;

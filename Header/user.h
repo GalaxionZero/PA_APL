@@ -152,7 +152,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
         listLaptop(jumlahDataLaptop, false);
 
         setColorUser(10);
-        cout << "\nPilih laptop yang ingin dibeli: ";
+        cout << "\nPilih laptop yang ingin dibeli >> ";
 //
 //        cin >> pilihan;
         setColorUser(6);
@@ -163,7 +163,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             system("cls");
             setColorUser(4);
             cout << "========================================" << endl;
-            cout << "            PILIHAN INVALID             " << endl;
+            cout << "          PILIHAN TIDAK VALID           " << endl;
             cout << "            ATAU STOK HABIS             " << endl;
             cout << "========================================" << endl;
             sleep_for(seconds(2));
@@ -185,7 +185,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             setColorUser(3);
             cout << "========================================" << endl;
             setColorUser(10);
-            cout << "    Memakai apa anda ingin membayar?" << endl;
+            cout << "    Silakan pilih metode pembayaran     " << endl;
             cout << "    [1] Bank Transfer" << endl;
             cout << "    [2] E-Wallet" << endl;
             setColorUser(3);
@@ -206,7 +206,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                     system("cls");
                     setColorUser(4);
                     cout << "========================================" << endl;
-                    cout << "            PILIHAN INVALID!            " << endl;
+                    cout << "           PILIHAN TIDAK VALID          " << endl;
                     cout << "========================================" << endl;
                     sleep_for(seconds(2));
                     system("cls");
@@ -228,11 +228,11 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 setColorUser(3);
                 cout << "================================================" << endl;
                 setColorUser(10);
-                cout << "Silakan transfer ke rekening : ";
+                cout << "Silakan transfer ke rekening:\n";
                 setColorUser(6);
-                cout << "000000116413" << endl;
+                cout << "BCAD 000000116413 a.n. Kelompok 4" << endl;
                 setColorUser(10);
-                cout << "Senilai:";
+                cout << "Senilai: ";
                 setColorUser(6);
                 cout << "Rp" << ulap[pilihan - 1].harga << endl;
                 setColorUser(3);
@@ -259,7 +259,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                         system("cls");
                         setColorUser(4);
                         cout << "========================================" << endl;
-                        cout << "            PILIHAN INVALID!            " << endl;
+                        cout << "           PILIHAN TIDAK VALID          " << endl;
                         cout << "========================================" << endl;
                         sleep_for(seconds(2));
                         system("cls");
@@ -299,7 +299,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 setColorUser(3);
                 cout << "========================================" << endl;
                 setColorUser(10);
-                cout << "          PEMBAYARAN BERHASIL!          " << endl;
+                cout << "          PEMBAYARAN BERHASIL           " << endl;
                 setColorUser(3);
                 cout << "========================================" << endl;
                 break;
@@ -310,7 +310,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 system("cls");
                 setColorUser(4);
                 cout << "========================================" << endl;
-                cout << "         PEMBAYARAN DIBATALKAN!         " << endl;
+                cout << "          TRANSAKSI DIBATALKAN          " << endl;
                 cout << "========================================" << endl;
                 sleep_for(seconds(2));
                 system("cls");
@@ -365,7 +365,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                         system("cls");
                         setColorUser(4);
                         cout << "========================================" << endl;
-                        cout << "            PILIHAN INVALID!            " << endl;
+                        cout << "           PILIHAN TIDAK VALID          " << endl;
                         cout << "========================================" << endl;
                         sleep_for(seconds(2));
                         system("cls");
@@ -404,7 +404,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 setColorUser(3);
                 cout << "========================================" << endl;
                 setColorUser(10);
-                cout << "          PEMBAYARAN BERHASIL!          " << endl;
+                cout << "          PEMBAYARAN BERHASIL           " << endl;
                 setColorUser(3);
                 cout << "========================================" << endl;
 
@@ -417,7 +417,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 system("cls");
                 setColorUser(4);
                 cout << "========================================" << endl;
-                cout << "         PEMBAYARAN DIBATALKAN!         " << endl;
+                cout << "          TRANSAKSI DIBATALKAN          " << endl;
                 cout << "========================================" << endl;
                 sleep_for(seconds(2));
                 system("cls");
@@ -442,7 +442,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             setColorUser(3);
             cout << "========================================" << endl;
             setColorUser(10);
-            cout << "\nApakah anda ingin membeli lagi? (y/n)";
+            cout << "\nApakah Anda ingin membeli lagi? (y/n)";
             setColorUser(6);
             if (cin >> noskipws >> ulang && ulang == 'y')
             {
@@ -463,7 +463,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             }
         }
         system("cls");
-    }while (ulang == 'y');
+    } while (ulang == 'y');
 }
 
 // Prosedur data riwayat
@@ -534,18 +534,18 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
         setColorUser(3);
         cout << "========================================" << endl;
         setColorUser(10);
-        cout << "               MENU USER                " << endl;
+        cout << "             MENU PENGGUNA              " << endl;
         setColorUser(3);
         cout << "========================================" << endl;
         setColorUser(10);
-        cout << "    1. Lihat List Laptop                " << endl;
+        cout << "    1. Lihat daftar laptop              " << endl;
         cout << "    2. Beli                             " << endl;
-        cout << "    3. Lihat Riwayat Pembelian          " << endl;
-        cout << "    0. Logout                           " << endl;
+        cout << "    3. Lihat riwayat pembelian          " << endl;
+        cout << "    0. Keluar dari akun                 " << endl;
         setColorUser(3);
         cout << "========================================" << endl;
         setColorUser(10);
-        cout << "    Enter: ";
+        cout << "    Masukkan pilihan >> ";
         setColorUser(6);
 
         if (cin >> noskipws >> pilihan && pilihan >= 0 && pilihan <= 3)
@@ -560,7 +560,7 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 system("cls");
                 setColorUser(4);
                 cout << "========================================" << endl;
-                cout << "            PILIHAN INVALID!            " << endl;
+                cout << "           PILIHAN TIDAK VALID          " << endl;
                 cout << "========================================" << endl;
                 sleep_for(seconds(2));
                 system("cls");
@@ -575,16 +575,16 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             setColorUser(3);
             cout << "========================================" << endl;
             setColorUser(10);
-            cout << "           LIHAT LIST LAPTOP            " << endl;
+            cout << "           LIHAT DAFTAR LAPTOP          " << endl;
             setColorUser(3);
             cout << "========================================" << endl;
             setColorUser(10);
-            cout << "    1. Urutkan secara nama" << endl;
-            cout << "    2. Urutkan secara harga" << endl;
+            cout << "    1. Urutkan berdasarkan nama" << endl;
+            cout << "    2. Urutkan berdasarkan harga" << endl;
             setColorUser(3);
             cout << "========================================" << endl;
             setColorUser(10);
-            cout << "    Enter: ";
+            cout << "    Masukkan pilihan >> ";
             setColorUser(6);
             if (cin >> noskipws >> pilihanSorting && pilihanSorting > 0 && pilihanSorting <= 2)
             {
@@ -598,7 +598,7 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                     system("cls");
                     setColorUser(4);
                     cout << "========================================" << endl;
-                    cout << "            PILIHAN INVALID!            " << endl;
+                    cout << "           PILIHAN TIDAK VALID          " << endl;
                     cout << "========================================" << endl;
                     sleep_for(seconds(2));
                     system("cls");
