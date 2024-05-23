@@ -9,6 +9,7 @@
 #include "Header/user.h"
 #include "Header/admin.h"
 #include "Header/dircheck.h"
+#include "Header/util.h"
 
 using namespace std;
 using namespace chrono;
@@ -49,7 +50,7 @@ int registerUser()
     setColor(10);
     cout << "  Masukkan password: ";
     setColor(6);
-    getline(cin, passwordUserBaru);
+    passwordUserBaru = takePassword();
 
     fstream file;
 
@@ -112,7 +113,7 @@ void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
     setColor(10);
     cout << "  Masukkan password: ";
     setColor(6);
-    getline(cin, passwordLogin);
+    passwordLogin = takePassword();
 
 
     fstream file;
