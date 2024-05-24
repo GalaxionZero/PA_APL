@@ -464,9 +464,9 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
         setColorAdmin(3);
         cout << "========================================" << endl;
         setColorAdmin(10);
-        cout << "    1. Tambahkan data laptop" << endl;
-        cout << "    2. Lihat data laptop" << endl;
-        cout << "    3. Lihat riwayat pembelian" << endl;
+        cout << "    1. Lihat data laptop" << endl;
+        cout << "    2. Lihat riwayat pembelian" << endl;
+        cout << "    3. Tambahkan data laptop" << endl;
         cout << "    4. Ubah data laptop" << endl;
         cout << "    5. Hapus data laptop" << endl;
         cout << "    0. Keluar dari akun" << endl;
@@ -483,14 +483,6 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
         switch (pilihan)
         {
         case 1:
-            system("cls");
-            tambahkanDataLaptop(jumlahDataLaptop);
-            setColorUser(10);
-            cout << "\nTekan Enter untuk melanjutkan...";
-            cin.get();
-            cin.clear();
-            break;
-        case 2:
             system("cls");
             setColorAdmin(3);
             cout << "========================================" << endl;
@@ -531,9 +523,17 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
                 break;
             }
             break;
-        case 3:
+        case 2:
             system("cls");
             listRiwayatAdmin(jumlahDataRiwayat);
+            setColorUser(10);
+            cout << "\nTekan Enter untuk melanjutkan...";
+            cin.get();
+            cin.clear();
+            break;
+        case 3:
+            system("cls");
+            tambahkanDataLaptop(jumlahDataLaptop);
             setColorUser(10);
             cout << "\nTekan Enter untuk melanjutkan...";
             cin.get();
