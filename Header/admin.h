@@ -84,32 +84,106 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
     setColorAdmin(3);
     cout << "========================================" << endl;
     setColorAdmin(10);
+
     cout << "Masukkan nama laptop >> ";
     setColorAdmin(6);
     getline(cin, nama);
     setColorAdmin(10);
+
+    if(nama.empty())
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+        system("cls");
+        setColorUser(4);
+        cout << "========================================" << endl;
+        cout << "         Data TIDAK BISA KOSONG         " << endl;
+        cout << "========================================" << endl;
+        sleep_for(seconds(2));
+        system("cls");
+        tambahkanDataLaptop(jumlahDataLaptop);
+    }
+
+    while (true)
+    {
     cout << "Masukkan harga laptop (dalam rupiah) >> ";
     setColorAdmin(6);
-    cin >> harga;
-    setColorAdmin(10);
-    cout << "Masukkan stok laptop >> ";
-    setColorAdmin(6);
-    cin >> stok;
-    cin.clear();
-    cin.ignore();
-    setColorAdmin(10);
-    cout << "Masukkan deskripsi tentang spesifikasi laptop >> ";
-    setColorAdmin(6);
-    getline(cin, deskripsi);
+        if (cin >> noskipws >> harga)
+        {
+            setColorAdmin(10);
+            break;
+        }
+            else
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+                system("cls");
+                setColorUser(4);
+                cout << "========================================" << endl;
+                cout << "         Data TIDAK BISA KOSONG         " << endl;
+                cout << "========================================" << endl;
+                sleep_for(seconds(2));
+                system("cls");
+            }
+    }
 
-    ofstream fileout;
-    fileout.open("Database\\laptop.csv", ios::out | ios::app);
+    while (true)
+    {
+        cout << "Masukkan stok laptop >> ";
+        setColorAdmin(6);
 
-    fileout << nama << ",";
-    fileout << harga << ",";
-    fileout << stok << ",";
-    fileout << deskripsi << "\n";
-    fileout.close();
+        if (cin >> noskipws >> stok)
+        {
+            setColorAdmin(10);
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+            else
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+                system("cls");
+                setColorUser(4);
+                cout << "========================================" << endl;
+                cout << "         Data TIDAK BISA KOSONG         " << endl;
+                cout << "========================================" << endl;
+                sleep_for(seconds(2));
+                system("cls");
+            }
+    }
+
+    while (true)
+    {
+        cout << "Masukkan deskripsi tentang spesifikasi laptop >> ";
+        setColorAdmin(6);
+        getline(cin, deskripsi);
+
+        if (deskripsi.empty())
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+            system("cls");
+            setColorUser(4);
+            cout << "========================================" << endl;
+            cout << "         Data TIDAK BISA KOSONG         " << endl;
+            cout << "========================================" << endl;
+            sleep_for(seconds(2));
+            system("cls");
+        }
+            else
+            {
+                break;
+            }
+    }
+
+    fstream file;
+    file.open("Database\\laptop.csv", ios::out | ios::app);
+
+    file << nama << ",";
+    file << harga << ",";
+    file << stok << ",";
+    file << deskripsi << "\n";
+    file.close();
 
     jumlahDataLaptop += 1;
     cout << jumlahDataLaptop;
@@ -190,29 +264,53 @@ void ubahDataLaptop(int& jumlahDataLaptop)
     bacaDataLaptop(jumlahDataLaptop, true);
 
     cout << "\nMasukkan nomor urut data yang ingin di ubah >> ";
-    cin >> pilihan;
+    while (!(cin >> noskipws >> pilihan) && pilihan > 0 && pilihan <= jumlahDataLaptop)
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        ubahDataLaptop(jumlahDataLaptop);
+    }
+
     cin.clear();
-    cin.ignore();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     system("cls");
 
-    setColorUser(3);
-    cout << "================================================" << endl;
-    setColorUser(10);
-    cout << "                UBAH DATA LAPTOP                " << endl;
-    setColorAdmin(3);
-    cout << "================================================" << endl;
-    setColorAdmin(10); cout << "  1. Nama: "; setColorAdmin(6); cout << alap[pilihan - 1].nama << endl;
-    setColorAdmin(10); cout << "  2. Harga: "; setColorAdmin(6); cout << alap[pilihan - 1].harga << endl;
-    setColorAdmin(10); cout << "  3. Stok: "; setColorAdmin(6); cout << alap[pilihan - 1].stok << endl;
-    setColorAdmin(10); cout << "  4. Deskripsi: "; setColorAdmin(6); cout << alap[pilihan - 1].desc.deskripsi << endl;
-    setColorAdmin(10); cout << "  0. Ubah keseluruhan" << endl;
-    setColorAdmin(3);
-    cout << "================================================" << endl;
-    cout << "\n    Bagian mana yang ingin diubah >> ";
+    while (true)
+    {
+        setColorUser(3);
+        cout << "================================================" << endl;
+        setColorUser(10);
+        cout << "                UBAH DATA LAPTOP                " << endl;
+        setColorAdmin(3);
+        cout << "================================================" << endl;
+        setColorAdmin(10); cout << "  1. Nama: "; setColorAdmin(6); cout << alap[pilihan - 1].nama << endl;
+        setColorAdmin(10); cout << "  2. Harga: "; setColorAdmin(6); cout << alap[pilihan - 1].harga << endl;
+        setColorAdmin(10); cout << "  3. Stok: "; setColorAdmin(6); cout << alap[pilihan - 1].stok << endl;
+        setColorAdmin(10); cout << "  4. Deskripsi: "; setColorAdmin(6); cout << alap[pilihan - 1].desc.deskripsi << endl;
+        setColorAdmin(10); cout << "  0. Ubah keseluruhan" << endl;
+        setColorAdmin(3);
+        cout << "================================================" << endl;
+        cout << "\n    Bagian mana yang ingin diubah >> ";
 
-    cin >> pilihanData;
-    cin.clear();
-    cin.ignore();
+        if (cin >> noskipws >> pilihanData && pilihanData >= 0 && pilihanData <= 4)
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            break;
+        }
+            else
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+                system("cls");
+                setColorUser(4);
+                cout << "========================================" << endl;
+                cout << "           PILIHAN TIDAK VALID          " << endl;
+                cout << "========================================" << endl;
+                sleep_for(seconds(2));
+                system("cls");
+            }
+    }
 
     switch (pilihanData)
     {
@@ -241,7 +339,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         setColorUser(6);
         cin >> alap[pilihan - 1].harga;
         cin.clear();
-        cin.ignore();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         break;
 
     case 3:
@@ -256,7 +354,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         setColorUser(6);
         cin >> alap[pilihan - 1].stok;
         cin.clear();
-        cin.ignore();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         break;
 
     case 4:
@@ -290,14 +388,14 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         setColorAdmin(6);
         cin >> alap[pilihan - 1].harga;
         cin.clear();
-        cin.ignore();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         setColorUser(10);
         cout << "  Masukkan stok baru >> ";
         setColorAdmin(6);
         cin >> alap[pilihan - 1].stok;
         cin.clear();
-        cin.ignore();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         setColorUser(10);
         cout << "  Masukkan deskripsi baru >> ";
@@ -343,6 +441,20 @@ int hapusDataLaptop(int& jumlahDataLaptop)
     setColorAdmin(6);
     getline(cin, key);
 
+    if (key.empty())
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+        system("cls");
+        setColorUser(4);
+        cout << "========================================" << endl;
+        cout << "         Data TIDAK BISA KOSONG         " << endl;
+        cout << "========================================" << endl;
+        sleep_for(seconds(2));
+        system("cls");
+        hapusDataLaptop(jumlahDataLaptop);
+    }
+
     // Binary Search
     int low = 0;
     int high = jumlahDataLaptop - 1;
@@ -379,6 +491,7 @@ int hapusDataLaptop(int& jumlahDataLaptop)
                 low = mid + 1;
             }
     }
+
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
     system("cls");
@@ -388,7 +501,7 @@ int hapusDataLaptop(int& jumlahDataLaptop)
     cout << "========================================" << endl;
     sleep_for(seconds(2));
     system("cls");
-    cin.clear();
+    return 0;
 }
 
 // Prosedur data riwayat
@@ -478,7 +591,7 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
 
         cin >> pilihan;
         cin.clear();
-        cin.ignore();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         switch (pilihan)
         {
@@ -501,7 +614,7 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
 
             cin >> pilihanSorting;
             cin.clear();
-            cin.ignore();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             switch (pilihanSorting)
             {

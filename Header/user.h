@@ -168,12 +168,11 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             cout << "========================================" << endl;
             sleep_for(seconds(2));
             system("cls");
-            cin.clear();
             beliLaptop(namaUser, jumlahDataLaptop, jumlahDataRiwayat);
         }
 
         cin.clear();
-        cin.ignore();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         while (true)
         {
@@ -196,7 +195,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             if (cin >> noskipws >> metodePembayaran && metodePembayaran > 0 && metodePembayaran <= 2)
             {
                 cin.clear();
-                cin.ignore();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 break;
             }
                 else
@@ -210,7 +209,6 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                     cout << "========================================" << endl;
                     sleep_for(seconds(2));
                     system("cls");
-                    cin.clear();
                 }
         }
         switch (metodePembayaran)
@@ -249,7 +247,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 if (cin >> noskipws >> statusPembayaran && statusPembayaran > 0 && statusPembayaran <= 2)
                 {
                     cin.clear();
-                    cin.ignore();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     break;
                 }
                     else
@@ -355,7 +353,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 if (cin >> noskipws >> statusPembayaran && statusPembayaran > 0 && statusPembayaran <= 2)
                 {
                     cin.clear();
-                    cin.ignore();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     break;
                 }
                     else
@@ -551,7 +549,7 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
         if (cin >> noskipws >> pilihan && pilihan >= 0 && pilihan <= 3)
         {
             cin.clear();
-            cin.ignore();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }
             else
             {
@@ -589,7 +587,7 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             if (cin >> noskipws >> pilihanSorting && pilihanSorting > 0 && pilihanSorting <= 2)
             {
                 cin.clear();
-                cin.ignore();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
                 else
                 {
