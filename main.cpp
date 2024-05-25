@@ -38,18 +38,18 @@ int registerUser()
     string namaUserBaru, passwordUserBaru, cekNamaIsTaken, placeholder;
 
     setColor(3);
-    cout << "========================================" << endl;
+    cout << "\t\t\t\t\t\t\t========================================" << endl;
     setColor(10);
-    cout << "                REGISTER                " << endl;
+    cout << "\t\t\t\t\t\t\t                REGISTER                " << endl;
     setColor(3);
-    cout << "========================================" << endl;
+    cout << "\t\t\t\t\t\t\t========================================" << endl;
     setColor(10);
-    cout << "  Masukkan nama user: ";
+    cout << "\t\t\t\t\t\t\t  Masukkan nama user : ";
     setColor(6);
     getline(cin, namaUserBaru);
 
     setColor(10);
-    cout << "  Masukkan password: ";
+    cout << "\t\t\t\t\t\t\t  Masukkan password : ";
     setColor(6);
     passwordUserBaru = takePassword();
 
@@ -65,9 +65,9 @@ int registerUser()
         {
             system("cls");
             setColor(4);
-            cout << "========================================" << endl;
-            cout << "        NAMA USER SUDAH DIGUNAKAN       " << endl;
-            cout << "========================================" << endl;
+            cout << "\t\t\t\t\t\t\t========================================" << endl;
+            cout << "\t\t\t\t\t\t\t        NAMA USER SUDAH DIGUNAKAN       " << endl;
+            cout << "\t\t\t\t\t\t\t========================================" << endl;
             sleep_for(seconds(2));
             system("cls");
             registerUser();
@@ -77,9 +77,9 @@ int registerUser()
             {
                 system("cls");
                 setColor(4);
-                cout << "========================================" << endl;
-                cout << "     NAMA USER TIDAK DAPAT DIGUNAKAN    " << endl;
-                cout << "========================================" << endl;
+                cout << "\t\t\t\t\t\t\t========================================" << endl;
+                cout << "\t\t\t\t\t\t\t     NAMA USER TIDAK DAPAT DIGUNAKAN    " << endl;
+                cout << "\t\t\t\t\t\t\t========================================" << endl;
                 sleep_for(seconds(2));
                 system("cls");
                 registerUser();
@@ -101,18 +101,18 @@ void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
     string namaLogin, passwordLogin, cekNama, cekPassword;
 
     setColor(3);
-    cout << "========================================" << endl;
+    cout << "\t\t\t\t\t\t\t========================================" << endl;
     setColor(10);
-    cout << "                 LOGIN                  " << endl;
+    cout << "\t\t\t\t\t\t\t                 LOGIN                  " << endl;
     setColor(3);
-    cout << "========================================" << endl;
+    cout << "\t\t\t\t\t\t\t========================================" << endl;
     setColor(10);
-    cout << "  Masukkan nama user: ";
+    cout << "\t\t\t\t\t\t\t  Masukkan nama user : ";
     setColor(6);
     getline(cin, namaLogin);
 
     setColor(10);
-    cout << "  Masukkan password: ";
+    cout << "\t\t\t\t\t\t\t  Masukkan password : ";
     setColor(6);
     passwordLogin = takePassword();
 
@@ -142,23 +142,10 @@ void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
 // Driver code
 int main()
 {
-//    std::byte myByte{0};
 
-//    cout << "Loading[--------------------]0%" << endl;
-//    sleep_for(seconds(1));
-//    system("cls");
-//    cout << "Loading[#####---------------]25%" << endl;
-//    sleep_for(seconds(1));
-//    system("cls");
-//    cout << "Loading[##########----------]50%" << endl;
-//    sleep_for(seconds(1));
-//    system("cls");
-//    cout << "Loading[###############-----]75%" << endl;
-//    sleep_for(seconds(1));
-//    system("cls");
-//    cout << "Loading[####################]100%" << endl;
-//    sleep_for(seconds(1));
-//    system("cls");
+    cout << "Loading..." << endl;
+    sleep_for(seconds(2));
+    system("cls");
 
     setColor(2);
     cout << "Berhasil memasuki aplikasi..." << endl;
@@ -196,19 +183,19 @@ int main()
     {
         system("cls");
         setColor(3);
-        cout << "========================================" << endl;
+        cout << "\t\t\t\t\t\t\t========================================" << endl;
         setColor(10);
-        cout << "               MENU LOGIN               " << endl;
+        cout << "\t\t\t\t\t\t\t               MENU LOGIN               " << endl;
         setColor(3);
-        cout << "========================================" << endl;
+        cout << "\t\t\t\t\t\t\t========================================" << endl;
         setColor(10);
-        cout << "    1. Masuk                            " << endl;
-        cout << "    2. Daftar sebagai pengguna       " << endl;
-        cout << "    0. Keluar dari program              " << endl;
+        cout << "\t\t\t\t\t\t\t    [1] Masuk                            " << endl;
+        cout << "\t\t\t\t\t\t\t    [2] Daftar sebagai pengguna          " << endl;
+        cout << "\t\t\t\t\t\t\t    [0] Keluar dari program              " << endl;
         setColor(3);
-        cout << "========================================" << endl;
+        cout << "\t\t\t\t\t\t\t========================================" << endl;
         setColor(10);
-        cout << "    Enter: ";
+        cout << "\t\t\t\t\t\t\t  Enter >> ";
         setColor(6);
 
         cin >> pilihan;
@@ -228,11 +215,11 @@ int main()
         case 0:
             system("cls");
             setColor(3);
-            cout << "========================================" << endl;
+            cout << "\t\t\t\t\t\t\t========================================" << endl;
             setColor(10);
-            cout << "              TERIMA KASIH              " << endl;
+            cout << "\t\t\t\t\t\t\t              TERIMA KASIH              " << endl;
             setColor(3);
-            cout << "========================================" << endl;
+            cout << "\t\t\t\t\t\t\t========================================" << endl;
             return 0;
         }
 
