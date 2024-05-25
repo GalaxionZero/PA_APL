@@ -1,17 +1,19 @@
+#ifndef UTIL_H
+#define UTIL_H
 #include <iostream>
 #include <windows.h>
 #include <filesystem>
 #include <fstream>
 
-using namespace filesystem;
 using namespace std;
+using namespace filesystem;
 
 // Melakukan pengecekan direktori dan file yang diperlukan
 int dirChecker()
 {
     fstream file;
     path p = current_path();
-    if (!exists(p/"Database"));
+    if (!exists(p/"Database"))
         create_directory(p/"Database");
     if (!exists("Database\\laptop.csv"))
         file.open("Database\\laptop.csv", ios::out); file.close();
@@ -20,6 +22,11 @@ int dirChecker()
     if (!exists("Database\\user_auth.csv"))
         file.open("Database\\user_auth.csv", ios::out); file.close();
     return 0;
+}
+
+// Prosedur untuk memberikan warna pada output
+void setColor(int color) {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 
 string takePassword()
@@ -37,3 +44,5 @@ string takePassword()
 
     return password;
 }
+
+#endif

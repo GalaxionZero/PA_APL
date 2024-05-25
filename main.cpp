@@ -26,12 +26,6 @@ struct
     string password = "admin";
 } tokenAdmin;
 
-
-//Prosedur untuk memberikan warna pada output
-void setColor(int color) {
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
-}
-
 //Prosedur register
 int registerUser()
 {

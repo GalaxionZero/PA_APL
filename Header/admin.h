@@ -1,9 +1,9 @@
 #include <iostream>
 #include <fstream>
-using namespace std;
 
-void setColorAdmin(int color) {
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);}
+#include "util.h"
+
+using namespace std;
 
 struct deskripsiLaptop
 {
@@ -77,17 +77,17 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
     int harga, stok;
 
     system("cls");
-    setColorAdmin(3);
+    setColor(3);
     cout << "\t\t\t\t\t\t================================================" << endl;
-    setColorAdmin(10);
+    setColor(10);
     cout << "\t\t\t\t\t\t                 TAMBAH LAPTOP                  " << endl;
     cout << "\t\t\t\t\t\t                     (MERK)                     " << endl;
-    setColorAdmin(3);
+    setColor(3);
     cout << "\t\t\t\t\t\t================================================" << endl;
-    setColorAdmin(10);
+    setColor(10);
 
     cout << "\t\t\t\t\t\tMasukkan Nama Laptop >> ";
-    setColorAdmin(6);
+    setColor(6);
     getline(cin, nama);
 
     if(nama.empty())
@@ -95,7 +95,7 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
         system("cls");
-        setColorAdmin(4);
+        setColor(4);
         cout << "\t\t\t\t\t\t\t========================================" << endl;
         cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
         cout << "\t\t\t\t\t\t\t========================================" << endl;
@@ -107,16 +107,16 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
     while (true)
     {
     system("cls");
-    setColorAdmin(3);
+    setColor(3);
     cout << "\t\t\t\t\t\t================================================" << endl;
-    setColorAdmin(10);
+    setColor(10);
     cout << "\t\t\t\t\t\t                 TAMBAH LAPTOP                  " << endl;
     cout << "\t\t\t\t\t\t                    (HARGA)                     " << endl;
-    setColorAdmin(3);
+    setColor(3);
     cout << "\t\t\t\t\t\t================================================" << endl;
-    setColorAdmin(10);
+    setColor(10);
     cout << "\t\t\t\t\t\tMasukkan harga laptop (dalam rupiah) >> ";
-    setColorAdmin(6);
+    setColor(6);
         if (cin >> noskipws >> harga)
         {
             cin.clear();
@@ -128,7 +128,7 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
                 system("cls");
-                setColorAdmin(4);
+                setColor(4);
                 cout << "\t\t\t\t\t\t\t========================================" << endl;
                 cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
                 cout << "\t\t\t\t\t\t\t========================================" << endl;
@@ -140,16 +140,16 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
     while (true)
     {
         system("cls");
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t                 TAMBAH LAPTOP                  " << endl;
         cout << "\t\t\t\t\t\t                    (STOK)                      " << endl;
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\tMasukkan stok laptop >> ";
-        setColorAdmin(6);
+        setColor(6);
 
         if (cin >> noskipws >> stok)
         {
@@ -162,7 +162,7 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
                 system("cls");
-                setColorAdmin(4);
+                setColor(4);
                 cout << "\t\t\t\t\t\t\t========================================" << endl;
                 cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
                 cout << "\t\t\t\t\t\t\t========================================" << endl;
@@ -174,16 +174,16 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
     while (true)
     {
         system("cls");
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t                 TAMBAH LAPTOP                  " << endl;
         cout << "\t\t\t\t\t\t                  (DESKRIPSI)                   " << endl;
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t\tMasukkan spesifikasi laptop >> ";
-        setColorAdmin(6);
+        setColor(6);
         getline(cin, deskripsi);
 
         if (deskripsi.empty())
@@ -191,7 +191,7 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
             system("cls");
-            setColorAdmin(4);
+            setColor(4);
             cout << "\t\t\t\t\t\t\t========================================" << endl;
             cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
             cout << "\t\t\t\t\t\t\t========================================" << endl;
@@ -244,27 +244,27 @@ void bacaDataLaptop(int& jumlahDataLaptop, bool sortByName)
 
 
     // Header tabel
-    setColorAdmin(3);
+    setColor(3);
     cout << string(139, '=') << endl;
-    cout << left << setw(5); setColorAdmin(10); cout << "No."; setColorAdmin(3); cout << " | ";
-    cout << left << setw(20); setColorAdmin(10); cout << "Nama"; setColorAdmin(3); cout << " | ";
-    cout << left << setw(40); setColorAdmin(10); cout << "Harga"; setColorAdmin(3); cout << " | ";
-    cout << left << setw(10); setColorAdmin(10); cout << "Stok"; setColorAdmin(3); cout << " | ";
-    cout << left << setw(50); setColorAdmin(10); cout << "Deskripsi"; setColorAdmin(3); cout << " | " << endl;
+    cout << left << setw(5); setColor(10); cout << "No."; setColor(3); cout << " | ";
+    cout << left << setw(20); setColor(10); cout << "Nama"; setColor(3); cout << " | ";
+    cout << left << setw(40); setColor(10); cout << "Harga"; setColor(3); cout << " | ";
+    cout << left << setw(10); setColor(10); cout << "Stok"; setColor(3); cout << " | ";
+    cout << left << setw(50); setColor(10); cout << "Deskripsi"; setColor(3); cout << " | " << endl;
     cout << string(139, '=') << endl;
 
     for (int i = 0; i < jumlahDataLaptop; ++i)
     {
         if (alap[i].nama != "")
         {
-            cout << left << setw(5); setColorAdmin(10); cout << i + 1; setColorAdmin(3); cout << " | ";
-            cout << left << setw(20); setColorAdmin(10); cout << alap[i].nama; setColorAdmin(3); cout << " | ";
-            cout << left << setw(40); setColorAdmin(10); cout << alap[i].harga; setColorAdmin(3); cout << " | ";
-            cout << left << setw(10); setColorAdmin(10); cout << alap[i].stok; setColorAdmin(3); cout << " | ";
-            cout << left << setw(50); setColorAdmin(10); cout << alap[i].desc.deskripsi; setColorAdmin(3); cout << " | " << endl;
+            cout << left << setw(5); setColor(10); cout << i + 1; setColor(3); cout << " | ";
+            cout << left << setw(20); setColor(10); cout << alap[i].nama; setColor(3); cout << " | ";
+            cout << left << setw(40); setColor(10); cout << alap[i].harga; setColor(3); cout << " | ";
+            cout << left << setw(10); setColor(10); cout << alap[i].stok; setColor(3); cout << " | ";
+            cout << left << setw(50); setColor(10); cout << alap[i].desc.deskripsi; setColor(3); cout << " | " << endl;
         }
     }
-    setColorAdmin(3);
+    setColor(3);
     cout << string(139, '=') << endl;
 }
 
@@ -304,18 +304,18 @@ void ubahDataLaptop(int& jumlahDataLaptop)
 
     while (true)
     {
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t                UBAH DATA LAPTOP                " << endl;
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
-        setColorAdmin(10); cout << "\t\t\t\t\t\t  1. Nama: "; setColorAdmin(6); cout << alap[pilihan - 1].nama << endl;
-        setColorAdmin(10); cout << "\t\t\t\t\t\t  2. Harga: "; setColorAdmin(6); cout << alap[pilihan - 1].harga << endl;
-        setColorAdmin(10); cout << "\t\t\t\t\t\t  3. Stok: "; setColorAdmin(6); cout << alap[pilihan - 1].stok << endl;
-        setColorAdmin(10); cout << "\t\t\t\t\t\t  4. Deskripsi: "; setColorAdmin(6); cout << alap[pilihan - 1].desc.deskripsi << endl;
-        setColorAdmin(10); cout << "\t\t\t\t\t\t  0. Ubah keseluruhan" << endl;
-        setColorAdmin(3);
+        setColor(10); cout << "\t\t\t\t\t\t  1. Nama: "; setColor(6); cout << alap[pilihan - 1].nama << endl;
+        setColor(10); cout << "\t\t\t\t\t\t  2. Harga: "; setColor(6); cout << alap[pilihan - 1].harga << endl;
+        setColor(10); cout << "\t\t\t\t\t\t  3. Stok: "; setColor(6); cout << alap[pilihan - 1].stok << endl;
+        setColor(10); cout << "\t\t\t\t\t\t  4. Deskripsi: "; setColor(6); cout << alap[pilihan - 1].desc.deskripsi << endl;
+        setColor(10); cout << "\t\t\t\t\t\t  0. Ubah keseluruhan" << endl;
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
         cout << "\n\t\t\t\t\t\t  Bagian yang ingin diubah >> ";
 
@@ -330,7 +330,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
                 system("cls");
-                setColorAdmin(4);
+                setColor(4);
                 cout << "\t\t\t\t\t\t\t========================================" << endl;
                 cout << "\t\t\t\t\t\t\t           PILIHAN TIDAK VALID          " << endl;
                 cout << "\t\t\t\t\t\t\t========================================" << endl;
@@ -342,91 +342,91 @@ void ubahDataLaptop(int& jumlahDataLaptop)
     switch (pilihanData)
     {
     case 1:
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t                UBAH NAMA LAPTOP                " << endl;
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t    Masukkan nama baru >> ";
-        setColorAdmin(6);
+        setColor(6);
         getline(cin, alap[pilihan - 1].nama);
         break;
 
     case 2:
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t               UBAH HARGA LAPTOP                " << endl;
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t    Masukkan harga baru >> ";
-        setColorAdmin(6);
+        setColor(6);
         cin >> alap[pilihan - 1].harga;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         break;
 
     case 3:
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t                UBAH STOK LAPTOP                " << endl;
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t    Masukkan stok baru >> ";
-        setColorAdmin(6);
+        setColor(6);
         cin >> alap[pilihan - 1].stok;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         break;
 
     case 4:
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t             UBAH DESKRIPSI LAPTOP              " << endl;
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\tMasukkan deskripsi baru >> ";
-        setColorAdmin(6);
+        setColor(6);
         getline(cin, alap[pilihan - 1].desc.deskripsi);
         break;
 
     case 0:
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t                UBAH DATA LAPTOP                " << endl;
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
 
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t  Masukkan nama baru >> ";
-        setColorAdmin(6);
+        setColor(6);
         getline(cin, alap[pilihan - 1].nama);
 
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t  Masukkan harga baru >> ";
-        setColorAdmin(6);
+        setColor(6);
         cin >> alap[pilihan - 1].harga;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t  Masukkan stok baru >> ";
-        setColorAdmin(6);
+        setColor(6);
         cin >> alap[pilihan - 1].stok;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t  Masukkan deskripsi baru >> ";
-        setColorAdmin(6);
+        setColor(6);
         getline(cin, alap[pilihan - 1].desc.deskripsi);
     }
 
@@ -463,9 +463,9 @@ int hapusDataLaptop(int& jumlahDataLaptop)
     selectionSort(alap, jumlahDataLaptop);
     bacaDataLaptop(jumlahDataLaptop, true);
 
-    setColorAdmin(10);
+    setColor(10);
     cout << "\nMasukkan nama laptop yang ingin dihapus >> ";
-    setColorAdmin(6);
+    setColor(6);
     getline(cin, key);
 
     if (key.empty())
@@ -473,7 +473,7 @@ int hapusDataLaptop(int& jumlahDataLaptop)
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
         system("cls");
-        setColorAdmin(4);
+        setColor(4);
         cout << "\t\t\t\t\t\t\t========================================" << endl;
         cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
         cout << "\t\t\t\t\t\t\t========================================" << endl;
@@ -522,7 +522,7 @@ int hapusDataLaptop(int& jumlahDataLaptop)
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
     system("cls");
-    setColorAdmin(4);
+    setColor(4);
     cout << "\t\t\t\t\t\t\t========================================" << endl;
     cout << "\t\t\t\t\t\t\t      NAMA LAPTOP TIDAK DITEMUKAN       " << endl;
     cout << "\t\t\t\t\t\t\t========================================" << endl;
@@ -555,39 +555,39 @@ void listRiwayatAdmin(int &jumlahDataRiwayat)
     // Mencari nama di dalam riwayat dan membandingkan dengan namaUser
     // untuk menunjukkan hanya yang di beli oleh user
     // Header
-    setColorAdmin(3);
+    setColor(3);
     cout << string(137, '=') << endl;
-    setColorAdmin(10); cout << left << setw(15) << "Nama"; setColorAdmin(3); cout << " | ";
-    setColorAdmin(10); cout << left << setw(25) << "Tanggal Pembelian"; setColorAdmin(3); cout << " | ";
-    setColorAdmin(10); cout << left << setw(25) << "Waktu Pembelian"; setColorAdmin(3); cout << " | ";
-    setColorAdmin(10); cout << left << setw(15) << "Laptop"; setColorAdmin(3); cout << " | ";
-    setColorAdmin(10); cout << left << setw(25) << "Nominal"; setColorAdmin(3); cout << " | ";
-    setColorAdmin(10); cout << left << setw(15) << "Pembayaran"; setColorAdmin(3); cout << " | " << endl;
+    setColor(10); cout << left << setw(15) << "Nama"; setColor(3); cout << " | ";
+    setColor(10); cout << left << setw(25) << "Tanggal Pembelian"; setColor(3); cout << " | ";
+    setColor(10); cout << left << setw(25) << "Waktu Pembelian"; setColor(3); cout << " | ";
+    setColor(10); cout << left << setw(15) << "Laptop"; setColor(3); cout << " | ";
+    setColor(10); cout << left << setw(25) << "Nominal"; setColor(3); cout << " | ";
+    setColor(10); cout << left << setw(15) << "Pembayaran"; setColor(3); cout << " | " << endl;
     cout << string(137, '=') << endl;
 
     for (int i = 0; i < jumlahDataRiwayat; ++i)
     {
         tm *ltm = localtime(&asp[i].waktuPembelian);
-        setColorAdmin(10);
+        setColor(10);
         cout << left << setw(15) << asp[i].namaUser;
-        setColorAdmin(3); cout << " | ";
-        setColorAdmin(10);
+        setColor(3); cout << " | ";
+        setColor(10);
         cout << left << setw(25) << (to_string(ltm->tm_mday) + "-" + to_string(1 + ltm->tm_mon) + "-" + to_string(1900 + ltm->tm_year));
-        setColorAdmin(3); cout << " | ";
-        setColorAdmin(10);
+        setColor(3); cout << " | ";
+        setColor(10);
         cout << left << setw(25) << (to_string(ltm->tm_hour) + "." + to_string(ltm->tm_min) + "." + to_string(ltm->tm_sec));
-        setColorAdmin(3); cout << " | ";
-        setColorAdmin(10);
+        setColor(3); cout << " | ";
+        setColor(10);
         cout << left << setw(15) << asp[i].namaLaptop;
-        setColorAdmin(3); cout << " | ";
-        setColorAdmin(10);
+        setColor(3); cout << " | ";
+        setColor(10);
         cout << left << setw(25) << fixed << setprecision(0) << asp[i].nominal;
-        setColorAdmin(3); cout << " | ";
-        setColorAdmin(10);
+        setColor(3); cout << " | ";
+        setColor(10);
         cout << left << setw(15) << asp[i].pembayaran;
-        setColorAdmin(3); cout << " | " << endl;
+        setColor(3); cout << " | " << endl;
     }
-    setColorAdmin(3);
+    setColor(3);
     cout << string(137, '=') << endl;
 }
 
@@ -597,24 +597,24 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
     while (true)
     {
         system("cls");
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t\t========================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t\t               MENU ADMIN                " << endl;
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t\t========================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t\t    [1] Lihat data laptop" << endl;
         cout << "\t\t\t\t\t\t\t    [2] Lihat riwayat pembelian" << endl;
         cout << "\t\t\t\t\t\t\t    [3] Tambahkan data laptop" << endl;
         cout << "\t\t\t\t\t\t\t    [4] Ubah data laptop" << endl;
         cout << "\t\t\t\t\t\t\t    [5] Hapus data laptop" << endl;
         cout << "\t\t\t\t\t\t\t    [0] Keluar dari akun" << endl;
-        setColorAdmin(3);
+        setColor(3);
         cout << "\t\t\t\t\t\t\t========================================" << endl;
-        setColorAdmin(10);
+        setColor(10);
         cout << "\t\t\t\t\t\t\t  Masukkan pilihan >> ";
-        setColorAdmin(6);
+        setColor(6);
 
         cin >> pilihan;
         cin.clear();
@@ -624,20 +624,20 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
         {
         case 1:
             system("cls");
-            setColorAdmin(3);
+            setColor(3);
             cout << "\t\t\t\t\t\t\t========================================" << endl;
-            setColorAdmin(10);
+            setColor(10);
             cout << "\t\t\t\t\t\t\t           LIHAT DAFTAR LAPTOP            " << endl;
-            setColorAdmin(3);
+            setColor(3);
             cout << "\t\t\t\t\t\t\t========================================" << endl;
-            setColorAdmin(10);
+            setColor(10);
             cout << "\t\t\t\t\t\t\t    [1] Urutkan berdasarkan nama" << endl;
             cout << "\t\t\t\t\t\t\t    [2] Urutkan berdasarkan harga" << endl;
-            setColorAdmin(3);
+            setColor(3);
             cout << "\t\t\t\t\t\t\t========================================" << endl;
-            setColorAdmin(10);
+            setColor(10);
             cout << "\t\t\t\t\t\t\t  Masukkan pilihan >> ";
-            setColorAdmin(6);
+            setColor(6);
 
             cin >> pilihanSorting;
             cin.clear();
@@ -648,7 +648,7 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
             case 1:
                 system("cls");
                 bacaDataLaptop(jumlahDataLaptop, true);
-                setColorAdmin(10);
+                setColor(10);
                 cout << "\nTekan Enter untuk melanjutkan...";
                 cin.get();
                 cin.clear();
@@ -656,7 +656,7 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
             case 2:
                 system("cls");
                 bacaDataLaptop(jumlahDataLaptop, false);
-                setColorAdmin(10);
+                setColor(10);
                 cout << "\nTekan Enter untuk melanjutkan...";
                 cin.get();
                 cin.clear();
@@ -666,7 +666,7 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
         case 2:
             system("cls");
             listRiwayatAdmin(jumlahDataRiwayat);
-            setColorAdmin(10);
+            setColor(10);
             cout << "\nTekan Enter untuk melanjutkan...";
             cin.get();
             cin.clear();
