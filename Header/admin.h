@@ -117,7 +117,7 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
     setColor(10);
     cout << "\t\t\t\t\t\tMasukkan harga laptop (dalam rupiah) >> ";
     setColor(6);
-        if (cin >> noskipws >> harga)
+        if (cin >> noskipws >> harga && harga > 0)
         {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -151,7 +151,7 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
         cout << "\t\t\t\t\t\tMasukkan stok laptop >> ";
         setColor(6);
 
-        if (cin >> noskipws >> stok)
+        if (cin >> noskipws >> stok && stok > 0)
         {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -342,59 +342,140 @@ void ubahDataLaptop(int& jumlahDataLaptop)
     switch (pilihanData)
     {
     case 1:
-        setColor(3);
-        cout << "\t\t\t\t\t\t================================================" << endl;
-        setColor(10);
-        cout << "\t\t\t\t\t\t                UBAH NAMA LAPTOP                " << endl;
-        setColor(3);
-        cout << "\t\t\t\t\t\t================================================" << endl;
-        setColor(10);
-        cout << "\t\t\t\t\t\t    Masukkan nama baru >> ";
-        setColor(6);
-        getline(cin, alap[pilihan - 1].nama);
+
+        while (true)
+        {
+            setColor(3);
+            cout << "\t\t\t\t\t\t================================================" << endl;
+            setColor(10);
+            cout << "\t\t\t\t\t\t                UBAH NAMA LAPTOP                " << endl;
+            setColor(3);
+            cout << "\t\t\t\t\t\t================================================" << endl;
+            setColor(10);
+            cout << "\t\t\t\t\t\t    Masukkan nama baru >> ";
+            setColor(6);
+            getline(cin, alap[pilihan - 1].nama);
+
+            if (alap[pilihan - 1].empty)
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                system("cls");
+                setColor(4);
+                cout << "\t\t\t\t\t\t\t========================================" << endl;
+                cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
+                cout << "\t\t\t\t\t\t\t========================================" << endl;
+                sleep_for(seconds(2));
+                system("cls");
+            }
+                else
+                {
+                    break;
+                }
+        }
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
         break;
 
     case 2:
-        setColor(3);
-        cout << "\t\t\t\t\t\t================================================" << endl;
-        setColor(10);
-        cout << "\t\t\t\t\t\t               UBAH HARGA LAPTOP                " << endl;
-        setColor(3);
-        cout << "\t\t\t\t\t\t================================================" << endl;
-        setColor(10);
-        cout << "\t\t\t\t\t\t    Masukkan harga baru >> ";
-        setColor(6);
-        cin >> alap[pilihan - 1].harga;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        while (true)
+        {
+            setColor(3);
+            cout << "\t\t\t\t\t\t================================================" << endl;
+            setColor(10);
+            cout << "\t\t\t\t\t\t               UBAH HARGA LAPTOP                " << endl;
+            setColor(3);
+            cout << "\t\t\t\t\t\t================================================" << endl;
+            setColor(10);
+            cout << "\t\t\t\t\t\t    Masukkan harga baru >> ";
+            setColor(6);
+            if (cin >> noskipws >> alap[pilihan - 1].harga && alap[pilihan - 1].harga > 0)
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                break;
+            }
+                else
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    system("cls");
+                    setColor(4);
+                    cout << "\t\t\t\t\t\t\t========================================" << endl;
+                    cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
+                    cout << "\t\t\t\t\t\t\t========================================" << endl;
+                    sleep_for(seconds(2));
+                    system("cls");
+                }
+
+        }
         break;
 
     case 3:
-        setColor(3);
-        cout << "\t\t\t\t\t\t================================================" << endl;
-        setColor(10);
-        cout << "\t\t\t\t\t\t                UBAH STOK LAPTOP                " << endl;
-        setColor(3);
-        cout << "\t\t\t\t\t\t================================================" << endl;
-        setColor(10);
-        cout << "\t\t\t\t\t\t    Masukkan stok baru >> ";
-        setColor(6);
-        cin >> alap[pilihan - 1].stok;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        while (true)
+        {
+            setColor(3);
+            cout << "\t\t\t\t\t\t================================================" << endl;
+            setColor(10);
+            cout << "\t\t\t\t\t\t                UBAH STOK LAPTOP                " << endl;
+            setColor(3);
+            cout << "\t\t\t\t\t\t================================================" << endl;
+            setColor(10);
+            cout << "\t\t\t\t\t\t    Masukkan stok baru >> ";
+            setColor(6);
+            if (cin >> noskipws >> alap[pilihan - 1].stok && alap[pilihan - 1].stok >= 0)
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                break;
+            }
+                else
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    system("cls");
+                    setColor(4);
+                    cout << "\t\t\t\t\t\t\t========================================" << endl;
+                    cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
+                    cout << "\t\t\t\t\t\t\t========================================" << endl;
+                    sleep_for(seconds(2));
+                    system("cls");
+                }
+
+        }
         break;
 
     case 4:
-        setColor(3);
-        cout << "\t\t\t\t\t\t================================================" << endl;
-        setColor(10);
-        cout << "\t\t\t\t\t\t             UBAH DESKRIPSI LAPTOP              " << endl;
-        setColor(3);
-        cout << "\t\t\t\t\t\t================================================" << endl;
-        setColor(10);
-        cout << "\t\t\t\t\t\tMasukkan deskripsi baru >> ";
-        setColor(6);
-        getline(cin, alap[pilihan - 1].desc.deskripsi);
+        while(true)
+        {
+            setColor(3);
+            cout << "\t\t\t\t\t\t================================================" << endl;
+            setColor(10);
+            cout << "\t\t\t\t\t\t             UBAH DESKRIPSI LAPTOP              " << endl;
+            setColor(3);
+            cout << "\t\t\t\t\t\t================================================" << endl;
+            setColor(10);
+            cout << "\t\t\t\t\t\tMasukkan deskripsi baru >> ";
+            setColor(6);
+            getline(cin, alap[pilihan - 1].desc.deskripsi);
+
+            if (alap[pilihan - 1].desc.deskripsi.empty())
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                system("cls");
+                setColor(4);
+                cout << "\t\t\t\t\t\t\t========================================" << endl;
+                cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
+                cout << "\t\t\t\t\t\t\t========================================" << endl;
+                sleep_for(seconds(2));
+                system("cls");
+            }
+                else
+                {
+                    break;
+                }
+        }
         break;
 
     case 0:
@@ -405,29 +486,138 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
 
-        setColor(10);
-        cout << "\t\t\t\t\t\t  Masukkan nama baru >> ";
-        setColor(6);
-        getline(cin, alap[pilihan - 1].nama);
+        while (true)
+        {
+            setColor(10);
+            cout << "\t\t\t\t\t\t  Masukkan nama baru >> ";
+            setColor(6);
+            getline(cin, alap[pilihan - 1].nama);
 
-        setColor(10);
-        cout << "\t\t\t\t\t\t  Masukkan harga baru >> ";
-        setColor(6);
-        cin >> alap[pilihan - 1].harga;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            if (alap[pilihan - 1].empty)
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                system("cls");
+                setColor(4);
+                cout << "\t\t\t\t\t\t\t========================================" << endl;
+                cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
+                cout << "\t\t\t\t\t\t\t========================================" << endl;
+                sleep_for(seconds(2));
+                system("cls");
 
-        setColor(10);
-        cout << "\t\t\t\t\t\t  Masukkan stok baru >> ";
-        setColor(6);
-        cin >> alap[pilihan - 1].stok;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                setColor(3);
+                cout << "\t\t\t\t\t\t================================================" << endl;
+                setColor(10);
+                cout << "\t\t\t\t\t\t                UBAH DATA LAPTOP                " << endl;
+                setColor(3);
+                cout << "\t\t\t\t\t\t================================================" << endl;
+            }
+                else
+                {
+                    break;
+                }
+        }
 
-        setColor(10);
-        cout << "\t\t\t\t\t\t  Masukkan deskripsi baru >> ";
-        setColor(6);
-        getline(cin, alap[pilihan - 1].desc.deskripsi);
+        while(true)
+        {
+            setColor(10);
+            cout << "\t\t\t\t\t\t  Masukkan harga baru >> ";
+            setColor(6);
+
+            if (cin >> noskipws >> alap[pilihan - 1].harga && alap[pilihan - 1].harga > 0)
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                break;
+            }
+                else
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    system("cls");
+                    setColor(4);
+                    cout << "\t\t\t\t\t\t\t========================================" << endl;
+                    cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
+                    cout << "\t\t\t\t\t\t\t========================================" << endl;
+                    sleep_for(seconds(2));
+                    system("cls");
+
+                    setColor(3);
+                    cout << "\t\t\t\t\t\t================================================" << endl;
+                    setColor(10);
+                    cout << "\t\t\t\t\t\t                UBAH DATA LAPTOP                " << endl;
+                    setColor(3);
+                    cout << "\t\t\t\t\t\t================================================" << endl;
+                }
+        }
+
+        while(true)
+        {
+            setColor(10);
+            cout << "\t\t\t\t\t\t  Masukkan stok baru >> ";
+            setColor(6);
+            cin >> alap[pilihan - 1].stok;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            if (cin >> noskipws >> alap[pilihan - 1].stok && alap[pilihan - 1].stok >= 0)
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                break;
+            }
+                else
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    system("cls");
+                    setColor(4);
+                    cout << "\t\t\t\t\t\t\t========================================" << endl;
+                    cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
+                    cout << "\t\t\t\t\t\t\t========================================" << endl;
+                    sleep_for(seconds(2));
+                    system("cls");
+
+                    setColor(3);
+                    cout << "\t\t\t\t\t\t================================================" << endl;
+                    setColor(10);
+                    cout << "\t\t\t\t\t\t                UBAH DATA LAPTOP                " << endl;
+                    setColor(3);
+                    cout << "\t\t\t\t\t\t================================================" << endl;
+                }
+        }
+
+        while (true)
+        {
+            setColor(10);
+            cout << "\t\t\t\t\t\t  Masukkan deskripsi baru >> ";
+            setColor(6);
+            getline(cin, alap[pilihan - 1].desc.deskripsi);
+
+            if (alap[pilihan - 1].desc.deskripsi.empty())
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                system("cls");
+                setColor(4);
+                cout << "\t\t\t\t\t\t\t========================================" << endl;
+                cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
+                cout << "\t\t\t\t\t\t\t========================================" << endl;
+                sleep_for(seconds(2));
+                system("cls");
+
+                setColor(3);
+                cout << "\t\t\t\t\t\t================================================" << endl;
+                setColor(10);
+                cout << "\t\t\t\t\t\t                UBAH DATA LAPTOP                " << endl;
+                setColor(3);
+                cout << "\t\t\t\t\t\t================================================" << endl;
+            }
+                else
+                {
+                    break;
+                }
+        }
     }
 
     file.open("Database\\laptop.csv", ios::out | ios::trunc);
@@ -616,9 +806,19 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
         cout << "\t\t\t\t\t\t\t  Masukkan pilihan >> ";
         setColor(6);
 
-        cin >> pilihan;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        while (!(cin >> noskipws >> pilihan) && pilihan >= 0 && pilihan <= 5)
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+            system("cls");
+            setColor(4);
+            cout << "========================================" << endl;
+            cout << "           PILIHAN TIDAK VALID          " << endl;
+            cout << "========================================" << endl;
+            sleep_for(seconds(2));
+            system("cls");
+            menuAdmin(jumlahDataLaptop, jumlahDataRiwayat);
+        }
 
         switch (pilihan)
         {
@@ -639,9 +839,27 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
             cout << "\t\t\t\t\t\t\t  Masukkan pilihan >> ";
             setColor(6);
 
-            cin >> pilihanSorting;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            while (true)
+            {
+                if (cin >> noskipws >> pilihanSorting && pilihanSorting > 0 && pilihanSorting <= 2)
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    break;
+                }
+                    else
+                    {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+                        system("cls");
+                        setColor(4);
+                        cout << "========================================" << endl;
+                        cout << "           PILIHAN TIDAK VALID          " << endl;
+                        cout << "========================================" << endl;
+                        sleep_for(seconds(2));
+                        system("cls");
+                    }
+            }
 
             switch (pilihanSorting)
             {
