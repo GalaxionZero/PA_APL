@@ -30,6 +30,7 @@ struct
 int registerUser()
 {
     string namaUserBaru, passwordUserBaru, cekNamaIsTaken, placeholder;
+    bool registerSuccess = false;
 
     setColor(3);
     cout << "\t\t\t\t\t\t\t========================================" << endl;
@@ -49,25 +50,6 @@ int registerUser()
 
     fstream file;
 
-    file.open("Database\\user_auth.csv", ios::in);
-    while (!file.eof())
-    {
-        getline(file, cekNamaIsTaken, ',');
-        getline(file, placeholder, '\n');
-
-        if (namaUserBaru == cekNamaIsTaken)
-        {
-            system("cls");
-            setColor(4);
-            cout << "\t\t\t\t\t\t\t========================================" << endl;
-            cout << "\t\t\t\t\t\t\t        NAMA USER SUDAH DIGUNAKAN       " << endl;
-            cout << "\t\t\t\t\t\t\t========================================" << endl;
-            sleep_for(seconds(2));
-            system("cls");
-            registerUser();
-        }
-    }
-
     if (namaUserBaru == tokenAdmin.nama)
     {
         system("cls");
@@ -79,14 +61,39 @@ int registerUser()
         system("cls");
         registerUser();
     }
+
+    file.open("Database\\user_auth.csv", ios::in);
+    while (!file.eof())
+    {
+        getline(file, cekNamaIsTaken, ',');
+        getline(file, placeholder, '\n');
+
+        if (namaUserBaru == cekNamaIsTaken)
+        {
+            file.close();
+            system("cls");
+            setColor(4);
+            cout << "\t\t\t\t\t\t\t========================================" << endl;
+            cout << "\t\t\t\t\t\t\t        NAMA USER SUDAH DIGUNAKAN       " << endl;
+            cout << "\t\t\t\t\t\t\t========================================" << endl;
+            sleep_for(seconds(2));
+            system("cls");
+            registerUser();
+            namaUserBaru = "";
+            break;
+        }
+    }
     file.close();
 
-    file.open("Database\\user_auth.csv", ios::out | ios::app);
-    file << namaUserBaru << ",";
-    file << passwordUserBaru << "\n";
-    file.close();
+    if (!namaUserBaru.empty() && namaUserBaru != "")
+    {
+        file.open("Database\\user_auth.csv", ios::out | ios::app);
+        file << namaUserBaru << ",";
+        file << passwordUserBaru << "\n";
+        file.close();
+    }
+
     return 0;
-
 }
 
 // Prosedur login
@@ -121,8 +128,7 @@ int loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
 
         if (cekNama == namaLogin && cekPassword == passwordLogin)
         {
-            menuUser(namaLogin, jumlahDataLaptop, jumlahDataRiwayat);
-            return 0;
+            return menuUser(namaLogin, jumlahDataLaptop, jumlahDataRiwayat);
         }
     }
 
@@ -130,8 +136,7 @@ int loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
 
     if (namaLogin == tokenAdmin.nama && passwordLogin == tokenAdmin.password)
     {
-        menuAdmin(jumlahDataLaptop, jumlahDataRiwayat);
-        return 0;
+        return menuAdmin(jumlahDataLaptop, jumlahDataRiwayat);
     }
 
     system("cls");
@@ -147,7 +152,6 @@ int loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
 // Driver code
 int main()
 {
-
     cout << "Loading..." << endl;
     sleep_for(seconds(2));
     system("cls");

@@ -292,7 +292,7 @@ void bacaDataLaptop(int& jumlahDataLaptop, bool sortByName)
 
 void ubahDataLaptop(int& jumlahDataLaptop)
 {
-    string placeholder;
+    string placeholder, cekNama;
     int pilihan, pilihanData;
     fstream file;
     adminDataLaptop alap[jumlahDataLaptop];
@@ -310,18 +310,32 @@ void ubahDataLaptop(int& jumlahDataLaptop)
     file.close();
 
     selectionSort(alap, jumlahDataLaptop);
-    bacaDataLaptop(jumlahDataLaptop, true);
 
-    cout << "\nMasukkan nomor urut data yang ingin di ubah >> ";
-    while (!(cin >> noskipws >> pilihan) && pilihan > 0 && pilihan <= jumlahDataLaptop)
+    while (true)
     {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        ubahDataLaptop(jumlahDataLaptop);
+        bacaDataLaptop(jumlahDataLaptop, true);
+
+        cout << "\nMasukkan nomor urut data yang ingin di ubah >> ";
+        if (cin >> noskipws >> pilihan && pilihan > 0 && pilihan <= jumlahDataLaptop)
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            break;
+        }
+            else
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                system("cls");
+                setColor(4);
+                cout << "\t\t\t\t\t\t\t========================================" << endl;
+                cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
+                cout << "\t\t\t\t\t\t\t========================================" << endl;
+                sleep_for(seconds(2));
+                system("cls");
+            }
     }
 
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     system("cls");
 
     while (true)
@@ -398,7 +412,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
                     {
                         getline(file, cekNama, ',');
                         getline(file, placeholder, '\n');
-                        if (nama == cekNama)
+                        if (alap[pilihan - 1].nama == cekNama)
                         {
                             cout << "Nama tidak boleh sama";
                             namaTaken = true;
@@ -528,6 +542,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
 
         while (true)
         {
+            bool namaTaken = false;
             setColor(10);
             cout << "\t\t\t\t\t\t  Masukkan nama baru >> ";
             setColor(6);
@@ -559,7 +574,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
                     {
                         getline(file, cekNama, ',');
                         getline(file, placeholder, '\n');
-                        if (nama == cekNama)
+                        if (alap[pilihan - 1].nama == cekNama)
                         {
                             cout << "Nama tidak boleh sama";
                             namaTaken = true;
@@ -863,21 +878,27 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
         cout << "\t\t\t\t\t\t\t  Masukkan pilihan >> ";
         setColor(6);
 
-        while (!(cin >> noskipws >> pilihan) && pilihan >= 0 && pilihan <= 5)
+        while (true)
         {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
-            system("cls");
-            setColor(4);
-            cout << "========================================" << endl;
-            cout << "           PILIHAN TIDAK VALID          " << endl;
-            cout << "========================================" << endl;
-            sleep_for(seconds(2));
-            system("cls");
-            menuAdmin(jumlahDataLaptop, jumlahDataRiwayat);
+            if (cin >> noskipws >> pilihan && pilihan >= 0 && pilihan <= 5)
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                break;
+            }
+                else
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+                    system("cls");
+                    setColor(4);
+                    cout << "========================================" << endl;
+                    cout << "           PILIHAN TIDAK VALID          " << endl;
+                    cout << "========================================" << endl;
+                    sleep_for(seconds(2));
+                    system("cls");
+                }
         }
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         switch (pilihan)
         {
