@@ -66,19 +66,19 @@ int registerUser()
             system("cls");
             registerUser();
         }
-
-            else if (namaUserBaru == tokenAdmin.nama)
-            {
-                system("cls");
-                setColor(4);
-                cout << "\t\t\t\t\t\t\t========================================" << endl;
-                cout << "\t\t\t\t\t\t\t     NAMA USER TIDAK DAPAT DIGUNAKAN    " << endl;
-                cout << "\t\t\t\t\t\t\t========================================" << endl;
-                sleep_for(seconds(2));
-                system("cls");
-                registerUser();
-            }
     }
+
+        if (namaUserBaru == tokenAdmin.nama)
+        {
+            system("cls");
+            setColor(4);
+            cout << "\t\t\t\t\t\t\t========================================" << endl;
+            cout << "\t\t\t\t\t\t\t     NAMA USER TIDAK DAPAT DIGUNAKAN    " << endl;
+            cout << "\t\t\t\t\t\t\t========================================" << endl;
+            sleep_for(seconds(2));
+            system("cls");
+            registerUser();
+        }
     file.close();
 
     file.open("Database\\user_auth.csv", ios::out | ios::app);
@@ -125,12 +125,20 @@ void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
             break;
         }
     }
+
     file.close();
 
     if (namaLogin == tokenAdmin.nama && passwordLogin == tokenAdmin.password)
     {
         menuAdmin(jumlahDataLaptop, jumlahDataRiwayat);
     }
+        system("cls");
+        setColor(4);
+        cout << "\t\t\t\t\t\t\t========================================" << endl;
+        cout << "\t\t\t\t\t\t\t      USERNAME ATAU PASSWORD SALAH      " << endl;
+        cout << "\t\t\t\t\t\t\t========================================" << endl;
+        sleep_for(seconds(2));
+        system("cls");
 }
 
 // Driver code

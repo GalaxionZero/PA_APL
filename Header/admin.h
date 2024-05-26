@@ -356,7 +356,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
             setColor(6);
             getline(cin, alap[pilihan - 1].nama);
 
-            if (alap[pilihan - 1].empty)
+            if ((alap[pilihan - 1].nama).empty())
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -493,7 +493,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
             setColor(6);
             getline(cin, alap[pilihan - 1].nama);
 
-            if (alap[pilihan - 1].empty)
+            if ((alap[pilihan - 1].nama).empty())
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');

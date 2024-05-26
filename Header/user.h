@@ -446,12 +446,14 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             setColor(6);
             if (cin >> noskipws >> ulang && ulang == 'y')
             {
+                cout << "tes1";
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
                 break;
             }
             else if (ulang == 'n')
             {
+                cout << "tes2";
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
                 break;
@@ -462,7 +464,8 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
             }
         }
-        system("cls");
+//        system("cls");
+        cout << "asw";
     } while (ulang == 'y');
 }
 
