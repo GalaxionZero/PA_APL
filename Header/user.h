@@ -145,32 +145,34 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             getline(file, ulap[i].deskripsi, '\n');
         }
         file.close();
-
         shellSort(ulap, jumlahDataLaptop);
-        listLaptop(jumlahDataLaptop, false);
 
-        setColor(10);
-        cout << "\nPilih laptop yang ingin dibeli >> ";
-//
-//        cin >> pilihan;
-        setColor(6);
-        while (!(cin >> noskipws >> pilihan && pilihan > 0 && pilihan <= jumlahDataLaptop && ulap[pilihan-1].stok > 0))
+        while (true)
         {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
-            system("cls");
-            setColor(4);
-            cout << "\t\t\t\t\t\t\t========================================" << endl;
-            cout << "\t\t\t\t\t\t\t          PILIHAN TIDAK VALID           " << endl;
-            cout << "\t\t\t\t\t\t\t            ATAU STOK HABIS             " << endl;
-            cout << "\t\t\t\t\t\t\t========================================" << endl;
-            sleep_for(seconds(2));
-            system("cls");
-            beliLaptop(namaUser, jumlahDataLaptop, jumlahDataRiwayat);
+            listLaptop(jumlahDataLaptop, false);
+            setColor(10);
+            cout << "\nPilih laptop yang ingin dibeli >> ";
+            setColor(6);
+            if (cin >> noskipws >> pilihan && pilihan > 0 && pilihan <= jumlahDataLaptop && ulap[pilihan-1].stok > 0)
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                break;
+            }
+                else
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+                    system("cls");
+                    setColor(4);
+                    cout << "\t\t\t\t\t\t\t========================================" << endl;
+                    cout << "\t\t\t\t\t\t\t          PILIHAN TIDAK VALID           " << endl;
+                    cout << "\t\t\t\t\t\t\t            ATAU STOK HABIS             " << endl;
+                    cout << "\t\t\t\t\t\t\t========================================" << endl;
+                    sleep_for(seconds(2));
+                    system("cls");
+                }
         }
-
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         while (true)
         {
@@ -446,14 +448,12 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             setColor(6);
             if (cin >> noskipws >> ulang && ulang == 'y')
             {
-                cout << "tes1";
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
                 break;
             }
             else if (ulang == 'n')
             {
-                cout << "tes2";
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
                 break;
@@ -464,8 +464,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
             }
         }
-//        system("cls");
-        cout << "asw";
+        system("cls");
     } while (ulang == 'y');
 }
 

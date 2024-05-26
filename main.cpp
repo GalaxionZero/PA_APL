@@ -68,17 +68,17 @@ int registerUser()
         }
     }
 
-        if (namaUserBaru == tokenAdmin.nama)
-        {
-            system("cls");
-            setColor(4);
-            cout << "\t\t\t\t\t\t\t========================================" << endl;
-            cout << "\t\t\t\t\t\t\t     NAMA USER TIDAK DAPAT DIGUNAKAN    " << endl;
-            cout << "\t\t\t\t\t\t\t========================================" << endl;
-            sleep_for(seconds(2));
-            system("cls");
-            registerUser();
-        }
+    if (namaUserBaru == tokenAdmin.nama)
+    {
+        system("cls");
+        setColor(4);
+        cout << "\t\t\t\t\t\t\t========================================" << endl;
+        cout << "\t\t\t\t\t\t\t     NAMA USER TIDAK DAPAT DIGUNAKAN    " << endl;
+        cout << "\t\t\t\t\t\t\t========================================" << endl;
+        sleep_for(seconds(2));
+        system("cls");
+        registerUser();
+    }
     file.close();
 
     file.open("Database\\user_auth.csv", ios::out | ios::app);
@@ -90,7 +90,7 @@ int registerUser()
 }
 
 // Prosedur login
-void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
+int loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
 {
     string namaLogin, passwordLogin, cekNama, cekPassword;
 
@@ -122,7 +122,7 @@ void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
         if (cekNama == namaLogin && cekPassword == passwordLogin)
         {
             menuUser(namaLogin, jumlahDataLaptop, jumlahDataRiwayat);
-            break;
+            return 0;
         }
     }
 
@@ -131,14 +131,17 @@ void loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
     if (namaLogin == tokenAdmin.nama && passwordLogin == tokenAdmin.password)
     {
         menuAdmin(jumlahDataLaptop, jumlahDataRiwayat);
+        return 0;
     }
-        system("cls");
-        setColor(4);
-        cout << "\t\t\t\t\t\t\t========================================" << endl;
-        cout << "\t\t\t\t\t\t\t      USERNAME ATAU PASSWORD SALAH      " << endl;
-        cout << "\t\t\t\t\t\t\t========================================" << endl;
-        sleep_for(seconds(2));
-        system("cls");
+
+    system("cls");
+    setColor(4);
+    cout << "\t\t\t\t\t\t\t========================================" << endl;
+    cout << "\t\t\t\t\t\t\t      USERNAME ATAU PASSWORD SALAH      " << endl;
+    cout << "\t\t\t\t\t\t\t========================================" << endl;
+    sleep_for(seconds(2));
+    system("cls");
+    return 0;
 }
 
 // Driver code
@@ -200,9 +203,27 @@ int main()
         cout << "\t\t\t\t\t\t\t  Enter >> ";
         setColor(6);
 
-        cin >> pilihan;
-        cin.clear();
-        cin.ignore();
+        while (true)
+        {
+            if (cin >> noskipws >> pilihan && pilihan >= 0 && pilihan <= 2)
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                break;
+            }
+                else
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
+                    system("cls");
+                    setColor(4);
+                    cout << "========================================" << endl;
+                    cout << "           PILIHAN TIDAK VALID          " << endl;
+                    cout << "========================================" << endl;
+                    sleep_for(seconds(2));
+                    system("cls");
+                }
+        }
 
         switch (pilihan)
         {

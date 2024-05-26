@@ -73,35 +73,58 @@ void selectionSort(adminDataLaptop alap[], int& jumlahDataLaptop)
 
 void tambahkanDataLaptop(int& jumlahDataLaptop)
 {
-    string nama, deskripsi;
+    string nama, deskripsi, cekNama, placeholder;
     int harga, stok;
+    fstream file;
 
     system("cls");
-    setColor(3);
-    cout << "\t\t\t\t\t\t================================================" << endl;
-    setColor(10);
-    cout << "\t\t\t\t\t\t                 TAMBAH LAPTOP                  " << endl;
-    cout << "\t\t\t\t\t\t                     (MERK)                     " << endl;
-    setColor(3);
-    cout << "\t\t\t\t\t\t================================================" << endl;
-    setColor(10);
 
-    cout << "\t\t\t\t\t\tMasukkan Nama Laptop >> ";
-    setColor(6);
-    getline(cin, nama);
-
-    if(nama.empty())
+    while (true)
     {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
-        system("cls");
-        setColor(4);
-        cout << "\t\t\t\t\t\t\t========================================" << endl;
-        cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
-        cout << "\t\t\t\t\t\t\t========================================" << endl;
-        sleep_for(seconds(2));
-        system("cls");
-        tambahkanDataLaptop(jumlahDataLaptop);
+        bool namaTaken = false;
+        setColor(3);
+        cout << "\t\t\t\t\t\t================================================" << endl;
+        setColor(10);
+        cout << "\t\t\t\t\t\t                 TAMBAH LAPTOP                  " << endl;
+        cout << "\t\t\t\t\t\t                     (MERK)                     " << endl;
+        setColor(3);
+        cout << "\t\t\t\t\t\t================================================" << endl;
+        setColor(10);
+        cout << "\t\t\t\t\t\tMasukkan Nama Laptop >> ";
+        setColor(6);
+        getline(cin, nama);
+
+        if(nama.empty())
+        {
+            system("cls");
+            setColor(4);
+            cout << "\t\t\t\t\t\t\t========================================" << endl;
+            cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
+            cout << "\t\t\t\t\t\t\t========================================" << endl;
+            sleep_for(seconds(2));
+            system("cls");
+        }
+            else
+            {
+                file.open("Database\\laptop.csv", ios::in);
+                while(!file.eof())
+                {
+                    getline(file, cekNama, ',');
+                    getline(file, placeholder, '\n');
+                    if (nama == cekNama)
+                    {
+                        cout << "Nama tidak boleh sama";
+                        namaTaken = true;
+                        file.close();
+                        break;
+                    }
+                }
+                if (namaTaken = false)
+                {
+                    break;
+                }
+            }
+        file.close();
     }
 
     while (true)
@@ -204,7 +227,6 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
             }
     }
 
-    fstream file;
     file.open("Database\\laptop.csv", ios::out | ios::app);
 
     file << nama << ",";
@@ -345,6 +367,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
 
         while (true)
         {
+            bool namaTaken = false;
             setColor(3);
             cout << "\t\t\t\t\t\t================================================" << endl;
             setColor(10);
@@ -370,8 +393,25 @@ void ubahDataLaptop(int& jumlahDataLaptop)
             }
                 else
                 {
-                    break;
+                    file.open("Database\\laptop.csv", ios::in);
+                    while(!file.eof())
+                    {
+                        getline(file, cekNama, ',');
+                        getline(file, placeholder, '\n');
+                        if (nama == cekNama)
+                        {
+                            cout << "Nama tidak boleh sama";
+                            namaTaken = true;
+                            file.close();
+                            break;
+                        }
+                    }
+                    if (namaTaken = false)
+                    {
+                        break;
+                    }
                 }
+            file.close();
         }
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
@@ -514,8 +554,25 @@ void ubahDataLaptop(int& jumlahDataLaptop)
             }
                 else
                 {
-                    break;
+                    file.open("Database\\laptop.csv", ios::in);
+                    while(!file.eof())
+                    {
+                        getline(file, cekNama, ',');
+                        getline(file, placeholder, '\n');
+                        if (nama == cekNama)
+                        {
+                            cout << "Nama tidak boleh sama";
+                            namaTaken = true;
+                            file.close();
+                            break;
+                        }
+                    }
+                    if (namaTaken = false)
+                    {
+                        break;
+                    }
                 }
+            file.close();
         }
 
         while(true)
@@ -819,6 +876,8 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
             system("cls");
             menuAdmin(jumlahDataLaptop, jumlahDataRiwayat);
         }
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         switch (pilihan)
         {
