@@ -190,6 +190,7 @@ int main()
 
     while (true)
     {
+        login_menu:
         system("cls");
         setColor(3);
         cout << "\t\t\t\t\t\t\t========================================" << endl;
@@ -226,6 +227,7 @@ int main()
                     cout << "========================================" << endl;
                     sleep_for(seconds(2));
                     system("cls");
+                    goto login_menu;
                 }
         }
 
