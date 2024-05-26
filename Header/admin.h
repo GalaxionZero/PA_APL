@@ -81,6 +81,7 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
 
     while (true)
     {
+        system("cls");
         bool namaTaken = false;
         setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
@@ -113,18 +114,24 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
                     getline(file, placeholder, '\n');
                     if (nama == cekNama)
                     {
-                        cout << "Nama tidak boleh sama";
+                        system("cls");
+                        setColor(4);
+                        cout << "\t\t\t\t\t\t\t========================================" << endl;
+                        cout << "\t\t\t\t\t\t\t         MERK LAPTOP SUDAH ADA!         " << endl;
+                        cout << "\t\t\t\t\t\t\t========================================" << endl;
+                        sleep_for(seconds(2));
+                        system("cls");
                         namaTaken = true;
                         file.close();
                         break;
                     }
                 }
-                if (namaTaken = false)
+                if (namaTaken == false)
                 {
+                    file.close();
                     break;
                 }
             }
-        file.close();
     }
 
     while (true)
@@ -205,7 +212,7 @@ void tambahkanDataLaptop(int& jumlahDataLaptop)
         setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
         setColor(10);
-        cout << "\t\t\t\t\t\t\tMasukkan spesifikasi laptop >> ";
+        cout << "\t\t\t\t\t\tMasukkan spesifikasi laptop >> ";
         setColor(6);
         getline(cin, deskripsi);
 
@@ -315,7 +322,10 @@ void ubahDataLaptop(int& jumlahDataLaptop)
     {
         bacaDataLaptop(jumlahDataLaptop, true);
 
+        setColor(10);
         cout << "\nMasukkan nomor urut data yang ingin di ubah >> ";
+
+        setColor(6);
         if (cin >> noskipws >> pilihan && pilihan > 0 && pilihan <= jumlahDataLaptop)
         {
             cin.clear();
@@ -329,7 +339,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
                 system("cls");
                 setColor(4);
                 cout << "\t\t\t\t\t\t\t========================================" << endl;
-                cout << "\t\t\t\t\t\t\t         DATA TIDAK BISA KOSONG         " << endl;
+                cout << "\t\t\t\t\t\t\t          PILIHAN TIDAK VALID           " << endl;
                 cout << "\t\t\t\t\t\t\t========================================" << endl;
                 sleep_for(seconds(2));
                 system("cls");
@@ -353,8 +363,10 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         setColor(10); cout << "\t\t\t\t\t\t  0. Ubah keseluruhan" << endl;
         setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
+        setColor(10);
         cout << "\n\t\t\t\t\t\t  Bagian yang ingin diubah >> ";
 
+        setColor(6);
         if (cin >> noskipws >> pilihanData && pilihanData >= 0 && pilihanData <= 4)
         {
             cin.clear();
@@ -368,7 +380,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
                 system("cls");
                 setColor(4);
                 cout << "\t\t\t\t\t\t\t========================================" << endl;
-                cout << "\t\t\t\t\t\t\t           PILIHAN TIDAK VALID          " << endl;
+                cout << "\t\t\t\t\t\t\t          PILIHAN TIDAK VALID           " << endl;
                 cout << "\t\t\t\t\t\t\t========================================" << endl;
                 sleep_for(seconds(2));
                 system("cls");
@@ -382,6 +394,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         while (true)
         {
             bool namaTaken = false;
+            system("cls");
             setColor(3);
             cout << "\t\t\t\t\t\t================================================" << endl;
             setColor(10);
@@ -389,7 +402,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
             setColor(3);
             cout << "\t\t\t\t\t\t================================================" << endl;
             setColor(10);
-            cout << "\t\t\t\t\t\t    Masukkan nama baru >> ";
+            cout << "\t\t\t\t\t\tMasukkan nama baru >> ";
             setColor(6);
             getline(cin, alap[pilihan - 1].nama);
 
@@ -414,26 +427,32 @@ void ubahDataLaptop(int& jumlahDataLaptop)
                         getline(file, placeholder, '\n');
                         if (alap[pilihan - 1].nama == cekNama)
                         {
-                            cout << "Nama tidak boleh sama";
+                            system("cls");
+                            setColor(4);
+                            cout << "\t\t\t\t\t\t\t========================================" << endl;
+                            cout << "\t\t\t\t\t\t\t         MERK LAPTOP SUDAH ADA!         " << endl;
+                            cout << "\t\t\t\t\t\t\t========================================" << endl;
+                            sleep_for(seconds(2));
+                            system("cls");
                             namaTaken = true;
                             file.close();
                             break;
                         }
                     }
-                    if (namaTaken = false)
+                    if (namaTaken == false)
                     {
+                        file.close();
                         break;
                     }
                 }
-            file.close();
         }
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
         break;
 
     case 2:
         while (true)
         {
+            system("cls");
             setColor(3);
             cout << "\t\t\t\t\t\t================================================" << endl;
             setColor(10);
@@ -441,7 +460,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
             setColor(3);
             cout << "\t\t\t\t\t\t================================================" << endl;
             setColor(10);
-            cout << "\t\t\t\t\t\t    Masukkan harga baru >> ";
+            cout << "\t\t\t\t\t\tMasukkan harga baru >> ";
             setColor(6);
             if (cin >> noskipws >> alap[pilihan - 1].harga && alap[pilihan - 1].harga > 0)
             {
@@ -468,6 +487,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
     case 3:
         while (true)
         {
+            system("cls");
             setColor(3);
             cout << "\t\t\t\t\t\t================================================" << endl;
             setColor(10);
@@ -475,7 +495,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
             setColor(3);
             cout << "\t\t\t\t\t\t================================================" << endl;
             setColor(10);
-            cout << "\t\t\t\t\t\t    Masukkan stok baru >> ";
+            cout << "\t\t\t\t\t\tMasukkan stok baru >> ";
             setColor(6);
             if (cin >> noskipws >> alap[pilihan - 1].stok && alap[pilihan - 1].stok >= 0)
             {
@@ -502,6 +522,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
     case 4:
         while(true)
         {
+            system("cls");
             setColor(3);
             cout << "\t\t\t\t\t\t================================================" << endl;
             setColor(10);
@@ -533,6 +554,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         break;
 
     case 0:
+        system("cls");
         setColor(3);
         cout << "\t\t\t\t\t\t================================================" << endl;
         setColor(10);
@@ -544,7 +566,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         {
             bool namaTaken = false;
             setColor(10);
-            cout << "\t\t\t\t\t\t  Masukkan nama baru >> ";
+            cout << "\t\t\t\t\t\tMasukkan nama baru >> ";
             setColor(6);
             getline(cin, alap[pilihan - 1].nama);
 
@@ -576,24 +598,30 @@ void ubahDataLaptop(int& jumlahDataLaptop)
                         getline(file, placeholder, '\n');
                         if (alap[pilihan - 1].nama == cekNama)
                         {
-                            cout << "Nama tidak boleh sama";
+                            system("cls");
+                            setColor(4);
+                            cout << "\t\t\t\t\t\t\t========================================" << endl;
+                            cout << "\t\t\t\t\t\t\t         MERK LAPTOP SUDAH ADA!         " << endl;
+                            cout << "\t\t\t\t\t\t\t========================================" << endl;
+                            sleep_for(seconds(2));
+                            system("cls");
                             namaTaken = true;
                             file.close();
                             break;
                         }
                     }
-                    if (namaTaken = false)
+                    if (namaTaken == false)
                     {
+                        file.close();
                         break;
                     }
                 }
-            file.close();
         }
 
         while(true)
         {
             setColor(10);
-            cout << "\t\t\t\t\t\t  Masukkan harga baru >> ";
+            cout << "\t\t\t\t\t\tMasukkan harga baru >> ";
             setColor(6);
 
             if (cin >> noskipws >> alap[pilihan - 1].harga && alap[pilihan - 1].harga > 0)
@@ -626,7 +654,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         while(true)
         {
             setColor(10);
-            cout << "\t\t\t\t\t\t  Masukkan stok baru >> ";
+            cout << "\t\t\t\t\t\tMasukkan stok baru >> ";
             setColor(6);
             cin >> alap[pilihan - 1].stok;
             cin.clear();
@@ -662,7 +690,7 @@ void ubahDataLaptop(int& jumlahDataLaptop)
         while (true)
         {
             setColor(10);
-            cout << "\t\t\t\t\t\t  Masukkan deskripsi baru >> ";
+            cout << "\t\t\t\t\t\tMasukkan deskripsi baru >> ";
             setColor(6);
             getline(cin, alap[pilihan - 1].desc.deskripsi);
 
@@ -742,6 +770,7 @@ int hapusDataLaptop(int& jumlahDataLaptop)
         sleep_for(seconds(2));
         system("cls");
         hapusDataLaptop(jumlahDataLaptop);
+        return 0;
     }
 
     // Binary Search
@@ -769,6 +798,17 @@ int hapusDataLaptop(int& jumlahDataLaptop)
             file.close();
 
             jumlahDataLaptop -= 1;
+            system("cls");
+            setColor(7);
+            cout << "Menghapus data laptop..." << endl;
+            sleep_for(seconds(2));
+            system("cls");
+            setColor(3);
+            cout << "\t\t\t\t\t\t\t========================================" << endl;
+            setColor(10);
+            cout << "\t\t\t\t\t\t\t      DATA LAPTOP BERHASIL DIHAPUS      " << endl;
+            setColor(3);
+            cout << "\t\t\t\t\t\t\t========================================" << endl;
             return 0;
         }
             else if (key < alap[mid].nama)
@@ -782,7 +822,6 @@ int hapusDataLaptop(int& jumlahDataLaptop)
     }
 
     cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
     system("cls");
     setColor(4);
     cout << "\t\t\t\t\t\t\t========================================" << endl;
@@ -858,6 +897,8 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
     int pilihan, pilihanSorting;
     while (true)
     {
+        while (true)
+        {
         system("cls");
         setColor(3);
         cout << "\t\t\t\t\t\t\t========================================" << endl;
@@ -877,9 +918,6 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
         setColor(10);
         cout << "\t\t\t\t\t\t\t  Masukkan pilihan >> ";
         setColor(6);
-
-        while (true)
-        {
             if (cin >> noskipws >> pilihan && pilihan >= 0 && pilihan <= 5)
             {
                 cin.clear();
@@ -892,9 +930,9 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
                     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
                     system("cls");
                     setColor(4);
-                    cout << "========================================" << endl;
-                    cout << "           PILIHAN TIDAK VALID          " << endl;
-                    cout << "========================================" << endl;
+                    cout << "\t\t\t\t\t\t\t========================================" << endl;
+                    cout << "\t\t\t\t\t\t\t           PILIHAN TIDAK VALID          " << endl;
+                    cout << "\t\t\t\t\t\t\t========================================" << endl;
                     sleep_for(seconds(2));
                     system("cls");
                 }
@@ -904,10 +942,17 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
         {
         case 1:
             system("cls");
+            setColor(7);
+            cout << "Loading..." << endl;
+            sleep_for(seconds(2));
+
+            while (true)
+            {
+            system("cls");
             setColor(3);
             cout << "\t\t\t\t\t\t\t========================================" << endl;
             setColor(10);
-            cout << "\t\t\t\t\t\t\t           LIHAT DAFTAR LAPTOP            " << endl;
+            cout << "\t\t\t\t\t\t\t          LIHAT DAFTAR LAPTOP           " << endl;
             setColor(3);
             cout << "\t\t\t\t\t\t\t========================================" << endl;
             setColor(10);
@@ -918,9 +963,6 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
             setColor(10);
             cout << "\t\t\t\t\t\t\t  Masukkan pilihan >> ";
             setColor(6);
-
-            while (true)
-            {
                 if (cin >> noskipws >> pilihanSorting && pilihanSorting > 0 && pilihanSorting <= 2)
                 {
                     cin.clear();
@@ -933,9 +975,9 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
                         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
                         system("cls");
                         setColor(4);
-                        cout << "========================================" << endl;
-                        cout << "           PILIHAN TIDAK VALID          " << endl;
-                        cout << "========================================" << endl;
+                        cout << "\t\t\t\t\t\t\t========================================" << endl;
+                        cout << "\t\t\t\t\t\t\t           PILIHAN TIDAK VALID          " << endl;
+                        cout << "\t\t\t\t\t\t\t========================================" << endl;
                         sleep_for(seconds(2));
                         system("cls");
                     }
@@ -945,6 +987,10 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
             {
             case 1:
                 system("cls");
+                setColor(7);
+                cout << "Loading..." << endl;
+                sleep_for(seconds(2));
+                system("cls");
                 bacaDataLaptop(jumlahDataLaptop, true);
                 setColor(10);
                 cout << "\nTekan Enter untuk melanjutkan...";
@@ -952,6 +998,10 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
                 cin.clear();
                 break;
             case 2:
+                system("cls");
+                setColor(7);
+                cout << "Loading..." << endl;
+                sleep_for(seconds(2));
                 system("cls");
                 bacaDataLaptop(jumlahDataLaptop, false);
                 setColor(10);
@@ -963,6 +1013,10 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
             break;
         case 2:
             system("cls");
+            setColor(7);
+            cout << "Loading..." << endl;
+            sleep_for(seconds(2));
+            system("cls");
             listRiwayatAdmin(jumlahDataRiwayat);
             setColor(10);
             cout << "\nTekan Enter untuk melanjutkan...";
@@ -971,17 +1025,34 @@ int menuAdmin(int& jumlahDataLaptop, int& jumlahDataRiwayat)
             break;
         case 3:
             system("cls");
+            setColor(7);
+            cout << "Loading..." << endl;
+            sleep_for(seconds(2));
+            system("cls");
             tambahkanDataLaptop(jumlahDataLaptop);
             break;
         case 4:
+            system("cls");
+            setColor(7);
+            cout << "Loading..." << endl;
+            sleep_for(seconds(2));
             system("cls");
             ubahDataLaptop(jumlahDataLaptop);
             break;
         case 5:
             system("cls");
+            setColor(7);
+            cout << "Loading..." << endl;
+            sleep_for(seconds(2));
+            system("cls");
             hapusDataLaptop(jumlahDataLaptop);
             break;
         case 0:
+            system("cls");
+            setColor(7);
+            cout << "Loading..." << endl;
+            sleep_for(seconds(2));
+            system("cls");
             return 0;
         }
     }

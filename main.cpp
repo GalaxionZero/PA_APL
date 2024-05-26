@@ -19,6 +19,7 @@ using namespace this_thread;
 //    10 = tulisan (kecuali eror)
 //    6 = inputan
 //    4 = eror
+//    7 = loading
 
 struct
 {
@@ -30,7 +31,6 @@ struct
 int registerUser()
 {
     string namaUserBaru, passwordUserBaru, cekNamaIsTaken, placeholder;
-    bool registerSuccess = false;
 
     setColor(3);
     cout << "\t\t\t\t\t\t\t========================================" << endl;
@@ -117,6 +117,12 @@ int loginUser(int& jumlahDataLaptop, int& jumlahDataRiwayat)
     setColor(6);
     passwordLogin = takePassword();
 
+    system("cls");
+    setColor(7);
+    cout << "Checking..." << endl;
+    sleep_for(seconds(2));
+    system("cls");
+
 
     fstream file;
     file.open("Database\\user_auth.csv", ios::in);
@@ -190,7 +196,8 @@ int main()
 
     while (true)
     {
-        login_menu:
+        while (true)
+        {
         system("cls");
         setColor(3);
         cout << "\t\t\t\t\t\t\t========================================" << endl;
@@ -208,8 +215,6 @@ int main()
         cout << "\t\t\t\t\t\t\t  Enter >> ";
         setColor(6);
 
-        while (true)
-        {
             if (cin >> noskipws >> pilihan && pilihan >= 0 && pilihan <= 2)
             {
                 cin.clear();
@@ -222,12 +227,11 @@ int main()
                     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan karakter yang tersisa dalam buffer
                     system("cls");
                     setColor(4);
-                    cout << "========================================" << endl;
-                    cout << "           PILIHAN TIDAK VALID          " << endl;
-                    cout << "========================================" << endl;
+                    cout << "\t\t\t\t\t\t\t========================================" << endl;
+                    cout << "\t\t\t\t\t\t\t           PILIHAN TIDAK VALID          " << endl;
+                    cout << "\t\t\t\t\t\t\t========================================" << endl;
                     sleep_for(seconds(2));
                     system("cls");
-                    goto login_menu;
                 }
         }
 
@@ -235,13 +239,25 @@ int main()
         {
         case 1:
             system("cls");
+            setColor(7);
+            cout << "Loading..." << endl;
+            sleep_for(seconds(2));
+            system("cls");
             loginUser(jumlahDataLaptop, jumlahDataRiwayat);
             break;
         case 2:
             system("cls");
+            setColor(7);
+            cout << "Loading..." << endl;
+            sleep_for(seconds(2));
+            system("cls");
             registerUser();
             break;
         case 0:
+            system("cls");
+            setColor(7);
+            cout << "Keluar dari program..." << endl;
+            sleep_for(seconds(2));
             system("cls");
             setColor(3);
             cout << "\t\t\t\t\t\t\t========================================" << endl;

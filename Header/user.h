@@ -229,7 +229,7 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 cout << "\t\t\t\t\t\tSilakan transfer ke rekening:\n";
                 cout << "\t\t\t\t\t\tBCAD";
                 setColor(6);
-                cout << "000000116413";
+                cout << " 000000116413 ";
                 setColor(10);
                 cout << "a.n. Kelompok 4" << endl;
                 setColor(10);
@@ -297,6 +297,10 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 file.close();
 
                 system("cls");
+                setColor(7);
+                cout << "Memproses..." << endl;
+                sleep_for(seconds(2));
+                system("cls");
                 setColor(3);
                 cout << "\t\t\t\t\t\t\t========================================" << endl;
                 setColor(10);
@@ -334,10 +338,10 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 setColor(3);
                 cout << "\t\t\t\t\t\t================================================" << endl;
                 setColor(10);
-                cout << "\t\t\t\t\t\tSilakan transfer ke : ";
+                cout << "\t\t\t\t\t\tSilakan transfer ke : " << endl;
                 cout << "\t\t\t\t\t\tDANA";
                 setColor(6);
-                cout << "08123123123" << endl;
+                cout << " 08123123123" << endl;
                 setColor(10);
                 cout << "\t\t\t\t\t\tSenilai:";
                 setColor(6);
@@ -402,6 +406,10 @@ void beliLaptop(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 }
                 file.close();
 
+                system("cls");
+                setColor(7);
+                cout << "Memproses..." << endl;
+                sleep_for(seconds(2));
                 system("cls");
                 setColor(3);
                 cout << "\t\t\t\t\t\t\t========================================" << endl;
@@ -574,6 +582,10 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
         {
         case 1:
             system("cls");
+            setColor(7);
+            cout << "Loading..." << endl;
+            sleep_for(seconds(2));
+            system("cls");
             setColor(3);
             cout << "\t\t\t\t\t\t\t========================================" << endl;
             setColor(10);
@@ -612,6 +624,10 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             {
             case 1:
                 system("cls");
+                setColor(7);
+                cout << "Loading..." << endl;
+                sleep_for(seconds(2));
+                system("cls");
                 listLaptop(jumlahDataLaptop, true);
                 setColor(10);
                 cout << "\nTekan Enter untuk melanjutkan...";
@@ -619,6 +635,10 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
                 cin.clear();
                 break;
             case 2:
+                system("cls");
+                setColor(7);
+                cout << "Loading..." << endl;
+                sleep_for(seconds(2));
                 system("cls");
                 listLaptop(jumlahDataLaptop, false);
                 setColor(10);
@@ -630,9 +650,17 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             break;
         case 2:
             system("cls");
+            setColor(7);
+            cout << "Loading..." << endl;
+            sleep_for(seconds(2));
+            system("cls");
             beliLaptop(namaUser, jumlahDataLaptop, jumlahDataRiwayat);
             break;
         case 3:
+            system("cls");
+            setColor(7);
+            cout << "Loading..." << endl;
+            sleep_for(seconds(2));
             system("cls");
             listRiwayatUser(namaUser, jumlahDataRiwayat);
             setColor(10);
@@ -641,6 +669,11 @@ int menuUser(string namaUser, int &jumlahDataLaptop, int &jumlahDataRiwayat)
             cin.clear();
             break;
         case 0:
+            system("cls");
+            setColor(7);
+            cout << "Keluar dari menu pengguna..." << endl;
+            sleep_for(seconds(2));
+            system("cls");
             return 0;
         }
     }
